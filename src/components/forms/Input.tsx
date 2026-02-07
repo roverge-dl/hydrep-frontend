@@ -9,7 +9,7 @@ interface InputProps {
   leftIcon?: ReactNode;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  error?: string | string[];
   name?: string;
   disabled?: boolean;
 }
@@ -54,7 +54,7 @@ export default function Input({
           placeholder={placeholder}
           disabled={disabled}
           className={`
-            w-full pl-10 pr-10 py-3 bg-hgrey-200 border rounded-lg transition-all 
+            w-full pl-10 pr-10 py-2 bg-hgrey-200 border rounded-lg transition-all 
             placeholder:text-hdark-300 font-normal placeholder:font-normal placeholder:text-sm
             outline-none focus:outline-none focus:ring-2 focus:ring-green-500/20 
             ${error ? "border-red-500" : "border-hgrey-500 focus:border-green-500"}

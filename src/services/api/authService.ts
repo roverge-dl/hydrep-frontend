@@ -30,19 +30,17 @@ export const loginUser = async (login_id: string, password: string) => {
   }
 };
 export const registerUser = async (
-  full_name: string,
+  name: string,
   phone: string,
   email: string,
   password: string,
-  dial_code: string,
 ) => {
   try {
     const { data } = await axiosClient.post("/auth/register", {
-      full_name,
+      name,
       phone,
       email,
       password,
-      dial_code,
     });
 
     return data;
