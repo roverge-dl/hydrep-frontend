@@ -4,7 +4,7 @@ import axios, {
   type AxiosResponse,
 } from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const axiosClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
