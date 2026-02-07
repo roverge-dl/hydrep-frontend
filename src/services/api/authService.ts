@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosClient from "./axiosClient";
 
 export interface ApiError {
@@ -30,19 +31,17 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 export const registerUser = async (
-  full_name: string,
+  name: string,
   phone: string,
   email: string,
   password: string,
-  dial_code: string,
 ) => {
   try {
     const { data } = await axiosClient.post("/auth/register", {
-      full_name,
+      name,
       phone,
       email,
       password,
-      dial_code,
     });
 
     return data;
