@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  /* src: url("./assets/fonts/Lato/Lato-Light.ttf") format("truetype"); */
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Light.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Regular.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Medium.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/Inter/static/Inter_18pt-SemiBold.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/Inter/static/Inter_18pt-Bold.ttf") format("truetype");
+}
+
+@theme {
+  /* Fonts */
+  --font-primary: "Inter", sans-serif;
+  /* --font-secondary: "Quicksand", "sans-serif"; */
+
+  /* Responsive Breakpoints */
+  --breakpoint-mobilexxs: 20rem; /* 320px */
+  --breakpoint-mobilexs: 21.5625rem; /* 344px */
+  --breakpoint-mobilesm: 23.4375rem; /* 376px */
+  --breakpoint-mobilemd: 30rem; /* 480px */
+  --breakpoint-mobilelg: 35.4375rem; /* 568px */
+  --breakpoint-tabletsm: 47.9375rem; /* 768px */
+  --breakpoint-tabletmd: 50rem; /* 800px */
+  --breakpoint-tabletlg: 62rem; /* 992px */
+  --breakpoint-laptopmd: 75rem; /* 1200px */
+  --breakpoint-xl: 80rem; /*  */
+  --breakpoint-xxl: 96rem;
+
+  /* Primary Colors */
+  --color-hgreen-600: #0e461de3;
+  --color-hgreen-500: #34a853;
+  --color-hgreen-200: #ebffe2;
+
+  --color-hwhite-400: #f5f5f5;
+  --color-hwhite-300: #f8fafc;
+
+  --color-hgrey-500: #e2e8f0;
+  --color-hgrey-300: #f1f5f9;
+  --color-hgrey-200: #f8fafc80;
+
+  --color-hdark-500: #0f172a;
+  --color-hdark-400: #334155;
+  --color-hdark-300: #94a3b8;
+}
+body {
+  font-family: var(--font-primary);
+}
+@layer components {
+  .h2 {
+    @apply text-lg font-bold leading-5 text-hdark-500;
+  }
+  .body-sm {
+    @apply text-sm text-hdark-400 font-normal;
+  }
+}
+@layer utilities {
+  /* Custom Multi-Range Slider CSS */
+  .thumb,
+  .thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: 100%;
+    outline: none;
+  }
+
+  /* Specific styling for the actual movable circle (thumb) */
+  .thumb::-webkit-slider-thumb {
+    background-color: #d1127c; /* Your mbpink-500 */
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px #ced4da;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    pointer-events: all;
+    position: relative;
+  }
+
+  /* Support for Firefox */
+  .thumb::-moz-range-thumb {
+    background-color: #d1127c;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px #ced4da;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+    pointer-events: all;
+    position: relative;
+  }
+}
