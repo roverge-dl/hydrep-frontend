@@ -1,4 +1,4 @@
-import { BiCheck, BiCheckCircle } from "react-icons/bi";
+import { BiCheckCircle } from "react-icons/bi";
 import Button from "../../forms/Button";
 
 interface submitModalProps {

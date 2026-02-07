@@ -5,8 +5,67 @@ import BgBar from "../assets/images/bg-bar.png";
 import Input from "../components/forms/Input";
 import Logo from "../assets/svgs/coat-of-arms.svg";
 import Button from "../components/forms/Button";
+import { useState } from "react";
+import { runValidation } from "../helpers/validator";
+import Loader from "../components/ui/Loader";
 
+// interface RegisterProps {
+//   userData: {};
+//   fieldErrors?: { [key: string]: string[] };
+// }
 const Register = () => {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const [loading, setLoading] = useState(false);
+  const handleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+  const handleRegister = async () => {
+    const validateUserData = await runValidation([
+      {
+        input: { value: userData.email, field: "email", type: "text" },
+        rules: { required: true },
+        alias: "Email ",
+      },
+      {
+        input: { value: userData.password, field: "password", type: "text" },
+        rules: {
+          required: true,
+          has_special_character: true,
+          min_length: 8,
+          must_have_number: true,
+        },
+
+        alias: "Password ",
+      },
+      {
+        input: {
+          value: userData.confirm_password,
+          field: "confirm_password",
+          type: "text",
+        },
+        rules: {
+          required: true,
+          has_special_character: true,
+          min_length: 8,
+          must_have_number: true,
+        },
+
+        alias: "Password ",
+      },
+    ]);
+    if (validateUserData?.status === false) {
+      // setFieldErrors(validateUserData);
+
+      setLoading(false);
+      return;
+    }
+  };
+
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-linear-to-br from-hwhite-400 to-hgreen-200 overflow-hidden">
       {/* Background Images - Assuming they are in your public folder */}
@@ -49,7 +108,10 @@ const Register = () => {
             type="email"
             name="email"
             placeholder="you@example.com"
+            value={userData.email}
+            onChange={handleUserData}
             leftIcon={<BsMailbox size={18} />}
+            error={fieldErrors?.email}
           />
 
           {/* Password Field */}
@@ -58,19 +120,27 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="••••••••"
+            value={userData.password}
+            onChange={handleUserData}
             leftIcon={<BiLock size={18} />}
+            error={fieldErrors?.password}
           />
           {/* Password Field */}
           <Input
             label="Confirm Password"
             type="password"
-            name="password"
+            name="confrim_password"
             placeholder="••••••••"
+            value={userData.confirm_password}
+            onChange={handleUserData}
             leftIcon={<BiLock size={18} />}
+            error={fieldErrors?.confrim_password}
           />
 
           {/* Submit Button */}
-          <Button className="w-full">Create Account</Button>
+          <Button className="w-full" disabled={loading}>
+            {loading ? <Loader /> : "Create Account"}
+          </Button>
         </form>
       </div>
     </div>

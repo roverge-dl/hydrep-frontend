@@ -1,4 +1,4 @@
-import { BsInfo, BsInfoCircle } from "react-icons/bs";
+import { BsInfoCircle } from "react-icons/bs";
 
 const ExamInstructions = () => {
   const instructions = [

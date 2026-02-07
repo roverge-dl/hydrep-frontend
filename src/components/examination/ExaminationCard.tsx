@@ -2,9 +2,7 @@
 
 import { BiChevronRight } from "react-icons/bi";
 import Button from "../forms/Button";
-import { LuUsers } from "react-icons/lu";
 import { IoTimeOutline } from "react-icons/io5";
-import { IoCalendarClearOutline } from "react-icons/io5";
 import { SlGraduation } from "react-icons/sl";
 import { FiFileText } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";

@@ -65,7 +65,7 @@ const DUMMY_QUESTIONS = [
 
 const ExamInterface = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedAnswers, setSelectedAnswers] = useState<QuestionAnswers>({});
+  const [selectedAnswers] = useState<QuestionAnswers>({});
   const totalQuestions = DUMMY_QUESTIONS.length;
   const answeredCount = Object.keys(selectedAnswers).length;
 

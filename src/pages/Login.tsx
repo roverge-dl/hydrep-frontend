@@ -1,6 +1,5 @@
 import { BiLock } from "react-icons/bi";
 import { BsMailbox } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import BgBar from "../assets/images/bg-horizontal-bar.png";
 import Input from "../components/forms/Input";
 import Logo from "../assets/svgs/coat-of-arms.svg";

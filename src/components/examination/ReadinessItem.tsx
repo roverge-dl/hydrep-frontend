@@ -1,5 +1,4 @@
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
-import { GoBrowser } from "react-icons/go";
 
 interface ReadinessItemProps {
   label: string;

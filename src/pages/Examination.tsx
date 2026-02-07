@@ -1,7 +1,6 @@
 import PageLayout from "../components/ui/PageLayout";
 import ExaminationCard from "../components/examination/ExaminationCard";
 import ExaminationProgressBadge from "../components/examination/ExaminationProgressBagde";
-import type { s } from "framer-motion/client";
 
 const PROGRAMMES_DATA = [
   {

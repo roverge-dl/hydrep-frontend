@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BsClock } from "react-icons/bs";
 import { QuestionOption } from "./QuestionOption";
-import { CiCircleCheck } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import Button from "../forms/Button";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
