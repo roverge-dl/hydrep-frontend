@@ -91,10 +91,17 @@ const Register = () => {
         localStorage.setItem("cbt_token", response.data.token);
         setLoading(false);
       }
+      if (response.status === "fail") {
+        console.log(response);
+        toast.error(response.message);
+        setLoading(false);
+      }
     } catch (error: any) {
-      if (error.errors) {
-        toast.error(`${error.message}! Check the highlighted field(s).`);
-        setFieldErrors(error.errors);
+      console.log(error);
+      if (error) {
+        toast.error("something went wrong. Please try again.");
+        // toast.error(`${error.message}! Check the highlighted field(s).`);
+        // setFieldErrors(error.errors);
 
         return;
       }

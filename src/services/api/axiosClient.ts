@@ -16,7 +16,8 @@ const axiosClient: AxiosInstance = axios.create({
 // REQUEST INTERCEPTOR
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("auth_token");
+    const token = localStorage.getItem("cbt_token");
+    console.log(token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

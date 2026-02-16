@@ -9,7 +9,7 @@ import { IoCalendarClearOutline } from "react-icons/io5";
 
 interface ProgrammeProps {
   title: string;
-  category: string;
+  status: string;
   categoryColor: string;
   description: string;
   spots: number;
@@ -20,7 +20,7 @@ interface ProgrammeProps {
 
 export default function ProgrammeCard({
   title,
-  category,
+  status,
   categoryColor,
   description,
   spots,
@@ -38,7 +38,7 @@ export default function ProgrammeCard({
           </div>
           <span
             className={`px-3 py-1 rounded-md text-[10px] font-semibold capitalize tracking-wider ${categoryColor}`}>
-            {category}
+            {status}
           </span>
         </div>
 

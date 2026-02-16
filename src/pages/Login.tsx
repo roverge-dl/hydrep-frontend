@@ -6,7 +6,7 @@ import { BsMailbox } from "react-icons/bs";
 import { FaEye } from "react-icons/fa6"; // Added for password toggle
 import { LuEyeClosed } from "react-icons/lu"; // Added for password toggle
 import { FcGoogle } from "react-icons/fc";
-import {toast} from "react-toastify"; // Assuming you have this installed based on pattern
+import { toast } from "react-toastify"; // Assuming you have this installed based on pattern
 
 // Assets & Components
 import BgBar from "../assets/images/bg-horizontal-bar.png";
@@ -18,9 +18,10 @@ import ValidationError from "../components/ValidationError";
 // Logic & Services
 import { runValidation } from "../utils/validation";
 import { loginUser } from "../services/api/authService"; // Importing direct service
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   // 1. State Management (Copied from pattern)
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false); // Password visibility
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string[] }>(
-    {}
+    {},
   );
 
   // 2. Handle Input Changes
@@ -56,11 +57,11 @@ const Login = () => {
       const response = await loginUser(formData.email, formData.password);
 
       // Check success based on your API response structure
-      if (response) {
-        console.log("Login successful!", response);
-        toast.success("Login successful!");
-        // navigate("/"); 
-        
+      if (response.status === "success") {
+        console.log(response.data);
+        toast.success(response.message);
+        login(response.data);
+
         // Clear form
         setFormData({
           email: "",
@@ -69,12 +70,12 @@ const Login = () => {
       }
     } catch (error: any) {
       console.error("An unexpected error occurred:", error);
-      if(error.errors) {
-        error.errors.forEach((err:any) => {
+      if (error.errors) {
+        error.errors.forEach((err: any) => {
           toast.error(err.message || "An error occurred. Please try again.");
-        })
+        });
         // toast.error("Invalid credentials. Please try again.");
-      }else {
+      } else {
         toast.error(error.message || "An unexpected error occurred.");
       }
     } finally {
@@ -95,10 +96,10 @@ const Login = () => {
         rules: { required: true, email: true },
       },
       {
-        input: { 
-          value: formData.password, 
-          field: "password", 
-          type: "text" 
+        input: {
+          value: formData.password,
+          field: "password",
+          type: "text",
         },
         rules: { required: true },
       },
@@ -127,7 +128,6 @@ const Login = () => {
 
       {/* Main Card */}
       <div className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-xl p-8 mx-4 drop-shadow-2xl">
-        
         <div className="flex justify-center items-center">
           <img
             src={Logo}
@@ -138,15 +138,16 @@ const Login = () => {
 
         <h1 className="h2 text-center mb-4">Welcome to HYPREP</h1>
         <p className="text-center text-sm m-4">Sign in to continue</p>
-        
+
         {/* Google Auth Button - Added link logic from pattern */}
-        <a href={`${import.meta.env.VITE_BASE_URL}/auth/google`} className="w-full block">
+        <a
+          href={`${import.meta.env.VITE_BASE_URL}/auth/google`}
+          className="w-full block">
           <Button
             type="button"
             leftIcon={<FcGoogle className="w-8 h-8" />}
             variant="outline"
-            className="w-full"
-          >
+            className="w-full">
             Continue With Google
           </Button>
         </a>
@@ -186,7 +187,7 @@ const Login = () => {
                 onClick={() => setIsVisible(true)}
               />
             )}
-            
+
             <Input
               label="Password"
               type={isVisible ? "text" : "password"} // Dynamic type
@@ -200,20 +201,19 @@ const Login = () => {
           </div>
 
           {/* Submit Button */}
-          <Button 
-            className="w-full" 
-            onClick={validateLoginForm} 
+          <Button
+            className="w-full"
+            onClick={validateLoginForm}
             disabled={isLoading}
-          >
-            {isLoading ? "Signing in..." : "Sign in"}
+            loading={isLoading}>
+            Sign in
           </Button>
 
           <div className="flex justify-between items-center w-full text-sm gap-1">
             <div>
               <Link
                 to="/reset-password"
-                className="flex justify-end text-right font-semibold text-sm"
-              >
+                className="flex justify-end text-right font-semibold text-sm">
                 Forgot password?
               </Link>
             </div>
@@ -221,8 +221,7 @@ const Login = () => {
               <span>Need an account?</span>
               <Link
                 to="/register"
-                className="flex justify-end text-right font-semibold text-sm text-hgreen-500 hover:text-hgreen-600"
-              >
+                className="flex justify-end text-right font-semibold text-sm text-hgreen-500 hover:text-hgreen-600">
                 Sign up
               </Link>
             </div>

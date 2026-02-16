@@ -5,6 +5,7 @@ import HydrepLogo from "../../assets/svgs/hydrep-logo.svg";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FiFileText } from "react-icons/fi";
 import { LuGraduationCap } from "react-icons/lu";
+import { useAuth } from "../../context/AuthContext";
 // import { useAuth } from "../../context/AuthContext";
 
 const navItems = [
@@ -30,6 +31,7 @@ export default function Sidebar({
     .map((word) => word.charAt(0))
     .join("");
 
+  const { logout } = useAuth();
   return (
     <>
       {/* Mobile Overlay */}
@@ -94,13 +96,13 @@ export default function Sidebar({
           </nav>
 
           {/* Sign Out */}
-          <a 
-            href={'/login'}
+          <button
+            onClick={logout}
             type="button"
             className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-slate-500 hover:text-red-600 transition-colors cursor-pointer">
             <BiLogOut size={18} />
             Sign Out
-          </a>
+          </button>
         </div>
       </aside>
     </>

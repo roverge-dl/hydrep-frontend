@@ -14,26 +14,24 @@ import ApplicationDetail from "./pages/ApplicationDetail";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<DashboardLayout />}>
-          <Route index path="/dashboard" element={<Dashboard />} />
-          <Route path="/applications" element={<Application />} />
-          <Route path="/application-detail" element={<ApplicationDetail />} />
-          <Route path="/programmes" element={<Programmes />} />
-          <Route path="/programme-apply" element={<ProgrammeApplication />} />
-          <Route path="/exams" element={<Examination />} />
-          <Route
-            path="/exams/prechecks"
-            element={<ExaminationPrechecks onStart={() => {}} />}
-          />
-          <Route path="/exams/start" element={<ExamInterface />} />
-        </Route>
-        <Route path="*" element={<div className="p-10">Page Not Found</div>} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<DashboardLayout />}>
+        <Route index path="/dashboard" element={<Dashboard />} />
+        <Route path="/applications" element={<Application />} />
+        <Route path="/application-detail" element={<ApplicationDetail />} />
+        <Route path="/programmes" element={<Programmes />} />
+        <Route path="/programme-apply" element={<ProgrammeApplication />} />
+        <Route path="/exams" element={<Examination />} />
+        <Route
+          path="/exams/prechecks"
+          element={<ExaminationPrechecks onStart={() => {}} />}
+        />
+        <Route path="/exams/start" element={<ExamInterface />} />
+      </Route>
+      <Route path="*" element={<div className="p-10">Page Not Found</div>} />
+    </Routes>
   );
 }
 

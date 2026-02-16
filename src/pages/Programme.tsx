@@ -5,7 +5,18 @@ import { BiSearch } from "react-icons/bi";
 import ProgrammeCard from "../components/programme/ProgrammeCard";
 import PageLayout from "../components/ui/PageLayout";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPrograms } from "../services/api/applicationService";
 
+interface Programme {
+  title: string;
+  category: string;
+  categoryColor: string;
+  description: string;
+  spots: number;
+  deadline: string;
+  region: string;
+}
 const PROGRAMMES_DATA = [
   {
     title: "Youth Empowerment and Skills Development",
@@ -40,7 +51,29 @@ const PROGRAMMES_DATA = [
 ];
 
 export default function Programmes() {
+  const [programmes, setProgrammes] = useState<Programme[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProgrammmes = async () => {
+      try {
+        const response = await getPrograms();
+        console.log(response);
+
+        if (response.status === "success") {
+          console.log("fetched programmes", response.data.data);
+          setProgrammes(response?.data?.data);
+        }
+      } catch (err: any) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(err.message);
+        }
+      }
+    };
+    fetchProgrammmes();
+  }, []);
   return (
     <div className="space-y-8">
       <PageLayout
@@ -75,7 +108,7 @@ export default function Programmes() {
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 mobilelg:grid-cols-2 tabletlg:grid-cols-3 laptopmd:grid-cols-3 lg:gap-6 gap-4 pb-8">
-        {PROGRAMMES_DATA.map((prog, idx) => (
+        {programmes?.map((prog, idx) => (
           <ProgrammeCard
             key={idx}
             {...prog}
