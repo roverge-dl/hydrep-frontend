@@ -10,7 +10,7 @@ export interface ProgrammeFormData {
   phone?: string;
   email?: string;
   address?: string;
-  city: string;
+  community: string;
   state: string;
   lga: string;
   //Step 3

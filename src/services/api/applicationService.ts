@@ -29,7 +29,7 @@ export const getStates = async () => {
 
 export const getLgas = async (stateId: string) => {
   try {
-    const { data } = await axiosClient.get(`/states${stateId}/lgas`);
+    const { data } = await axiosClient.get(`/states/${stateId}/lgas`);
 
     return data;
   } catch (err: any) {
@@ -49,7 +49,7 @@ export const getLgas = async (stateId: string) => {
 };
 export const getCommunities = async (lgaId: string) => {
   try {
-    const { data } = await axiosClient.get(`/states${lgaId}/comunities`);
+    const { data } = await axiosClient.get(`/lgas/${lgaId}/communities`);
 
     return data;
   } catch (err: any) {
