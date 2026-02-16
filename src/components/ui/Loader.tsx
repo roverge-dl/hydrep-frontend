@@ -12,7 +12,7 @@ export default function Loader() {
       {dots.map((dot, i) => (
         <motion.span
           key={i}
-          className="w-2.5 h-2.5 rounded-full bg-mbwhite-500"
+          className="w-2.5 h-2.5 rounded-full bg-white"
           animate={{
             y: dot.yRange,
           }}

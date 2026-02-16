@@ -4,6 +4,7 @@
 import { BiSearch } from "react-icons/bi";
 import ProgrammeCard from "../components/programme/ProgrammeCard";
 import PageLayout from "../components/ui/PageLayout";
+import { useNavigate } from "react-router-dom";
 
 const PROGRAMMES_DATA = [
   {
@@ -39,6 +40,7 @@ const PROGRAMMES_DATA = [
 ];
 
 export default function Programmes() {
+  const navigate = useNavigate();
   return (
     <div className="space-y-8">
       <PageLayout
@@ -74,7 +76,11 @@ export default function Programmes() {
       {/* Grid Layout */}
       <div className="grid grid-cols-1 mobilelg:grid-cols-2 tabletlg:grid-cols-3 laptopmd:grid-cols-3 lg:gap-6 gap-4 pb-8">
         {PROGRAMMES_DATA.map((prog, idx) => (
-          <ProgrammeCard key={idx} {...prog} />
+          <ProgrammeCard
+            key={idx}
+            {...prog}
+            handleApply={() => navigate("/programme-apply")}
+          />
         ))}
       </div>
     </div>

@@ -15,6 +15,7 @@ interface ProgrammeProps {
   spots: number;
   deadline: string;
   region: string;
+  handleApply: () => void;
 }
 
 export default function ProgrammeCard({
@@ -25,6 +26,7 @@ export default function ProgrammeCard({
   spots,
   deadline,
   region,
+  handleApply,
 }: ProgrammeProps) {
   return (
     <div className="bg-white border border-hgrey-500 rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition-shadow border-t-8 border-t-[#10B981] col-span-1">
@@ -74,6 +76,7 @@ export default function ProgrammeCard({
       {/* Action Footer */}
       <div className="p-5 pt-0">
         <Button
+          onClick={handleApply}
           variant="primary"
           rightIcon={<BiChevronRight size={18} />}
           className="text-sm w-full">

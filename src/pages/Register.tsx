@@ -6,7 +6,7 @@ import Input from "../components/forms/Input";
 import Logo from "../assets/svgs/coat-of-arms.svg";
 import Button from "../components/forms/Button";
 import { useState } from "react";
-import { runValidation } from "../helpers/validator";
+import { runValidation } from "../services/helpers/validator";
 import { toast } from "react-toastify";
 import { registerUser } from "../services/api/authService";
 
@@ -84,11 +84,11 @@ const Register = () => {
         userData.email,
         userData.password,
       );
-      if (response.email) {
-        toast.success(` Great! You've been registered`);
+      if (response.status === "success") {
+        toast.success(response.message);
         navigate("/login");
-        localStorage.setItem("auth_user", JSON.stringify(response.data.user));
-        localStorage.setItem("auth_token", response.data.token);
+        localStorage.setItem("cbt_user", JSON.stringify(response.data.user));
+        localStorage.setItem("cbt_token", response.data.token);
         setLoading(false);
       }
     } catch (error: any) {
@@ -116,7 +116,7 @@ const Register = () => {
         alt=""
       />
 
-      <div className="relative z-10 w-full mobilemd:min-h-fit min-h-screen max-w-md bg-white mobilesm:rounded-2xl shadow-xl mobilemd:p-8 p-4 mobilemd:mx-4 mobilesm:mx-2 drop-shadow-2xl">
+      <div className="relative z-10 w-full mobilemd:min-h-fit min-h-screen max-w-md bg-white mobilesm:rounded-2xl shadow-xl mobilemd:p-6  p-4 mobilemd:mx-4 mobilesm:mx-2 drop-shadow-2xl">
         <Link
           to="/login"
           className="flex items-center text-xs text-slate-500 hover:text-slate-800 transition xl:mb-6 mb-4">
@@ -127,7 +127,7 @@ const Register = () => {
         <div className="flex justify-center items-center">
           <img
             src={Logo}
-            className="xl:w-28 xl:h-fit w-24 object-contain object-center"
+            className="xl:w-20 xl:h-fit w-24 object-contain object-center"
             alt="Hydrep logo"
           />
         </div>

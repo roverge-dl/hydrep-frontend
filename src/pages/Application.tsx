@@ -3,6 +3,7 @@ import PageLayout from "../components/ui/PageLayout";
 import Button from "../components/forms/Button";
 import { useState } from "react";
 import ApplicationCard from "../components/application/ApplicationCard";
+import { useNavigate } from "react-router-dom";
 
 const TABS = [
   { label: "All", count: 7 },
@@ -21,6 +22,7 @@ const APPLICATIONS = [
 
 const Application = () => {
   const [activeTab, setActiveTab] = useState("All");
+  const navigate = useNavigate();
   return (
     <div>
       <PageLayout
@@ -63,6 +65,7 @@ const Application = () => {
               id={_.id}
               date={_.date}
               status={_.status}
+              viewDetials={() => navigate("/application-detail")}
             />
           ))}
         </div>

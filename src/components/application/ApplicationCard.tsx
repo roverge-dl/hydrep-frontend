@@ -6,6 +6,7 @@ interface ApplicationCardProps {
   id: string;
   date: string;
   status: string;
+  viewDetials: () => void;
 }
 
 export default function ApplicationCard({
@@ -13,9 +14,12 @@ export default function ApplicationCard({
   id,
   date,
   status,
+  viewDetials,
 }: ApplicationCardProps) {
   return (
-    <div className="group bg-white border border-slate-100 rounded-2xl p-4 mb-4 flex mobilemd:flex-row flex-col-reverse mobilemd:items-center justify-between hover:border-hgreen-500/30 hover:shadow-md transition-all cursor-pointer gap-y-4">
+    <div
+      className="group bg-white border border-slate-100 rounded-2xl p-4 mb-4 flex mobilemd:flex-row flex-col-reverse mobilemd:items-center justify-between hover:border-hgreen-500/30 hover:shadow-md transition-all cursor-pointer gap-y-4"
+      onClick={viewDetials}>
       <div className="flex items-center gap-4">
         {/* Icon wrapper */}
         <div className="w-11 h-11 bg-hgreen-50 rounded-xl flex items-center justify-center bg-[#F1F5F9]">

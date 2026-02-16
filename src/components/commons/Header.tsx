@@ -1,5 +1,4 @@
 import { BiBell, BiMenu } from "react-icons/bi";
-import { BsBell } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
 
 export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
