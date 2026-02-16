@@ -5,7 +5,7 @@ import HydrepLogo from "../../assets/svgs/hydrep-logo.svg";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FiFileText } from "react-icons/fi";
 import { LuGraduationCap } from "react-icons/lu";
-import { useAuth } from "../../context/AuthContext";
+// import { useAuth } from "../../context/AuthContext";
 
 const navItems = [
   { name: "Dashboard", path: "/dashboard", icon: LuLayoutDashboard },
@@ -22,9 +22,9 @@ export default function Sidebar({
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
 }) {
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
   const location = useLocation();
-  let userName = "Emmanuel Otudor";
+  const userName = "Emmanuel Otudor";
   const initials = userName
     .split(" ")
     .map((word) => word.charAt(0))
@@ -94,13 +94,13 @@ export default function Sidebar({
           </nav>
 
           {/* Sign Out */}
-          <button
-            onClick={logout}
+          <a 
+            href={'/login'}
             type="button"
             className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-slate-500 hover:text-red-600 transition-colors cursor-pointer">
             <BiLogOut size={18} />
             Sign Out
-          </button>
+          </a>
         </div>
       </aside>
     </>
