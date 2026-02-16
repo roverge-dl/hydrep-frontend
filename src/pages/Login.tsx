@@ -57,8 +57,9 @@ const Login = () => {
 
       // Check success based on your API response structure
       if (response) {
+        console.log("Login successful!", response);
         toast.success("Login successful!");
-        navigate("/"); // Navigate to dashboard
+        // navigate("/"); 
         
         // Clear form
         setFormData({
