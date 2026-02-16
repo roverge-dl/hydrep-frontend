@@ -4,6 +4,8 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 
 interface InputProps {
   label: string;
+  labelClass?: string;
+  className?: string;
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
   leftIcon?: ReactNode;
@@ -12,10 +14,13 @@ interface InputProps {
   error?: string | string[];
   name?: string;
   disabled?: boolean;
+  required?: boolean;
 }
 
 export default function Input({
   label,
+  labelClass = "text-center",
+  className = "pl-10 ",
   type = "text",
   placeholder,
   leftIcon,
@@ -24,6 +29,7 @@ export default function Input({
   error,
   name,
   disabled = false,
+  required = true,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
@@ -34,8 +40,10 @@ export default function Input({
   return (
     <div className="w-full">
       {/* Exact label style from your snippet */}
-      <label className="block text-sm font-medium text-hdark-400 mb-1.5 text-center">
+      <label
+        className={`block text-sm font-medium text-hdark-400 mb-1.5 text-center ${labelClass}`}>
         {label}
+        {required && <span className="text-hdark-400">*</span>}
       </label>
 
       <div className="relative">
@@ -53,8 +61,9 @@ export default function Input({
           onChange={onChange}
           placeholder={placeholder}
           disabled={disabled}
-          className={`
-            w-full pl-10 pr-10 py-2 bg-hgrey-200 border rounded-lg transition-all 
+          required={required}
+          className={` ${className}
+            w-full pr-10 py-2 bg-hgrey-200 border rounded-lg transition-all 
             placeholder:text-hdark-300 font-normal placeholder:font-normal placeholder:text-sm
             outline-none focus:outline-none focus:ring-2 focus:ring-green-500/20 
             ${error ? "border-red-500" : "border-hgrey-500 focus:border-green-500"}

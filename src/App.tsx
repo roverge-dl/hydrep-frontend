@@ -9,6 +9,8 @@ import Programmes from "./pages/Programme";
 import Examination from "./pages/Examination";
 import ExaminationPrechecks from "./components/examination/ExaminationPrechecks";
 import ExamInterface from "./pages/ExamInterface";
+import ProgrammeApplication from "./components/programme/ProgrammeApplication";
+import ApplicationDetail from "./pages/ApplicationDetail";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
         <Route path="/" element={<DashboardLayout />}>
           <Route index path="/dashboard" element={<Dashboard />} />
           <Route path="/applications" element={<Application />} />
+          <Route path="/application-detail" element={<ApplicationDetail />} />
           <Route path="/programmes" element={<Programmes />} />
+          <Route path="/programme-apply" element={<ProgrammeApplication />} />
           <Route path="/exams" element={<Examination />} />
           <Route
             path="/exams/prechecks"

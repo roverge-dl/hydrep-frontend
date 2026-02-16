@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import type { User } from "../types/user";
+// import { Navigate, useNavigate } from "react-router-dom";
 
 // 1. Define the User type (Adjust based on your backend)
 
@@ -40,6 +41,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("cbt_user");
+    localStorage.removeItem("cbt_token");
+    console.log("Logged out");
   };
 
   const value = {
