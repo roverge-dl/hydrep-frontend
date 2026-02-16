@@ -21,8 +21,15 @@ function App() {
         <Route index path="/dashboard" element={<Dashboard />} />
         <Route path="/applications" element={<Application />} />
         <Route path="/application-detail" element={<ApplicationDetail />} />
-        <Route path="/programmes" element={<Programmes />} />
-        <Route path="/programme-apply" element={<ProgrammeApplication />} />
+        {/* <Route path="/programmes" element={<Programmes />} />
+        <Route path="/programmes/:slug" element={<ProgrammeApplication />} /> */}
+        <Route path="programmes">
+          {/* This renders when you are at /programmes */}
+          <Route index element={<Programmes />} />
+
+          {/* This renders when you are at /programmes/some-slug */}
+          <Route path=":slug" element={<ProgrammeApplication />} />
+        </Route>
         <Route path="/exams" element={<Examination />} />
         <Route
           path="/exams/prechecks"

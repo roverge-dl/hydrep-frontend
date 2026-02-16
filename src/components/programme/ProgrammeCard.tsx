@@ -6,15 +6,17 @@ import { LuFileText } from "react-icons/lu";
 import { LuUsers } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 interface ProgrammeProps {
   title: string;
   status: string;
-  categoryColor: string;
+  categoryColor?: string;
   description: string;
   spots: number;
   deadline: string;
   region: string;
+  slug: string;
   handleApply: () => void;
 }
 
@@ -26,6 +28,7 @@ export default function ProgrammeCard({
   spots,
   deadline,
   region,
+  slug,
   handleApply,
 }: ProgrammeProps) {
   return (
@@ -74,7 +77,7 @@ export default function ProgrammeCard({
       </div>
 
       {/* Action Footer */}
-      <div className="p-5 pt-0">
+      <Link className="p-5 pt-0" to={`/programmes/${slug}`}>
         <Button
           onClick={handleApply}
           variant="primary"
@@ -82,7 +85,7 @@ export default function ProgrammeCard({
           className="text-sm w-full">
           Apply Now
         </Button>
-      </div>
+      </Link>
     </div>
   );
 }

@@ -16,39 +16,9 @@ interface Programme {
   spots: number;
   deadline: string;
   region: string;
+  slug: string;
+  status: string;
 }
-const PROGRAMMES_DATA = [
-  {
-    title: "Youth Empowerment and Skills Development",
-    category: "skills development",
-    categoryColor: "bg-pink-50 text-pink-500",
-    description:
-      "A comprehensive programme designed to equip young Nigerians with marketable skills in various sectors...",
-    spots: 3753,
-    deadline: "Dec 31, 2026",
-    region: "North, South, East, West",
-  },
-  {
-    title: "Women in Agriculture Programme",
-    category: "livelihood",
-    categoryColor: "bg-green-50 text-green-500",
-    description:
-      "Supporting women farmers with modern farming techniques, equipment, and market linkages...",
-    spots: 2108,
-    deadline: "Feb 28, 2027",
-    region: "North, Central",
-  },
-  {
-    title: "Digital Skills for Innovation",
-    category: "training",
-    categoryColor: "bg-blue-50 text-blue-500",
-    description:
-      "Intensive training in software development, data science, UI/UX design, and digital marketing...",
-    spots: 1433,
-    deadline: "Aug 15, 2026",
-    region: "South, West",
-  },
-];
 
 export default function Programmes() {
   const [programmes, setProgrammes] = useState<Programme[]>([]);
@@ -109,11 +79,7 @@ export default function Programmes() {
       {/* Grid Layout */}
       <div className="grid grid-cols-1 mobilelg:grid-cols-2 tabletlg:grid-cols-3 laptopmd:grid-cols-3 lg:gap-6 gap-4 pb-8">
         {programmes?.map((prog, idx) => (
-          <ProgrammeCard
-            key={idx}
-            {...prog}
-            handleApply={() => navigate("/programme-apply")}
-          />
+          <ProgrammeCard key={idx} {...prog} handleApply={() => {}} />
         ))}
       </div>
     </div>
