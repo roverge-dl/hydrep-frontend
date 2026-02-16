@@ -46,13 +46,11 @@ export default function SearchableSelect({
   const selectedOption = options.find(
     (opt) => String(opt.value) === String(value),
   );
-  const displayValue = selectedOption ? selectedOption.label : "";
+  const selectedLabel = selectedOption?.label;
 
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
-  const selectedLabel = options.find((opt) => opt.value === value)?.label;
 
   const handleSelect = (option: { label: string; value: string }) => {
     onChange({
@@ -117,9 +115,9 @@ export default function SearchableSelect({
                 <div
                   key={item.value}
                   onClick={() => handleSelect(item)}
-                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 transition-colors
-                    ${value === item.value ? "bg-green-50 text-green-600 font-semibold" : "text-hdark-500"}
-                  `}>
+                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 
+             ${String(value) === String(item.value) ? "bg-green-50 text-green-600 font-semibold" : "text-hdark-500"}
+           `}>
                   {item.label}
                 </div>
               ))

@@ -43,7 +43,7 @@ const ProgrammeApplication: React.FC = () => {
     phone: "",
     email: "",
     address: "",
-    city: "",
+    community: "",
     state: "",
     lga: "",
     highestEducationLevel: "",

@@ -19,22 +19,6 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
     { label: string; value: string }[]
   >([]);
 
-  // 1. Fetch States on mount
-  // useEffect(() => {
-  //   const fetchStates = async () => {
-  //     try {
-  //       const response = await getStates();
-  //       if (response.status === "success") {
-  //         setStates(
-  //           response.data.map((s: any) => ({ label: s.name, value: s.id })),
-  //         );
-  //       }
-  //     } catch (err) {
-  //       console.error("Error fetching states", err);
-  //     }
-  //   };
-  //   fetchStates();
-  // }, []);
   // 1. Fetch States
   useEffect(() => {
     const fetchStates = async () => {
@@ -64,8 +48,12 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
     }
     const fetchLgas = async () => {
       try {
-        const data = await getLgas(formData.state);
-        setLgas(data.map((l: any) => ({ label: l.name, value: l.id })));
+        const response = await getLgas(formData.state);
+        if (response.status === "success") {
+          setLgas(
+            response.data.map((l: any) => ({ label: l.name, value: l.id })),
+          );
+        }
       } catch (err) {
         console.error("Error fetching LGAs", err);
       }
@@ -81,8 +69,13 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
     }
     const fetchComms = async () => {
       try {
-        const data = await getCommunities(formData.lga);
-        setCommunities(data.map((c: any) => ({ label: c.name, value: c.id })));
+        const response = await getCommunities(formData.lga);
+        if (response.status === "success") {
+          console.log(response.data);
+          setCommunities(
+            response.data.map((c: any) => ({ label: c.name, value: c.id })),
+          );
+        }
       } catch (err) {
         console.error("Error fetching communities", err);
       }
@@ -143,7 +136,7 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
             label="State"
             placeholder="Select state"
             value={formData.state}
-            name="gender"
+            name="state"
             onChange={handleInputChange}
             error={fieldErrors.state}
             options={states}
@@ -166,10 +159,10 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
           <Select
             label="Community"
             placeholder="Select state"
-            value={formData.city}
-            name="city"
+            value={formData.community}
+            name="community"
             onChange={handleInputChange}
-            error={fieldErrors.city}
+            error={fieldErrors.community}
             options={communities}
           />
         </div>
