@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosClient from "./axiosClient";
 
 export interface ApiError {
@@ -82,6 +83,78 @@ export const getPrograms = async () => {
       };
     }
 
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+
+// Add these to your existing service file
+
+/**
+ * Fetches the requirements for a specific program, including the current user's upload status.
+ * Endpoint: GET /programs/:slug/requirements
+ */
+export const getProgramRequirements = async (programSlug: string) => {
+  try {
+    const { data } = await axiosClient.get(`/programs/${programSlug}/requirements`);
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Something went wrong fetching requirements",
+        errors: err.response.data?.errors,
+      };
+    }
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+/**
+ * Uploads a document for a specific requirement.
+ * Endpoint: POST /requirements/:id/upload
+ * * @param requirementId - The ID of the requirement (e.g., 2 for NIN)
+ * @param file - The file object selected by the user
+ * @param metadata - Optional fields: issuer, dateIssued, expiryDate
+ */
+export const uploadRequirementDocument = async (
+  requirementId: number, 
+  file: File, 
+  metadata?: { issuer?: string; dateIssued?: string; expiryDate?: string }
+) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    if (metadata?.issuer) formData.append('issuer', metadata.issuer);
+    if (metadata?.dateIssued) formData.append('date_issued', metadata.dateIssued);
+    if (metadata?.expiryDate) formData.append('expiry_date', metadata.expiryDate);
+
+    const { data } = await axiosClient.post(
+      `/requirements/${requirementId}/upload`, 
+      formData, 
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to upload document",
+        errors: err.response.data?.errors,
+      };
+    }
     throw {
       status: 500,
       message: "Network error. Please try again.",
