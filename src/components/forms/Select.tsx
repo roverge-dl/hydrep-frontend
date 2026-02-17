@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from "react";
 import { BiChevronDown, BiSearch } from "react-icons/bi";
 
@@ -115,9 +116,7 @@ export default function SearchableSelect({
                 <div
                   key={item.value}
                   onClick={() => handleSelect(item)}
-                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 
-             ${String(value) === String(item.value) ? "bg-green-50 text-green-600 font-semibold" : "text-hdark-500"}
-           `}>
+                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 ${String(value) === String(item.value) ? "bg-green-50 text-green-600 font-semibold" : "text-hdark-500"}`}>
                   {item.label}
                 </div>
               ))

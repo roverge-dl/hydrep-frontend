@@ -1,3 +1,5 @@
+import type { UserData } from "./user";
+
 export interface ProgrammeFormData {
   first_name?: string;
   last_name?: string;
@@ -16,6 +18,7 @@ export interface ProgrammeFormData {
   state?: string;
   lga_id?: string;
   lga?: string;
+  documents?: File[];
   //Step 3
   // highestEducationLevel?: string;
   // institutionName?: string;
@@ -37,4 +40,6 @@ export interface StepChildProps {
   setFieldErrors: React.Dispatch<
     React.SetStateAction<Record<string, string | string[]>>
   >;
+  userData?: Partial<UserData>;
+  setUserData?: React.Dispatch<React.SetStateAction<Partial<UserData>>>;
 }

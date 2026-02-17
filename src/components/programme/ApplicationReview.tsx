@@ -25,7 +25,7 @@ import type { StepChildProps } from "../../types/programFormData";
       <span className="text-xs font-bold text-hdark-500 break-words">{value || "N/A"}</span>
     </div>
   );
-const ApplicationReview: React.FC<StepChildProps> = ({ formData }) => {
+const ApplicationReview: React.FC<StepChildProps> = ({ formData, userData}) => {
   
   
 
@@ -56,7 +56,7 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           <DataRow
             label="Full Name"
-            value={`${formData.firstName} ${formData.middleName || ''} ${formData.lastName}`}
+            value={`${formData.first_name} ${formData.middle_name || ''} ${formData.last_name}`}
           />
           <DataRow label="Gender" value={formData.gender} />
           <DataRow label="Date of Birth" value={formData.dob} />
@@ -72,14 +72,19 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           <DataRow label="Phone" value={formData.phone} />
           <DataRow label="Email" value={formData.email} />
-          <div className="md:col-span-2">
+          <DataRow label="State" value={userData?.state} />
+          <DataRow label="LGA" value={userData?.lga} />
+          <DataRow label="Community" value={userData?.community} />
+          <DataRow label="Address" value={formData.address} />
+          {/* <div className="md:col-span-2">
             <DataRow label="Address" value={formData.address} />
           </div>
+          <DataRow label="LGA" value={userData?.lga} /> */}
         </div>
       </div>
 
       {/* Section: Background */}
-      <div className="border border-hgrey-300 rounded-xl p-4 md:p-6 space-y-4 bg-white">
+      {/* <div className="border border-hgrey-300 rounded-xl p-4 md:p-6 space-y-4 bg-white">
         <h3 className="text-sm font-bold text-hdark-500 mb-2 border-b border-gray-100 pb-2">
           Background
         </h3>
@@ -87,7 +92,7 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData }) => {
           <DataRow label="Education" value={formData.highestEducationLevel} />
           <DataRow label="Employment" value={formData.employmentStatus} />
         </div>
-      </div>
+      </div> */}
 
       {/* Section: Documents */}
       <div className="border border-hgrey-300 rounded-xl p-4 md:p-6 bg-white">
