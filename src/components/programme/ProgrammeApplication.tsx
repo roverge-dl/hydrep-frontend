@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { BiCheck, BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import PageLayout from "../ui/PageLayout";
@@ -13,9 +14,10 @@ import ContactAndAddress from "./ContactAndAddress";
 import Documents from "./Documents";
 import ApplicationReview from "./ApplicationReview";
 import { runValidation } from "../../utils/validation";
-import { registerForProgramme } from "../../services/api/applicationService";
+import { registerForProgramme, updateUserProfile } from "../../services/api/applicationService";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import type { UserData } from "../../types/user";
 // import { ChevronRight, ChevronLeft, Calendar } from "lucide-react";
 
 // --- Types ---
@@ -29,14 +31,14 @@ interface Step {
 const steps: Step[] = [
   { id: 1, title: "Personal Info", sub: "Basic details" },
   { id: 2, title: "Contact & Address", sub: "Location info" },
-  { id: 3, title: "Background", sub: "Education & work" },
-  { id: 4, title: "Documents", sub: "Upload files" },
-  { id: 5, title: "Review", sub: "Confirm details" },
+  { id: 3, title: "Documents", sub: "Upload files" },
+  { id: 4, title: "Review", sub: "Confirm details" },
 ];
 
 const ProgrammeApplication: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState<Partial<UserData>>({state:"", lga:"", community:""});
   const [formData, setFormData] = useState<ProgrammeFormData>({
     first_name: "",
     last_name: "",
@@ -59,8 +61,6 @@ const ProgrammeApplication: React.FC = () => {
     Record<string, string | string[]>
   >({});
   const { user, updateUser } = useAuth();
-
-  console.log(user);
 
   const handleApplication = async () => {
     setIsLoading(true);
@@ -135,8 +135,8 @@ const ProgrammeApplication: React.FC = () => {
       if (response.status === "success") {
         toast.success(response.message);
         updateUser(response.data);
-        handleNext();
         setIsLoading(false);
+        setCurrentStep(currentStep + 1)
       }
       if (response.status === "fail") {
         console.log(response);
@@ -162,7 +162,24 @@ const ProgrammeApplication: React.FC = () => {
   };
 
   const handleNext = () => {
-    if (currentStep < steps.length) setCurrentStep(currentStep + 1);
+    switch (currentStep) {
+      case 1:
+        return handleApplication();
+      case 2:
+        return handleContactStep();
+      case 3:
+        
+        setCurrentStep(currentStep + 1)
+        break;
+        // return handleDocumentsStep();
+      case 4:
+        break
+      default:
+        break;
+        // return handleReviewStep();
+    }
+    // if(currentStep === 2) handleContactStep();
+    // if (currentStep < steps.length) setCurrentStep(currentStep + 1);
   };
 
   const handlePrevious = () => {
@@ -176,6 +193,8 @@ const ProgrammeApplication: React.FC = () => {
       handleInputChange,
       fieldErrors,
       setFieldErrors,
+      userData,
+      setUserData,
     };
     switch (currentStep) {
       case 1:
@@ -192,7 +211,45 @@ const ProgrammeApplication: React.FC = () => {
     }
   };
 
+  // Inside handleNext or a specific handler for Step 2
+const handleContactStep = async () => {
+    setIsLoading(true);
+    // 1. Validation Logic for Step 2...
+    
+    try {
+        // 2. Call the update service
+       const response = await updateUserProfile(user!.user.id, {
+            phone: formData.phone,
+            address: formData.address,
+            state_id: formData.state,
+            lga_id: formData.lga,
+            community_id: formData.community
+        });
+
+        if(response.status === "success") {
+            toast.success(response.message);
+            updateUser(response.data);
+            setIsLoading(false);
+            setCurrentStep(currentStep + 1)
+        }
+        if(response.status === "fail") {
+            console.log(response);
+            toast.error(response.message);
+            setIsLoading(false);
+        }
+        
+        // 3. Move Next
+        // handleNext();
+    } catch (error:any) {
+      console.log(error)
+        toast.error("Failed to save contact info");
+    } finally {
+        setIsLoading(false);
+    }
+}
+
   useEffect(() => {
+    console.log('user', user)
     // Extract the user object regardless of nesting
     const profile = user?.user || user;
 
@@ -287,7 +344,7 @@ const ProgrammeApplication: React.FC = () => {
               Previous
             </Button>
             <Button
-              onClick={currentStep === 1 ? handleApplication : handleNext}
+              onClick={ handleNext}
               loading={isLoading} // Add loading state to button
               width="mobilemd:w-fit w-full"
               rightIcon={<BiChevronRight size={18} />}>

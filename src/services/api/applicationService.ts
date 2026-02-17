@@ -142,6 +142,46 @@ export const registerForProgramme = async (
   }
 };
 
+export const updateUserProfile = async (
+  userId: string | number, 
+  data: {
+    phone?: string;
+    address?: string;
+    state_id?: string | number; // Ensure naming matches backend expectation (camelCase vs snake_case)
+    lga_id?: string | number;
+    community_id?: string | number;
+    // Add other fields as needed
+  }
+) => {
+  try {
+    // Note: Adjust the payload keys to match what your AdonisJS backend expects (snake_case is common in backend)
+    const payload = {
+      phone: data.phone,
+      address: data.address,
+      state_id: data.state_id,
+      lga_id: data.lga_id,
+      community_id: data.community_id,
+    };
+
+    const response = await axiosClient.put(`/users/${userId}`, payload);
+
+    return response.data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to update profile",
+        errors: err.response.data?.errors,
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
 // Add these to your existing service file
 
 /**
