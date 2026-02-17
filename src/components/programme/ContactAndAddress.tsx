@@ -116,6 +116,7 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
             name="email"
             type="text"
             placeholder="email@example.com"
+            disabled
             value={formData.email}
             onChange={handleInputChange}
             className="pl-4"

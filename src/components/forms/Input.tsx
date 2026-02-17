@@ -10,6 +10,7 @@ interface InputProps {
   placeholder?: string;
   leftIcon?: ReactNode;
   value?: string;
+  defaultValue?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string | string[];
   name?: string;
@@ -25,6 +26,7 @@ export default function Input({
   placeholder,
   leftIcon,
   value,
+  defaultValue,
   onChange,
   error,
   name,
@@ -58,6 +60,7 @@ export default function Input({
           name={name}
           type={inputType}
           value={value}
+          defaultValue={defaultValue}
           onChange={onChange}
           placeholder={placeholder}
           disabled={disabled}

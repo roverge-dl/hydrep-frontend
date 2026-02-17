@@ -15,6 +15,9 @@ const PersonalInfo: React.FC<StepChildProps> = ({
     { label: "Female", value: "f" },
   ]);
   const { user } = useAuth();
+
+  console.log(user?.user?.first_name);
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-x-8 gap-x-4  mobilelg:gap-y-6 gap-y-4">
@@ -26,8 +29,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="first_name"
             type="text"
             placeholder="Enter first name"
-            value={user?.first_name ? user?.first_name : formData.first_name}
-            // defaultValue={user?.first_name}
+            value={formData.first_name}
             onChange={handleInputChange}
             className="pl-4"
             error={fieldErrors.first_name}
@@ -42,7 +44,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="last_name"
             type="text"
             placeholder="Enter last name"
-            value={user?.last_name ? user?.last_name : formData.last_name}
+            value={formData.last_name}
             onChange={handleInputChange}
             className="pl-4"
             error={fieldErrors.last_name}
@@ -57,7 +59,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="middle_name"
             type="text"
             placeholder="Enter middle name"
-            value={user?.middle_name ? user?.middle_name : formData.middle_name}
+            value={formData.middle_name}
             onChange={handleInputChange}
             className="pl-4"
             required={false}
@@ -73,7 +75,8 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="dob"
             type="date"
             placeholder="Enter middle name"
-            value={user?.dob ? user?.dob : formData.dob}
+            value={formData.dob}
+            defaultValue={user?.user?.dob}
             onChange={handleInputChange}
             error={fieldErrors.dob}
           />
@@ -84,7 +87,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Select
             label="Gender"
             placeholder="Select gender"
-            value={user?.gender ? user?.gender : formData.gender}
+            value={formData.gender}
             name="gender"
             onChange={handleInputChange}
             error={fieldErrors.gender?.[0] || ""}
@@ -101,7 +104,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="nin"
             type="text  "
             placeholder="Enter NIN"
-            value={user?.nin ? user?.nin : formData.nin}
+            value={formData.nin}
             onChange={handleInputChange}
             error={fieldErrors.nin?.[0] || ""}
           />

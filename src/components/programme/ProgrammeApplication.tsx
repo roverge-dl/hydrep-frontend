@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCheck, BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import PageLayout from "../ui/PageLayout";
 import Button from "../forms/Button";
@@ -9,7 +9,7 @@ import type {
 } from "../../types/programFormData";
 import PersonalInfo from "./PersonalInfo";
 import ContactAndAddress from "./ContactAndAddress";
-import Background from "./Background";
+// import Background from "./Background";
 import Documents from "./Documents";
 import ApplicationReview from "./ApplicationReview";
 import { runValidation } from "../../utils/validation";
@@ -183,15 +183,35 @@ const ProgrammeApplication: React.FC = () => {
       case 2:
         return <ContactAndAddress {...props} />;
       case 3:
-        return <Background {...props} />;
-      case 4:
+        // return <Background {...props} />;
         return <Documents {...props} />;
-      case 5:
+      case 4:
         return <ApplicationReview {...props} />;
       default:
         return null;
     }
   };
+
+  useEffect(() => {
+    // Extract the user object regardless of nesting
+    const profile = user?.user || user;
+
+    if (profile) {
+      setFormData((prev) => ({
+        ...prev,
+        // Only populate if the field in formData is currently empty
+        first_name: prev.first_name || profile.first_name || "",
+        last_name: prev.last_name || profile.last_name || "",
+        middle_name: prev.middle_name || profile.middle_name || "",
+        dob: prev.dob || profile.dob || "",
+        gender: prev.gender || profile.gender || "",
+        nin: prev.nin || profile.nin || "",
+        phone: prev.phone || profile.phone || "",
+        email: prev.email || profile.email || "",
+        address: prev.address || profile.address || "",
+      }));
+    }
+  }, [user]); // Runs when user data is loaded from AuthContext
 
   return (
     <>
