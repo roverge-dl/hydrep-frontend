@@ -89,7 +89,7 @@ export default function SearchableSelect({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-[105%] left-0 w-full bg-white border border-hgrey-300 rounded-lg shadow-lg z-[100] max-h-60 flex flex-col overflow-hidden">
+        <div className="absolute top-[105%] left-0 w-full bg-white border border-hgrey-300 rounded-lg shadow-lg z-1000 max-h-60 flex flex-col overflow-hidden">
           {/* Search Input */}
           <div className="p-2 border-b border-hgrey-200 sticky top-0 bg-white">
             <div className="relative">

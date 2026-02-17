@@ -1,7 +1,7 @@
 export interface ProgrammeFormData {
-  firstName?: string;
-  lastName?: string;
-  middleName?: string;
+  first_name?: string;
+  last_name?: string;
+  middle_name?: string;
   dob?: string;
   gender?: string;
   nin?: string;
@@ -10,18 +10,21 @@ export interface ProgrammeFormData {
   phone?: string;
   email?: string;
   address?: string;
-  community: string;
-  state: string;
-  lga: string;
+  community_id?: string;
+  community?: string;
+  state_id?: string;
+  state?: string;
+  lga_id?: string;
+  lga?: string;
   //Step 3
-  highestEducationLevel?: string;
-  institutionName?: string;
-  yearCompleted?: string;
-  employmentStatus?: string;
-  occupation?: string;
-  monthlyIncome?: string;
+  // highestEducationLevel?: string;
+  // institutionName?: string;
+  // yearCompleted?: string;
+  // employmentStatus?: string;
+  // occupation?: string;
+  // monthlyIncome?: string;
   // Step 4
-  documents?: File[];
+  // documents?: File[];
 }
 
 export interface StepChildProps {
@@ -30,6 +33,8 @@ export interface StepChildProps {
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
-  fieldErrors: Record<string, string>;
-  setFieldErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  fieldErrors: Record<string, string | string[]>;
+  setFieldErrors: React.Dispatch<
+    React.SetStateAction<Record<string, string | string[]>>
+  >;
 }

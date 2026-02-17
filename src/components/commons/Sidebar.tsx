@@ -77,7 +77,10 @@ export default function Sidebar({
           {/* Nav Links */}
           <nav className="flex-1 space-y-1">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
+              const isActive =
+                item.path === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(item.path);
               return (
                 <Link
                   key={item.name}

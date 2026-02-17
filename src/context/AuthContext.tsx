@@ -15,6 +15,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (userData: UserData) => void;
+  updateUser: (newFields: Partial<UserData["user"]>) => void;
   logout: () => void;
 }
 
@@ -54,11 +55,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log("Logged out");
   };
 
+  const updateUser = (newFields: Partial<UserData["user"]>) => {
+    setUser((prev) => {
+      if (!prev) return null;
+
+      // Merge the existing data with the new fields
+      const updatedUser = {
+        ...prev,
+        user: {
+          ...prev.user,
+          ...newFields,
+        },
+      };
+
+      // Sync to localStorage so it persists on refresh
+      localStorage.setItem("cbt_user", JSON.stringify(updatedUser));
+
+      return updatedUser;
+    });
+  };
+
   const value = {
     user,
     isAuthenticated: !!user,
     isLoading,
     login,
+    updateUser,
     logout,
   };
 

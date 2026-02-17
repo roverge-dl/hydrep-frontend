@@ -24,10 +24,8 @@ function App() {
         {/* <Route path="/programmes" element={<Programmes />} />
         <Route path="/programmes/:slug" element={<ProgrammeApplication />} /> */}
         <Route path="programmes">
-          {/* This renders when you are at /programmes */}
           <Route index element={<Programmes />} />
 
-          {/* This renders when you are at /programmes/some-slug */}
           <Route path=":slug" element={<ProgrammeApplication />} />
         </Route>
         <Route path="/exams" element={<Examination />} />

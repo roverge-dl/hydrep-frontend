@@ -42,13 +42,15 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
 
   // 2. Fetch LGAs when state changes
   useEffect(() => {
-    if (!formData.state) {
+    const stateId = formData.state;
+
+    if (!stateId) {
       setLgas([]);
       return;
     }
     const fetchLgas = async () => {
       try {
-        const response = await getLgas(formData.state);
+        const response = await getLgas(stateId);
         if (response.status === "success") {
           setLgas(
             response.data.map((l: any) => ({ label: l.name, value: l.id })),
@@ -68,8 +70,14 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
       return;
     }
     const fetchComms = async () => {
+      const lgaId = formData.lga;
+
+      if (!lgaId) {
+        setCommunities([]);
+        return;
+      }
       try {
-        const response = await getCommunities(formData.lga);
+        const response = await getCommunities(lgaId);
         if (response.status === "success") {
           console.log(response.data);
           setCommunities(
@@ -108,10 +116,10 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
             name="email"
             type="text"
             placeholder="email@example.com"
-            value={formData.lastName}
+            value={formData.email}
             onChange={handleInputChange}
             className="pl-4"
-            error={fieldErrors.lastName}
+            error={fieldErrors.email}
           />
         </div>
 

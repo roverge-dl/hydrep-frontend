@@ -1,12 +1,20 @@
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import type { StepChildProps } from "../../types/programFormData";
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const PersonalInfo: React.FC<StepChildProps> = ({
   formData,
   handleInputChange,
   fieldErrors,
 }) => {
+  const [gender] = useState<{ label: string; value: string }[]>([
+    { label: "--select gender--", value: "s" },
+    { label: "Male", value: "m" },
+    { label: "Female", value: "f" },
+  ]);
+  const { user } = useAuth();
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-x-8 gap-x-4  mobilelg:gap-y-6 gap-y-4">
@@ -15,13 +23,14 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Input
             label="First Name"
             labelClass="text-start"
-            name="lastName"
+            name="first_name"
             type="text"
             placeholder="Enter first name"
-            value={formData.firstName}
+            value={user?.first_name ? user?.first_name : formData.first_name}
+            // defaultValue={user?.first_name}
             onChange={handleInputChange}
             className="pl-4"
-            error={fieldErrors.firstName}
+            error={fieldErrors.first_name}
           />
         </div>
 
@@ -30,13 +39,13 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Input
             label="Last Name"
             labelClass="text-start"
-            name="firstName"
+            name="last_name"
             type="text"
             placeholder="Enter last name"
-            value={formData.lastName}
+            value={user?.last_name ? user?.last_name : formData.last_name}
             onChange={handleInputChange}
             className="pl-4"
-            error={fieldErrors.lastName}
+            error={fieldErrors.last_name}
           />
         </div>
 
@@ -45,18 +54,16 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Input
             label="Middle Name"
             labelClass="text-start"
-            name="middleName"
+            name="middle_name"
             type="text"
             placeholder="Enter middle name"
-            value={formData.middleName}
+            value={user?.middle_name ? user?.middle_name : formData.middle_name}
             onChange={handleInputChange}
             className="pl-4"
             required={false}
-            error={fieldErrors.middleName}
+            error={fieldErrors.middle_name}
           />
         </div>
-
-        {/* Field: Date of Birth */}
 
         <div className="space-y-1.5">
           <Input
@@ -66,7 +73,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="dob"
             type="date"
             placeholder="Enter middle name"
-            value={formData.dob}
+            value={user?.dob ? user?.dob : formData.dob}
             onChange={handleInputChange}
             error={fieldErrors.dob}
           />
@@ -77,15 +84,11 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Select
             label="Gender"
             placeholder="Select gender"
-            value={formData.gender}
+            value={user?.gender ? user?.gender : formData.gender}
             name="gender"
             onChange={handleInputChange}
             error={fieldErrors.gender?.[0] || ""}
-            options={[
-              { label: "--select gender--", value: "s" },
-              { label: "Male", value: "m" },
-              { label: "Female", value: "f" },
-            ]}
+            options={gender}
           />
         </div>
 
@@ -98,14 +101,14 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="nin"
             type="text  "
             placeholder="Enter NIN"
-            value={formData.nin}
+            value={user?.nin ? user?.nin : formData.nin}
             onChange={handleInputChange}
             error={fieldErrors.nin?.[0] || ""}
           />
         </div>
 
         {/* Field: BVN */}
-        <div className="space-y-1.5">
+        {/* <div className="space-y-1.5">
           <Input
             label="BVN"
             labelClass="text-start"
@@ -118,7 +121,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             error={fieldErrors.bvn}
             required={false}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );

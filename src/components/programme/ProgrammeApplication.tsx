@@ -12,6 +12,10 @@ import ContactAndAddress from "./ContactAndAddress";
 import Background from "./Background";
 import Documents from "./Documents";
 import ApplicationReview from "./ApplicationReview";
+import { runValidation } from "../../utils/validation";
+import { registerForProgramme } from "../../services/api/applicationService";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 // import { ChevronRight, ChevronLeft, Calendar } from "lucide-react";
 
 // --- Types ---
@@ -32,29 +36,123 @@ const steps: Step[] = [
 
 const ProgrammeApplication: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<ProgrammeFormData>({
-    firstName: "",
-    lastName: "",
-    middleName: "",
+    first_name: "",
+    last_name: "",
+    middle_name: "",
     dob: "",
     gender: "",
     nin: "",
-    bvn: "",
-    phone: "",
     email: "",
     address: "",
     community: "",
     state: "",
     lga: "",
-    highestEducationLevel: "",
-    institutionName: "",
-    yearCompleted: "",
-    employmentStatus: "",
-    occupation: "",
-    monthlyIncome: "",
-    documents: [],
+    phone: "",
   });
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  // Change this:
+  // const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  // To this:
+  const [fieldErrors, setFieldErrors] = useState<
+    Record<string, string | string[]>
+  >({});
+  const { user, updateUser } = useAuth();
+
+  console.log(user);
+
+  const handleApplication = async () => {
+    setIsLoading(true);
+    const validateformData = await runValidation([
+      {
+        input: {
+          value: formData.first_name,
+          field: "first_name",
+          type: "text",
+        },
+        rules: { required: true },
+        alias: "First name",
+      },
+      {
+        input: { value: formData.last_name, field: "last_name", type: "text" },
+        rules: { required: true },
+        alias: "Last name",
+      },
+      {
+        input: {
+          value: formData.middle_name,
+          field: "middle_name",
+          type: "text",
+        },
+        rules: { required: false },
+        alias: "Middle name",
+      },
+      {
+        input: {
+          value: formData.dob,
+          field: "dob",
+          type: "text",
+        },
+        rules: { required: true },
+        alias: "Date of birth",
+      },
+      {
+        input: {
+          value: formData.gender,
+          field: "gender",
+          type: "text",
+        },
+        rules: { required: true },
+        alias: "Gender",
+      },
+      {
+        input: {
+          value: formData.nin,
+          field: "nin",
+          type: "text",
+        },
+        rules: { required: true, max_length: 11, min_length: 11 },
+        alias: "NIN",
+      },
+    ]);
+
+    if (validateformData?.status === false) {
+      setFieldErrors(validateformData?.errors ?? {});
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await registerForProgramme(
+        user?.user?.id?.toString(), // Pass User ID
+        formData.first_name,
+        formData.middle_name,
+        formData.last_name,
+        formData.dob,
+        formData.gender,
+        formData.nin,
+      );
+      if (response.status === "success") {
+        toast.success(response.message);
+        updateUser(response.data);
+        handleNext();
+        setIsLoading(false);
+      }
+      if (response.status === "fail") {
+        console.log(response);
+        toast.error(response.message);
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error) {
+        toast.error("something went wrong. Please try again.");
+        return;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -169,11 +267,13 @@ const ProgrammeApplication: React.FC = () => {
               Previous
             </Button>
             <Button
-              onClick={handleNext}
-              className=""
+              onClick={currentStep === 1 ? handleApplication : handleNext}
+              loading={isLoading} // Add loading state to button
               width="mobilemd:w-fit w-full"
               rightIcon={<BiChevronRight size={18} />}>
-              Save & Continue
+              {currentStep === steps.length
+                ? "Submit Application"
+                : "Save & Continue"}
             </Button>
           </div>
         </div>
