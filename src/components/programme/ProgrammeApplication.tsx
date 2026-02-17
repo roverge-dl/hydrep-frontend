@@ -29,9 +29,9 @@ interface Step {
 const steps: Step[] = [
   { id: 1, title: "Personal Info", sub: "Basic details" },
   { id: 2, title: "Contact & Address", sub: "Location info" },
-  { id: 3, title: "Background", sub: "Education & work" },
-  { id: 4, title: "Documents", sub: "Upload files" },
-  { id: 5, title: "Review", sub: "Confirm details" },
+  // { id: 3, title: "Background", sub: "Education & work" },
+  { id: 3, title: "Documents", sub: "Upload files" },
+  { id: 4, title: "Review", sub: "Confirm details" },
 ];
 
 const ProgrammeApplication: React.FC = () => {
