@@ -12,26 +12,32 @@ import Button from "../components/forms/Button";
 import ApplicationCard from "../components/application/ApplicationCard";
 
 // API
-import { getUserApplications, type ApplicationResponse } from "../services/api/applicationService";
+import {
+  getUserApplications,
+  type ApplicationResponse,
+} from "../services/api/applicationService";
 
 // Define the tabs we want to show
 const TAB_KEYS = ["All", "Pending", "Approved", "Rejected", "Draft"];
 
 const Application = () => {
   const navigate = useNavigate();
-  
+
   // State
   const [activeTab, setActiveTab] = useState("All");
   const [isLoading, setIsLoading] = useState(true);
-  const [applications, setApplications] = useState<ApplicationResponse['data']>([]);
-  
+  const [applications, setApplications] = useState<ApplicationResponse["data"]>(
+    [],
+  );
+  console.log("applications", applications);
+
   // Stats state (initialized to 0)
   const [stats, setStats] = useState<Record<string, number>>({
-    all: 0, 
-    pending: 0, 
-    approved: 0, 
-    rejected: 0, 
-    draft: 0
+    all: 0,
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+    draft: 0,
   });
 
   // Fetch Data whenever Active Tab changes
@@ -42,7 +48,7 @@ const Application = () => {
         const response = await getUserApplications(activeTab);
         console.log("response", response);
         setApplications(response.data);
-        
+
         // Update stats (The API returns keys in lowercase: 'all', 'pending', etc.)
         if (response.stats) {
           setStats(response.stats);
@@ -65,9 +71,9 @@ const Application = () => {
         title="My Applications"
         subtitle="Track and manage your programme applications"
         children={
-          <Button 
-            leftIcon={<BiPlus className="w-4 h-4" />} 
-            onClick={() => navigate('/programmes')} // Navigate to program listing to start new
+          <Button
+            leftIcon={<BiPlus className="w-4 h-4" />}
+            onClick={() => navigate("/programmes")} // Navigate to program listing to start new
           >
             New Application
           </Button>
@@ -88,14 +94,15 @@ const Application = () => {
                 onClick={() => setActiveTab(label)}
                 className={`
                   whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer flex items-center gap-2
-                  ${isActive
-                    ? "bg-white text-hdark-500 shadow-sm border border-slate-100"
-                    : "text-hdark-300 hover:text-hdark-500 hover:bg-slate-50"
+                  ${
+                    isActive
+                      ? "bg-white text-hdark-500 shadow-sm border border-slate-100"
+                      : "text-hdark-300 hover:text-hdark-500 hover:bg-slate-50"
                   }
-                `}
-              >
+                `}>
                 {label}
-                <span className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-gray-100' : 'bg-gray-200/50'}`}>
+                <span
+                  className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? "bg-gray-100" : "bg-gray-200/50"}`}>
                   {count}
                 </span>
               </button>
@@ -104,7 +111,7 @@ const Application = () => {
         </div>
 
         {/* Content Area */}
-        <div className="mt-4 min-h-[300px]">
+        <div className="mt-4 min-h-75">
           {isLoading ? (
             // Loading State
             <div className="flex flex-col items-center justify-center h-64 text-gray-400">
@@ -132,15 +139,18 @@ const Application = () => {
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3 text-gray-400">
                 <BiFolderOpen size={24} />
               </div>
-              <p className="text-sm font-semibold text-hdark-500">No applications found</p>
-              <p className="text-xs text-gray-400 mt-1">
-                You don't have any {activeTab !== 'All' ? activeTab.toLowerCase() : ''} applications yet.
+              <p className="text-sm font-semibold text-hdark-500">
+                No applications found
               </p>
-              {activeTab === 'All' && (
-                <button 
-                  onClick={() => navigate('/programmes')}
-                  className="mt-4 text-xs font-bold text-green-600 hover:underline"
-                >
+              <p className="text-xs text-gray-400 mt-1">
+                You don't have any{" "}
+                {activeTab !== "All" ? activeTab.toLowerCase() : ""}{" "}
+                applications yet.
+              </p>
+              {activeTab === "All" && (
+                <button
+                  onClick={() => navigate("/programmes")}
+                  className="mt-4 text-xs font-bold text-green-600 hover:underline">
                   Start a new application
                 </button>
               )}

@@ -25,12 +25,7 @@ export default function Sidebar({
 }) {
   // const { logout } = useAuth();
   const location = useLocation();
-  const userName = "Emmanuel Otudor";
-  const initials = userName
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
-
+  const { user } = useAuth();
   const { logout } = useAuth();
   return (
     <>
@@ -64,11 +59,12 @@ export default function Sidebar({
           {/* User Profile Mini-Card */}
           <div className="bg-hgrey-200 rounded-xl p-3 mb-6 flex items-center gap-3">
             <div className="w-10 h-10 bg-hgreen-500 rounded-full flex items-center justify-center text-white font-semibold">
-              {initials}
+              {user?.user?.first_name?.split("")[0]}
+              {user?.user?.last_name?.split("")[0]}
             </div>
             <div>
               <p className="text-sm font-bold text-hdark-500">
-                Emmanuel Otudor
+                {user?.user?.first_name} {user?.user?.last_name}
               </p>
               <p className="text-[10px] text-slate-500">Beneficiary</p>
             </div>

@@ -6,6 +6,7 @@ import { PiGraduationCap } from "react-icons/pi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import Button from "../components/forms/Button";
 import { BiPlus } from "react-icons/bi";
+import { useAuth } from "../context/AuthContext";
 
 const dashboardData = [
   {
@@ -40,11 +41,12 @@ const dashboardData = [
 ];
 
 const Dashboard = () => {
+  const { user } = useAuth();
   return (
     <div className="space-y-4">
       <PageLayout
         isAction={false}
-        title="Welcome back! Emmanuel"
+        title={`Welcome back! ${user?.user?.first_name}`}
         subtitle="Track your applications, programmes, and upcoming activities"
         children={
           <Button leftIcon={<BiPlus className="w-4 h-4" />} onClick={() => {}}>

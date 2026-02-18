@@ -5,13 +5,14 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import type { User, UserData } from "../types/user";
-import { Navigate, useNavigate } from "react-router-dom";
+import type { UserData } from "../types/user";
+import { useNavigate } from "react-router-dom";
 
 // 1. Define the User type (Adjust based on your backend)
 
 interface AuthContextType {
   user: UserData | null;
+  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (userData: UserData) => void;
@@ -75,8 +76,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const token = user?.token?.token || null;
+
   const value = {
     user,
+    token,
     isAuthenticated: !!user,
     isLoading,
     login,

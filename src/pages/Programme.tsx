@@ -1,10 +1,6 @@
-// import { Search, Filter, Map } from "lucide-react";
-// import ProgrammeCard from "../components/programmes/ProgrammeCard";
-
 import { BiSearch } from "react-icons/bi";
 import ProgrammeCard from "../components/programme/ProgrammeCard";
 import PageLayout from "../components/ui/PageLayout";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPrograms } from "../services/api/applicationService";
 
@@ -22,7 +18,21 @@ interface Programme {
 
 export default function Programmes() {
   const [programmes, setProgrammes] = useState<Programme[]>([]);
-  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const filteredProgrammes = programmes.filter((prog) => {
+    // Check if search matches title or description
+    const matchesSearch =
+      prog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      prog.description?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    // Check if status matches (assuming your data has an 'is_open' or 'status' field)
+    // Adjust 'prog.status' based on your actual API response key
+    const matchesStatus =
+      statusFilter === "all" || prog.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
 
   useEffect(() => {
     const fetchProgrammmes = async () => {
@@ -44,6 +54,7 @@ export default function Programmes() {
     };
     fetchProgrammmes();
   }, []);
+
   return (
     <div className="space-y-8">
       <PageLayout
@@ -60,15 +71,22 @@ export default function Programmes() {
             size={18}
           />
           <input
-            type="text"
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search programmes..."
             className="w-full pl-10 pr-4 py-2.5 bg-white border border-hgrey-500 rounded-md focus:outline-none focus:ring-2 focus:ring-hgreen-500/20 focus:border-hgreen-500 text-sm"
           />
         </div>
 
         <div className="flex gap-2">
-          <select className="bg-white border border-slate-200 rounded-md px-4 py-2.5 text-sm text-slate-600 focus:outline-none outline-none cursor-pointer">
-            <option>All Categories</option>
+          <select
+            className="bg-white border border-slate-200 rounded-md px-4 py-2.5 text-sm text-slate-600 focus:outline-none outline-none cursor-pointer"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}>
+            <option value="all">All Status</option>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
           </select>
           <select className="bg-white border border-slate-200 rounded-md px-4 py-2.5 text-sm text-slate-600 focus:outline-none outline-none cursor-pointer">
             <option>All Regions</option>
@@ -78,9 +96,15 @@ export default function Programmes() {
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 mobilelg:grid-cols-2 tabletlg:grid-cols-3 laptopmd:grid-cols-3 lg:gap-6 gap-4 pb-8">
-        {programmes?.map((prog, idx) => (
-          <ProgrammeCard key={idx} {...prog} handleApply={() => {}} />
-        ))}
+        {filteredProgrammes.length > 0 ? (
+          filteredProgrammes.map((prog, idx) => (
+            <ProgrammeCard key={idx} {...prog} handleApply={() => {}} />
+          ))
+        ) : (
+          <div className="col-span-full py-20 text-center text-slate-500">
+            No programmes found matching your criteria.
+          </div>
+        )}
       </div>
     </div>
   );

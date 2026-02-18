@@ -1,12 +1,9 @@
 import { BiBell, BiMenu } from "react-icons/bi";
 import { IoSearch } from "react-icons/io5";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
-  const userName = "Emmanuel Otudor";
-  const initials = userName
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
+  const { user } = useAuth();
   return (
     <header className="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-4 lg:px-8 sticky top-0 z-30">
       <div className="flex items-center gap-4 flex-1">
@@ -41,10 +38,11 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
         </button>
         <div className="flex items-center gap-2 pl-2 border-l border-hgrey-300">
           <div className="w-10 h-10 bg-hgreen-500 rounded-full flex items-center justify-center text-white text-base font-bold">
-            {initials}
+            {user?.user?.first_name?.split("")[0]}
+            {user?.user?.last_name?.split("")[0]}
           </div>
           <span className="text-sm font-semibold text-hdark-500 hidden md:block">
-            Emmanuel Otudor
+            {user?.user?.first_name} {user?.user?.last_name}
           </span>
         </div>
       </div>

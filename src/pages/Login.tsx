@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Added useNavigate/Link
+import { Link } from "react-router-dom"; // Added useNavigate/Link
 import { BiLock } from "react-icons/bi";
 import { BsMailbox } from "react-icons/bs";
 import { FaEye } from "react-icons/fa6"; // Added for password toggle
