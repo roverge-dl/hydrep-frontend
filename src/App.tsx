@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -20,7 +20,7 @@ function App() {
       <Route path="/" element={<DashboardLayout />}>
         <Route index path="/dashboard" element={<Dashboard />} />
         <Route path="/applications" element={<Application />} />
-        <Route path="/application-detail" element={<ApplicationDetail />} />
+        <Route path="/applications/:id" element={<ApplicationDetail />} />
         {/* <Route path="/programmes" element={<Programmes />} />
         <Route path="/programmes/:slug" element={<ProgrammeApplication />} /> */}
         <Route path="programmes">

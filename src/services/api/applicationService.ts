@@ -7,6 +7,23 @@ export interface ApiError {
   errors?: Record<string, string[]>;
 }
 
+export interface ApplicationResponse {
+  meta: {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+  };
+  data: Array<{
+    id: string;
+    title: string;
+    date: string; // YYYY-MM-DD
+    status: string; // e.g., "Pending", "Approved"
+    program_id: number;
+  }>;
+  stats: Record<string, number>; // e.g., { all: 10, pending: 2 }
+}
+
 export const getStates = async () => {
   try {
     const { data } = await axiosClient.get("/states");
@@ -248,6 +265,35 @@ export const uploadRequirementDocument = async (
         status: err.response.status,
         message: err.response.data?.message || "Failed to upload document",
         errors: err.response.data?.errors,
+      };
+    }
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+
+  /**
+ * Fetches the user's applications (enrollments).
+ * @param status - Filter by status (e.g., "All", "Pending")
+ * @param page - Pagination page number
+ */
+export const getUserApplications = async (status: string = 'All', page: number = 1) => {
+  try {
+    const { data } = await axiosClient.get<ApplicationResponse>('/enrollments', {
+      params: { 
+        status: status === 'All' ? undefined : status, // Send undefined if 'All' to get everything
+        page 
+      }
+    });
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to fetch applications",
       };
     }
     throw {
