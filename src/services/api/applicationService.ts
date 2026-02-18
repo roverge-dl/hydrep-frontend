@@ -24,6 +24,35 @@ export interface ApplicationResponse {
   stats: Record<string, number>; // e.g., { all: 10, pending: 2 }
 }
 
+export interface ApplicationDetailResponse {
+  id: string;
+  application_no: string;
+  status: string; // "Pending", "Approved", "Rejected"
+  submitted_at: string;
+  program: {
+    title: string;
+  };
+  applicant: {
+    name: string;
+    gender: string;
+    dob: string;
+    nin: string;
+    phone: string;
+    email: string;
+    address: string;
+    highest_education: string;
+    occupation: string;
+    employment_status: string;
+    institution: string;
+  };
+  documents: Array<{
+    id: number;
+    title: string;
+    file_url: string;
+    type: string; // JPG, PDF, etc.
+  }>;
+}
+
 export const getStates = async () => {
   try {
     const { data } = await axiosClient.get("/states");
@@ -325,6 +354,27 @@ export const getUserApplications = async (
       };
     }
 
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+/**
+ * Fetches single application details
+ */
+export const getApplicationDetails = async (id: string) => {
+  try {
+    const { data } = await axiosClient.get<{ status: string, data: ApplicationDetailResponse }>(`/enrollments/${id}`);
+    return data.data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to load application details",
+      };
+    }
     throw {
       status: 500,
       message: "Network error. Please try again.",
