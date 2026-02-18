@@ -14,7 +14,10 @@ import ContactAndAddress from "./ContactAndAddress";
 import Documents from "./Documents";
 import ApplicationReview from "./ApplicationReview";
 import { runValidation } from "../../utils/validation";
-import { registerForProgramme, updateUserProfile } from "../../services/api/applicationService";
+import {
+  registerForProgramme,
+  updateUserProfile,
+} from "../../services/api/applicationService";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import type { UserData } from "../../types/user";
@@ -31,6 +34,7 @@ interface Step {
 const steps: Step[] = [
   { id: 1, title: "Personal Info", sub: "Basic details" },
   { id: 2, title: "Contact & Address", sub: "Location info" },
+  // { id: 3, title: "Background", sub: "Education & work" },
   { id: 3, title: "Documents", sub: "Upload files" },
   { id: 4, title: "Review", sub: "Confirm details" },
 ];
@@ -38,7 +42,11 @@ const steps: Step[] = [
 const ProgrammeApplication: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState<Partial<UserData>>({state:"", lga:"", community:""});
+  const [userData, setUserData] = useState<Partial<UserData>>({
+    state: "",
+    lga: "",
+    community: "",
+  });
   const [formData, setFormData] = useState<ProgrammeFormData>({
     first_name: "",
     last_name: "",
@@ -136,7 +144,7 @@ const ProgrammeApplication: React.FC = () => {
         toast.success(response.message);
         updateUser(response.data);
         setIsLoading(false);
-        setCurrentStep(currentStep + 1)
+        setCurrentStep(currentStep + 1);
       }
       if (response.status === "fail") {
         console.log(response);
@@ -168,15 +176,14 @@ const ProgrammeApplication: React.FC = () => {
       case 2:
         return handleContactStep();
       case 3:
-        
-        setCurrentStep(currentStep + 1)
+        setCurrentStep(currentStep + 1);
         break;
-        // return handleDocumentsStep();
+      // return handleDocumentsStep();
       case 4:
-        break
+        break;
       default:
         break;
-        // return handleReviewStep();
+      // return handleReviewStep();
     }
     // if(currentStep === 2) handleContactStep();
     // if (currentStep < steps.length) setCurrentStep(currentStep + 1);
@@ -212,44 +219,44 @@ const ProgrammeApplication: React.FC = () => {
   };
 
   // Inside handleNext or a specific handler for Step 2
-const handleContactStep = async () => {
+  const handleContactStep = async () => {
     setIsLoading(true);
     // 1. Validation Logic for Step 2...
-    
-    try {
-        // 2. Call the update service
-       const response = await updateUserProfile(user!.user.id, {
-            phone: formData.phone,
-            address: formData.address,
-            state_id: formData.state,
-            lga_id: formData.lga,
-            community_id: formData.community
-        });
 
-        if(response.status === "success") {
-            toast.success(response.message);
-            updateUser(response.data);
-            setIsLoading(false);
-            setCurrentStep(currentStep + 1)
-        }
-        if(response.status === "fail") {
-            console.log(response);
-            toast.error(response.message);
-            setIsLoading(false);
-        }
-        
-        // 3. Move Next
-        // handleNext();
-    } catch (error:any) {
-      console.log(error)
-        toast.error("Failed to save contact info");
-    } finally {
+    try {
+      // 2. Call the update service
+      const response = await updateUserProfile(user!.user.id, {
+        phone: formData.phone,
+        address: formData.address,
+        state_id: formData.state,
+        lga_id: formData.lga,
+        community_id: formData.community,
+      });
+
+      if (response.status === "success") {
+        toast.success(response.message);
+        updateUser(response.data);
         setIsLoading(false);
+        setCurrentStep(currentStep + 1);
+      }
+      if (response.status === "fail") {
+        console.log(response);
+        toast.error(response.message);
+        setIsLoading(false);
+      }
+
+      // 3. Move Next
+      // handleNext();
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Failed to save contact info");
+    } finally {
+      setIsLoading(false);
     }
-}
+  };
 
   useEffect(() => {
-    console.log('user', user)
+    console.log("user", user);
     // Extract the user object regardless of nesting
     const profile = user?.user || user;
 
@@ -266,6 +273,9 @@ const handleContactStep = async () => {
         phone: prev.phone || profile.phone || "",
         email: prev.email || profile.email || "",
         address: prev.address || profile.address || "",
+        state: prev.state || profile.state || "",
+        community: prev.community || profile.community || "",
+        lga: prev.lga || profile.lga || "",
       }));
     }
   }, [user]); // Runs when user data is loaded from AuthContext
@@ -344,7 +354,7 @@ const handleContactStep = async () => {
               Previous
             </Button>
             <Button
-              onClick={ handleNext}
+              onClick={handleNext}
               loading={isLoading} // Add loading state to button
               width="mobilemd:w-fit w-full"
               rightIcon={<BiChevronRight size={18} />}>
