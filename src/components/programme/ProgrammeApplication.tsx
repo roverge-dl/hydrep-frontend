@@ -15,12 +15,14 @@ import Documents from "./Documents";
 import ApplicationReview from "./ApplicationReview";
 import { runValidation } from "../../utils/validation";
 import {
+  completeProgrammeEnrollment,
   registerForProgramme,
   updateUserProfile,
 } from "../../services/api/applicationService";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import type { UserData } from "../../types/user";
+import { useNavigate, useParams } from "react-router-dom";
 // import { ChevronRight, ChevronLeft, Calendar } from "lucide-react";
 
 // --- Types ---
@@ -69,6 +71,9 @@ const ProgrammeApplication: React.FC = () => {
     Record<string, string | string[]>
   >({});
   const { user, updateUser } = useAuth();
+
+  const { slug: programSlug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
 
   const handleApplication = async () => {
     setIsLoading(true);
@@ -161,6 +166,33 @@ const ProgrammeApplication: React.FC = () => {
       setIsLoading(false);
     }
   };
+  const handleFinishEnrollment = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await completeProgrammeEnrollment(
+        programSlug as string, // Pass User I
+      );
+      if (response.status === "success") {
+        toast.success(response.message);
+        // updateUser(response.data);
+        setIsLoading(false);
+        navigate("/applications");
+      }
+      if (response.status === "fail") {
+        toast.error(response.message);
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error) {
+        toast.error("something went wrong. Please try again.");
+        return;
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -180,6 +212,7 @@ const ProgrammeApplication: React.FC = () => {
         break;
       // return handleDocumentsStep();
       case 4:
+        handleFinishEnrollment();
         break;
       default:
         break;
@@ -212,6 +245,7 @@ const ProgrammeApplication: React.FC = () => {
         // return <Background {...props} />;
         return <Documents {...props} />;
       case 4:
+        // completeProgrammeEnrollment(user?.user?.id?.toString(), userData?.id);
         return <ApplicationReview {...props} />;
       default:
         return null;

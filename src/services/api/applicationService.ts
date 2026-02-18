@@ -143,7 +143,7 @@ export const registerForProgramme = async (
 };
 
 export const updateUserProfile = async (
-  userId: string | number, 
+  userId: string | number,
   data: {
     phone?: string;
     address?: string;
@@ -151,7 +151,7 @@ export const updateUserProfile = async (
     lga_id?: string | number;
     community_id?: string | number;
     // Add other fields as needed
-  }
+  },
 ) => {
   try {
     // Note: Adjust the payload keys to match what your AdonisJS backend expects (snake_case is common in backend)
@@ -250,6 +250,29 @@ export const uploadRequirementDocument = async (
         errors: err.response.data?.errors,
       };
     }
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+export const completeProgrammeEnrollment = async (programSlug: string) => {
+  try {
+    // Note: Adjust the payload keys to match what your AdonisJS backend expects (snake_case is common in backend)
+
+    const response = await axiosClient.post(`/enrollments`, { programSlug });
+
+    return response.data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to update profile",
+        errors: err.response.data?.errors,
+      };
+    }
+
     throw {
       status: 500,
       message: "Network error. Please try again.",
