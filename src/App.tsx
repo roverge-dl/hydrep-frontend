@@ -14,6 +14,9 @@ import ApplicationDetail from "./pages/ApplicationDetail";
 
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import ForgotPassword from "./pages/ForgotPassword";
+import SentEmail from "./components/commons/SentEmail";
+import PasswordReset from "./pages/PasswordReset";
 
 interface ProtectedRouteProps {
   redirectPath?: string;
@@ -21,6 +24,13 @@ interface ProtectedRouteProps {
 
 function ProtectedRoute({ redirectPath = "/login" }: ProtectedRouteProps) {
   const { user, token, isLoading } = useAuth(); // Now 'token' is available!
+
+  console.log("Auth State:", {
+    hasUser: !!user,
+    hasToken: !!token,
+    tokenValue: token,
+    isLoading,
+  });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -64,6 +74,9 @@ function App() {
       {/* Public Routes */}
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/sent-reset-link" element={<SentEmail />} />
+      <Route path="/password-reset" element={<PasswordReset />} />
 
       {/* Protected Routes Wrapper */}
       <Route element={<ProtectedRoute />}>

@@ -31,16 +31,40 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 export const registerUser = async (
-  name: string,
+  first_name: string,
+  last_name: string,
   phone: string,
   email: string,
   password: string,
 ) => {
   try {
     const { data } = await axiosClient.post("/auth/register", {
-      name,
+      first_name,
+      last_name,
       phone,
       email,
+      password,
+    });
+
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Something went wrong",
+        errors: err.response.data?.errors,
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+export const passwordReset = async (password: string) => {
+  try {
+    const { data } = await axiosClient.post("/auth/register", {
       password,
     });
 

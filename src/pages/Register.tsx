@@ -14,7 +14,8 @@ type ValidationErrors = { [key: string]: string[] };
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     phone: "",
     email: "",
     password: "",
@@ -23,6 +24,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
+
   const [loading, setLoading] = useState(false);
 
   const handleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,14 +35,23 @@ const Register = () => {
     setLoading(true);
     const validateUserData = await runValidation([
       {
-        input: { value: userData.name, field: "name", type: "text" },
+        input: {
+          value: userData.first_name,
+          field: "first_name",
+          type: "text",
+        },
         rules: { required: true },
-        alias: "Full Name",
+        alias: "First name",
+      },
+      {
+        input: { value: userData.last_name, field: "last_name", type: "text" },
+        rules: { required: true },
+        alias: "Last name",
       },
       {
         input: { value: userData.phone, field: "phone", type: "text" },
-        rules: { required: true },
-        alias: "Phone Number",
+        rules: { required: true, min_length: 11, max_length: 11 },
+        alias: "Phone number",
       },
       {
         input: { value: userData.email, field: "email", type: "text" },
@@ -79,13 +90,15 @@ const Register = () => {
     }
     try {
       const response = await registerUser(
-        userData.name,
+        userData.first_name,
+        userData.last_name,
         userData.phone,
         userData.email,
         userData.password,
       );
       if (response.status === "success") {
-        toast.success(response.message);
+        console.log(response);
+        toast.success("Registration successful. Please login.");
         navigate("/login");
         localStorage.setItem("cbt_user", JSON.stringify(response.data.user));
         localStorage.setItem("cbt_token", response.data.token);
@@ -99,7 +112,8 @@ const Register = () => {
     } catch (error: any) {
       console.log(error);
       if (error) {
-        toast.error("something went wrong. Please try again.");
+        setFieldErrors(error.errors);
+        toast.error(error.message);
         // toast.error(`${error.message}! Check the highlighted field(s).`);
         // setFieldErrors(error.errors);
 
@@ -123,7 +137,7 @@ const Register = () => {
         alt=""
       />
 
-      <div className="relative z-10 w-full mobilemd:min-h-fit min-h-screen max-w-md bg-white mobilesm:rounded-2xl shadow-xl mobilemd:p-6  p-4 mobilemd:mx-4 mobilesm:mx-2 drop-shadow-2xl">
+      <div className="relative z-10 w-full mobilemd:min-h-fit min-h-screen max-w-xl bg-white mobilesm:rounded-2xl shadow-xl mobilemd:p-6  p-4 mobilemd:mx-4 mobilesm:mx-2 drop-shadow-2xl">
         <Link
           to="/login"
           className="flex items-center text-xs text-slate-500 hover:text-slate-800 transition xl:mb-6 mb-4">
@@ -141,69 +155,88 @@ const Register = () => {
 
         <h1 className="h2 text-center xl:mb-6 mb-4">Create your account</h1>
 
-        <form className="space-y-2">
+        <form className="space-y-2 grid md:grid-cols-2 grid-cols-1 gap-4">
           {/* Full Name Field */}
-          <Input
-            label="Full Name"
-            type="text"
-            name="name"
-            placeholder="John Doe"
-            value={userData.name}
-            onChange={handleUserData}
-            leftIcon={<BiUser size={18} />}
-            error={fieldErrors?.name}
-          />
+          <div className="md:col-span-1 col-span-2 ">
+            <Input
+              label="First Name"
+              type="text"
+              name="first_name"
+              placeholder="John Doe"
+              value={userData.first_name}
+              onChange={handleUserData}
+              leftIcon={<BiUser size={18} />}
+              error={fieldErrors?.first_name}
+            />
+          </div>
+          <div className="md:col-span-1 col-span-2 ">
+            <Input
+              label="Last Name"
+              type="text"
+              name="last_name"
+              placeholder="John Doe"
+              value={userData.last_name}
+              onChange={handleUserData}
+              leftIcon={<BiUser size={18} />}
+              error={fieldErrors?.last_name}
+            />
+          </div>
+          <div className="md:col-span-1 col-span-2 ">
+            {" "}
+            <Input
+              label="Phone Number"
+              type="tel"
+              name="phone"
+              placeholder="08012345678"
+              value={userData.phone}
+              onChange={handleUserData}
+              leftIcon={<BiPhone size={18} />}
+              error={fieldErrors?.phone}
+            />
+          </div>
 
-          {/* Phone Number Field */}
-          <Input
-            label="Phone Number"
-            type="tel"
-            name="phone"
-            placeholder="08012345678"
-            value={userData.phone}
-            onChange={handleUserData}
-            leftIcon={<BiPhone size={18} />}
-            error={fieldErrors?.phone}
-          />
+          <div className="md:col-span-1 col-span-2 ">
+            <Input
+              label="Email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={userData.email}
+              onChange={handleUserData}
+              leftIcon={<BsMailbox size={18} />}
+              error={fieldErrors?.email}
+            />
+          </div>
 
-          {/* Email Field */}
-          <Input
-            label="Email"
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            value={userData.email}
-            onChange={handleUserData}
-            leftIcon={<BsMailbox size={18} />}
-            error={fieldErrors?.email}
-          />
-
-          {/* Password Field */}
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            value={userData.password}
-            onChange={handleUserData}
-            leftIcon={<BiLock size={18} />}
-            error={fieldErrors?.password}
-          />
+          <div className="md:col-span-1 col-span-2 ">
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={userData.password}
+              onChange={handleUserData}
+              leftIcon={<BiLock size={18} />}
+              error={fieldErrors?.password}
+            />
+          </div>
 
           {/* Confirm Password Field */}
-          <Input
-            label="Confirm Password"
-            type="password"
-            name="confirm_password"
-            placeholder="••••••••"
-            value={userData.confirm_password}
-            onChange={handleUserData}
-            leftIcon={<BiLock size={18} />}
-            error={fieldErrors?.confirm_password}
-          />
+          <div className="md:col-span-1 col-span-2 ">
+            <Input
+              label="Confirm Password"
+              type="password"
+              name="confirm_password"
+              placeholder="••••••••"
+              value={userData.confirm_password}
+              onChange={handleUserData}
+              leftIcon={<BiLock size={18} />}
+              error={fieldErrors?.confirm_password}
+            />
+          </div>
 
           <Button
-            className="w-full mt-4"
+            className="w-full mt-4 mx-auto col-span-2"
             type="button"
             disabled={loading}
             loading={loading}

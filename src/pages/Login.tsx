@@ -61,6 +61,7 @@ const Login = () => {
         console.log(response.data);
         toast.success(response.message);
         login(response.data);
+        localStorage.setItem("cbt_token", response.data.token);
 
         // Clear form
         setFormData({
@@ -178,12 +179,12 @@ const Login = () => {
             {/* Eye Icon logic from pattern - positioned absolutely over the input */}
             {isVisible ? (
               <FaEye
-                className="absolute right-3 top-[42px] z-10 cursor-pointer text-gray-500"
+                className="absolute right-3 top-10.5 z-10 cursor-pointer text-gray-500"
                 onClick={() => setIsVisible(false)}
               />
             ) : (
               <LuEyeClosed
-                className="absolute right-3 top-[42px] z-10 cursor-pointer text-gray-500"
+                className="absolute right-3 top-10.5 z-10 cursor-pointer text-gray-500"
                 onClick={() => setIsVisible(true)}
               />
             )}
@@ -212,7 +213,7 @@ const Login = () => {
           <div className="flex justify-between items-center w-full text-sm gap-1">
             <div>
               <Link
-                to="/reset-password"
+                to="/forgot-password"
                 className="flex justify-end text-right font-semibold text-sm">
                 Forgot password?
               </Link>
