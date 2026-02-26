@@ -76,7 +76,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/sent-reset-link" element={<SentEmail />} />
-      <Route path="/password-reset" element={<PasswordReset />} />
+      <Route path="/reset-password" element={<PasswordReset />} />
 
       {/* Protected Routes Wrapper */}
       <Route element={<ProtectedRoute />}>

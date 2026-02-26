@@ -62,10 +62,38 @@ export const registerUser = async (
     };
   }
 };
-export const passwordReset = async (password: string) => {
+export const passwordReset = async (
+  password: string,
+  email: string,
+  token: string,
+) => {
   try {
-    const { data } = await axiosClient.post("/auth/register", {
+    const { data } = await axiosClient.post("/auth/reset-password", {
       password,
+      email,
+      token,
+    });
+
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Something went wrong",
+        errors: err.response.data?.errors,
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+export const forgotPassword = async (email: string) => {
+  try {
+    const { data } = await axiosClient.post("/auth/forgot-password", {
+      email,
     });
 
     return data;

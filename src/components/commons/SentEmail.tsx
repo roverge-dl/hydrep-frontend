@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Link } from "react-router-dom"; // Added useNavigate/Link
+import { Link, useSearchParams } from "react-router-dom"; // Added useNavigate/Link
 import { BiChevronLeft } from "react-icons/bi";
 
 // Assets & Components
 import BgBar from "../../assets/images/bg-horizontal-bar.png";
-
-import { useAuth } from "../../context/AuthContext";
 import { IoMailUnreadOutline } from "react-icons/io5";
 
 const SentEmail = () => {
-  const { user } = useAuth();
-
-  console.log(user);
-
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get("email");
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-linear-to-br from-hwhite-400 to-hgreen-200 overflow-hidden">
       <img
@@ -36,9 +32,7 @@ const SentEmail = () => {
           <h1 className="h2 text-center ">Check your email</h1>
           <p className="text-center text-sm text-hdark-400">
             We've sent password reset instructions to{" "}
-            <span className="text-hdark-500 font-semibold">
-              {user?.user?.email}
-            </span>
+            <span className="text-hdark-500 font-semibold">{email}</span>
           </p>
         </div>
 

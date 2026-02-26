@@ -1,5 +1,5 @@
 import { BiChevronLeft, BiLock } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import BgBar from "../assets/images/bg-bar.png";
 import Input from "../components/forms/Input";
 import Button from "../components/forms/Button";
@@ -12,11 +12,16 @@ type ValidationErrors = { [key: string]: string[] };
 
 const PasswordReset = () => {
   const [userData, setUserData] = useState({
-    email: "",
     password: "",
     confirm_password: "",
   });
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const email = searchParams.get("email"); // returns the value for 'q'
+  const token = searchParams.get("token"); // returns the value for 'q'
+
+  console.log(email, token);
 
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
 
@@ -60,13 +65,11 @@ const PasswordReset = () => {
       return;
     }
     try {
-      const response = await passwordReset(userData.password);
+      const response = await passwordReset(userData.password, email!, token!);
       if (response.status === "success") {
         console.log(response);
-        toast.success("Registration successful. Please login.");
+        toast.success(response.message);
         navigate("/login");
-        localStorage.setItem("cbt_user", JSON.stringify(response.data.user));
-        localStorage.setItem("cbt_token", response.data.token);
         setLoading(false);
       }
       if (response.status === "fail") {
