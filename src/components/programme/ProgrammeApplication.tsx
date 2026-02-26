@@ -6,6 +6,7 @@ import Button from "../forms/Button";
 import { BsChevronLeft } from "react-icons/bs";
 import type {
   ProgrammeFormData,
+  ProgramObject,
   StepChildProps,
 } from "../../types/programFormData";
 import PersonalInfo from "./PersonalInfo";
@@ -23,6 +24,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import type { UserData } from "../../types/user";
 import { useNavigate, useParams } from "react-router-dom";
+import CourseSelection from "./CourseSelection";
 // import { ChevronRight, ChevronLeft, Calendar } from "lucide-react";
 
 // --- Types ---
@@ -36,14 +38,15 @@ interface Step {
 const steps: Step[] = [
   { id: 1, title: "Personal Info", sub: "Basic details" },
   { id: 2, title: "Contact & Address", sub: "Location info" },
-  // { id: 3, title: "Background", sub: "Education & work" },
-  { id: 3, title: "Documents", sub: "Upload files" },
-  { id: 4, title: "Review", sub: "Confirm details" },
+  { id: 3, title: "Course Selection", sub: "Choose your path" },
+  { id: 4, title: "Documents", sub: "Upload files" },
+  { id: 5, title: "Review", sub: "Confirm details" },
 ];
 
 const ProgrammeApplication: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [programCourses, setProgramCourses] = useState<ProgramObject[]>([]);
   const [userData, setUserData] = useState<Partial<UserData>>({
     state: "",
     lga: "",
@@ -62,6 +65,7 @@ const ProgrammeApplication: React.FC = () => {
     state: "",
     lga: "",
     phone: "",
+    selectedCourses: [],
   });
   // Change this:
   // const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -172,6 +176,7 @@ const ProgrammeApplication: React.FC = () => {
     try {
       const response = await completeProgrammeEnrollment(
         programSlug as string, // Pass User I
+        formData.selectedCourses!
       );
       if (response.status === "success") {
         toast.success(response.message);
@@ -208,10 +213,15 @@ const ProgrammeApplication: React.FC = () => {
       case 2:
         return handleContactStep();
       case 3:
+          // setSelectedCourses([]);
+          // setFormData((prev: any) => ({ ...prev, selectedCourses: [] }));
+          setCurrentStep(currentStep + 1);
+          break;
+      case 4:
         setCurrentStep(currentStep + 1);
         break;
       // return handleDocumentsStep();
-      case 4:
+      case 5:
         handleFinishEnrollment();
         break;
       default:
@@ -235,6 +245,8 @@ const ProgrammeApplication: React.FC = () => {
       setFieldErrors,
       userData,
       setUserData,
+      setProgramCourses,
+      programCourses
     };
     switch (currentStep) {
       case 1:
@@ -243,9 +255,11 @@ const ProgrammeApplication: React.FC = () => {
         return <ContactAndAddress {...props} />;
       case 3:
         // return <Background {...props} />;
-        return <Documents {...props} />;
+        return <CourseSelection {...props} />
       case 4:
         // completeProgrammeEnrollment(user?.user?.id?.toString(), userData?.id);
+        return <Documents {...props} />;
+      case 5:
         return <ApplicationReview {...props} />;
       default:
         return null;
@@ -289,6 +303,7 @@ const ProgrammeApplication: React.FC = () => {
     }
   };
 
+ 
   useEffect(() => {
     console.log("user", user);
     // Extract the user object regardless of nesting

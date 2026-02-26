@@ -34,7 +34,8 @@ axiosClient.interceptors.response.use(
     if (error.response?.status === 401) {
       // Optionally logout user or redirect
       console.log("Unauthorized, logging out...");
-      localStorage.removeItem("token");
+      localStorage.removeItem("cbt_token");
+      location.replace("/login");
     }
     return Promise.reject(error);
   },

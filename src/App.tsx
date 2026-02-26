@@ -92,11 +92,12 @@ function App() {
           </Route>
 
           <Route path="/exams" element={<Examination />} />
+          <Route path="/applications/:applicationId/exams" element={<Examination />} />
           <Route
-            path="/exams/prechecks"
-            element={<ExaminationPrechecks onStart={() => {}} />}
+            path="/program/:programId/exams/:id/prechecks"
+            element={<ExaminationPrechecks />}
           />
-          <Route path="/exams/start" element={<ExamInterface />} />
+          <Route path="/exams/:id/start" element={<ExamInterface />} />
         </Route>
       </Route>
 

@@ -1,91 +1,115 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ExaminationInprogress, {
   type QuestionAnswers,
 } from "../components/examination/ExaminationInprogress";
 import SubmissionModal from "../components/ui/modal/SubmitModal";
+import { submitExam } from "../services/api/examService";
+import { toast } from "react-toastify";
 
-// Dummy data matching your interfaces
-const DUMMY_QUESTIONS = [
-  {
-    id: 1,
-    question: "Question 1",
-    text: "Which of the following is a primary color in the RGB color model?",
-    options: [
-      { id: 101, letter: "A", text: "Green" },
-      { id: 102, letter: "B", text: "Yellow" },
-      { id: 103, letter: "C", text: "Pink" },
-      { id: 104, letter: "D", text: "Brown" },
-    ],
-  },
-  {
-    id: 2,
-    question: "Question 2",
-    text: "What is the capital of France?",
-    options: [
-      { id: 201, letter: "A", text: "London" },
-      { id: 202, letter: "B", text: "Berlin" },
-      { id: 203, letter: "C", text: "Paris" },
-      { id: 204, letter: "D", text: "Madrid" },
-    ],
-  },
-  {
-    id: 3,
-    question: "Question 3",
-    text: "Which programming language is primarily used for Android app development?",
-    options: [
-      { id: 301, letter: "A", text: "Swift" },
-      { id: 302, letter: "B", text: "Kotlin" },
-      { id: 303, letter: "C", text: "Objective-C" },
-      { id: 304, letter: "D", text: "C#" },
-    ],
-  },
-  {
-    id: 4,
-    question: "Question 4",
-    text: "Which planet is known as the Red Planet?",
-    options: [
-      { id: 401, letter: "A", text: "Venus" },
-      { id: 402, letter: "B", text: "Jupiter" },
-      { id: 403, letter: "C", text: "Mars" },
-      { id: 404, letter: "D", text: "Saturn" },
-    ],
-  },
-  {
-    id: 5,
-    question: "Question 5",
-    text: "What is the square root of 64?",
-    options: [
-      { id: 501, letter: "A", text: "6" },
-      { id: 502, letter: "B", text: "7" },
-      { id: 503, letter: "C", text: "8" },
-      { id: 504, letter: "D", text: "9" },
-    ],
-  },
-];
+const getInitialExamData = () => {
+  const stored = localStorage.getItem("activeExam");
+  if (!stored) return null;
+  return JSON.parse(stored);
+};
 
 const ExamInterface = () => {
+  const initialData = getInitialExamData();
+  const navigate = useNavigate();
+
+  const [exam] = useState<any>(initialData?.exam ?? null);
+  const [attempt] = useState<any>(initialData?.attempt ?? null);
+  const [selectedAnswers, setSelectedAnswers] =
+    useState<QuestionAnswers>(initialData?.answers ?? {});
   const [showModal, setShowModal] = useState(false);
-  const [selectedAnswers] = useState<QuestionAnswers>({});
-  const totalQuestions = DUMMY_QUESTIONS.length;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (!exam || !attempt) {
+    navigate("/");
+    return null;
+  }
+
+  const totalQuestions = exam.questions.length;
   const answeredCount = Object.keys(selectedAnswers).length;
 
-  const handleSubmitFinal = () => {
-    console.log("Submitting to API:", selectedAnswers);
-    // Add your API call logic here
-    setShowModal(false);
+  /*
+  -------------------------------------------------
+    FORMAT ANSWERS FOR BACKEND
+  -------------------------------------------------
+  */
+  const formatAnswers = () => {
+    return Object.entries(selectedAnswers).map(
+      ([questionId, optionId]) => ({
+        questionId: Number(questionId),
+        optionId,
+      })
+    );
+  };
+
+  /*
+  -------------------------------------------------
+    FINAL SUBMISSION
+  -------------------------------------------------
+  */
+  const handleSubmitFinal = async () => {
+    try {
+      setIsSubmitting(true);
+
+      const response = await submitExam(attempt.id, formatAnswers());
+      console.log("response",  response);
+      if(response.status === 'success'){
+        toast.success(response.message);
+        navigate(`/exams/${exam.id}/result/${attempt.id}`);
+      }else{
+        toast.error(response.message);
+      } 
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Submission failed");
+      }
+
+      // const result = await response.json();
+     
+      // if(result.stat)
+
+      /*
+        Clear local storage AFTER successful submission
+      */
+      // localStorage.removeItem("activeExam");
+
+      /*
+        Navigate to result page
+        You can pass state or use a result route param
+      */
+      // navigate(`/exam-result/${attempt.id}`, {
+      //   state: result.data,
+      // });
+
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      alert(error.message || "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+      setShowModal(false);
+    }
   };
 
   return (
     <>
       <ExaminationInprogress
-        questions={DUMMY_QUESTIONS}
+        exam={exam}
+        attempt={attempt}
         setShowModal={setShowModal}
+        selectedAnswers={selectedAnswers}
+        setSelectedAnswers={setSelectedAnswers}
       />
 
       {showModal && (
         <SubmissionModal
           total={totalQuestions}
           answered={answeredCount}
+          isSubmitting={isSubmitting}
           onReview={() => setShowModal(false)}
           onSubmit={handleSubmitFinal}
         />

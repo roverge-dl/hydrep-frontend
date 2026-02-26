@@ -6,7 +6,8 @@ import { BsChevronLeft } from "react-icons/bs";
 import { BiFile, BiLoaderAlt, BiErrorCircle } from "react-icons/bi";
 import { FiSend } from "react-icons/fi";
 import { IoIosHourglass } from "react-icons/io";
-import { HiArrowTopRightOnSquare } from "react-icons/hi2";
+import { HiArrowRight, HiArrowTopRightOnSquare } from "react-icons/hi2";
+import { statusColors } from "../utils/statics";
 
 // Components
 import PageLayout from "../components/ui/PageLayout";
@@ -14,6 +15,7 @@ import ApplicationDetailPersonalnfo from "../components/application/ApplicationD
 
 // Service
 import { getApplicationDetails, type ApplicationDetailResponse } from "../services/api/applicationService";
+import Button from "../components/forms/Button";
 
 const TABS = [{ label: "Details" }, { label: "Documents" }];
 
@@ -120,7 +122,7 @@ const ApplicationDetail = () => {
               whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer
               ${
                 activeTab === tab.label
-                  ? "bg-white text-hgreen-500 shadow-sm border border-slate-100"
+                  ? "bg-white text-green-500 shadow-sm border border-slate-100"
                   : "text-hdark-300 hover:text-hdark-500 hover:bg-slate-50"
               }
             `}
@@ -193,12 +195,18 @@ const ApplicationDetail = () => {
             Application Summary
           </h3>
           
-          <div className="flex items-center space-x-2 border border-[#1D4ED8] rounded-lg p-2 bg-[#EFF6FF] w-fit mb-6">
-            <FiSend className="w-4 h-4 text-[#1D4ED8]" />
-            <span className="text-xs text-[#1D4ED8] font-medium">
-              Submitted
-            </span>
+          <div className="flex justify-between">
+
+            <div className={`flex items-center space-x-2 border border-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} rounded-lg p-2 bg-[#EFF6FF] w-fit mb-6`} >
+              <FiSend className={`w-4 h-4 text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]}`} />
+              <span className={`text-xs text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} font-medium`}>
+                {application.status}
+              </span>
+            </div>
+            
+           
           </div>
+          
 
           <div className="flex flex-col gap-4 border-t border-gray-100 pt-4">
             <div className="flex justify-between items-start gap-4">
@@ -227,6 +235,10 @@ const ApplicationDetail = () => {
                 {application.submitted_at}
               </span>
             </div>
+             <Button rightIcon={<HiArrowRight className="w-4 h-4" />}>
+              
+              <Link to={`/applications/${application.id}/exams`}>Start Exams</Link>
+            </Button>
           </div>
         </div>
 
