@@ -58,7 +58,6 @@ const Login = () => {
 
       // Check success based on your API response structure
       if (response.status === "success") {
-        console.log(response.data);
         toast.success(response.message);
         login(response.data);
         localStorage.setItem("cbt_token", response.data.token);

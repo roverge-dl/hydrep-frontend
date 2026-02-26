@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useMemo, useState } from "react";
 import { BsClock } from "react-icons/bs";
 import { QuestionOption } from "./QuestionOption";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -6,144 +7,210 @@ import Button from "../forms/Button";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 interface ExaminationInprogressProps {
-  questions: Question[];
+  exam: any;
+  attempt: any;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface Question {
-  id: number;
-  question: string;
-  text: string;
-  options: Option[];
+  selectedAnswers: QuestionAnswers;
+  setSelectedAnswers: React.Dispatch<
+    React.SetStateAction<QuestionAnswers>
+  >;
 }
 
 type Option = {
   id: number;
-  letter: string;
+  letter?: string;
   text: string;
 };
+
+interface Question {
+  id: number;
+  text: string;
+  options: Option[];
+}
 
 export interface QuestionAnswers {
   [questionId: number]: number;
 }
 
-const ExaminationInprogress: React.FC<ExaminationInprogressProps> = ({
-  questions,
+const ExaminationInprogress: React.FC<
+  ExaminationInprogressProps
+> = ({
+  exam,
+  attempt,
   setShowModal,
+  selectedAnswers,
+  setSelectedAnswers,
 }) => {
+  const questions: Question[] = exam.questions;
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<QuestionAnswers>({});
+  const [timeLeft, setTimeLeft] = useState<number>(0);
 
   const currentQuestion = questions[currentIndex];
 
+  /* --------------------------------------------
+     TIMER LOGIC (based on server expiresAt)
+  ---------------------------------------------*/
+  useEffect(() => {
+    const expiry = new Date(attempt.expiresAt).getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = Math.max(0, Math.floor((expiry - now) / 1000));
+
+      setTimeLeft(diff);
+
+      if (diff <= 0) {
+        clearInterval(interval);
+        setShowModal(true); // Auto submit when time runs out
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [attempt.expiresAt, setShowModal]);
+
+  /* --------------------------------------------
+     PERSIST ANSWERS TO LOCAL STORAGE
+  ---------------------------------------------*/
+  useEffect(() => {
+    const stored = localStorage.getItem("activeExam");
+    if (!stored) return;
+
+    const parsed = JSON.parse(stored);
+    parsed.answers = selectedAnswers;
+
+    localStorage.setItem("activeExam", JSON.stringify(parsed));
+  }, [selectedAnswers]);
+
   const handleSelect = (optionId: number) => {
-    setAnswers({ ...answers, [currentQuestion.id]: optionId });
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [currentQuestion.id]: optionId,
+    }));
   };
 
+  const answeredCount = Object.keys(selectedAnswers).length;
+  const unansweredCount = questions.length - answeredCount;
+
+  const formattedTime = useMemo(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  }, [timeLeft]);
+
   return (
-    <div className="min-h-screen relative ">
-      <header className="sticky  w-full top-0 bg-white shadow-sm rounded-lg p-4 flex justify-between items-center z-10 mobilesm:flex-nowrap flex-wrap space-y-4 ">
-        <div className="mobilesm:w-fit w-full">
-          <h1 className="font-bold">General Aptitude Test</h1>
+    <div className="min-h-screen relative">
+      {/* HEADER */}
+      <header className="sticky w-full top-0 bg-white shadow-sm rounded-lg p-4 flex justify-between items-center z-10">
+        <div>
+          <h1 className="font-bold">{exam.title}</h1>
           <p className="text-xs text-gray-500">
             Question {currentIndex + 1} of {questions.length}
           </p>
         </div>
-        <div className="flex items-center gap-2 bg-hgrey-300 px-4 py-2 rounded-lg font-bold text-xl ">
-          <BsClock size={20} /> 18:59
+
+        <div className="flex items-center gap-2 bg-hgrey-300 px-4 py-2 rounded-lg font-bold text-xl">
+          <BsClock size={20} /> {formattedTime}
         </div>
       </header>
 
+      {/* MAIN */}
       <main className="max-w-6xl mx-auto grid grid-cols-1 tabletlg:grid-cols-6 gap-8 sm:p-4 mt-4">
-        <div className="tabletlg:col-span-4 ">
-          <div>
-            <div className="flex items-center  rounded text-xs  mb-4 gap-x-2">
-              <span className="mobilemd:h-10 h-8 mobilemd:w-10 w-8 p-1 rounded-lg bg-hgreen-500 text-white flex items-center justify-center text-lg font-bold">
-                {currentIndex + 1}
-              </span>
-              <p className="text-sm text-hdark-400">
-                Question {currentIndex + 1} of {questions.length}
-              </p>{" "}
-            </div>
-            <h2 className="text-base font-medium mb-4 text-hdark-400">
+        {/* QUESTION AREA */}
+        <div className="tabletlg:col-span-4">
+          <div className="mb-4">
+            <h2 className="text-base font-medium text-hdark-400">
               {currentQuestion?.text}
             </h2>
           </div>
-          <div className="bg-white mobilelg:p-6 p-4 rounded-xl border border-hgrey-500 min-h-fit space-y-4">
-            {currentQuestion.options.map((opt) => (
+
+          <div className="bg-white p-4 rounded-xl border border-hgrey-500 space-y-4">
+            {currentQuestion.options.map((opt, index) => (
               <QuestionOption
                 key={opt.id}
-                letter={opt.letter}
+                letter={
+                  opt.letter ?? String.fromCharCode(65 + index)
+                }
                 text={opt.text}
-                isSelected={answers[currentQuestion.id] === opt.id}
+                isSelected={
+                  selectedAnswers[currentQuestion.id] === opt.id
+                }
                 onClick={() => handleSelect(opt.id)}
               />
             ))}
           </div>
 
+          {/* NAVIGATION */}
           <div className="flex justify-between mt-4 items-center">
             <Button
               disabled={currentIndex === 0}
-              onClick={() => setCurrentIndex((prev) => prev - 1)}
-              className="px-6 py-2 bg-white border border-hdark-300 rounded-lg hover:bg-gray-50 disabled:opacity-30"
-              leftIcon={<BiChevronLeft className="w-6  h-6" />}
-              variant="ghost">
+              onClick={() =>
+                setCurrentIndex((prev) => prev - 1)
+              }
+              variant="ghost"
+              leftIcon={<BiChevronLeft className="w-6 h-6" />}
+            >
               Previous
             </Button>
+
             <Button
-              rightIcon={<BiChevronRight className="w-6  h-6" />}
+              rightIcon={<BiChevronRight className="w-6 h-6" />}
               onClick={() =>
                 currentIndex === questions.length - 1
                   ? setShowModal(true)
                   : setCurrentIndex((prev) => prev + 1)
               }
-              className="px-8 py-2 bg-green-600 text-white rounded-lg font-bold">
-              {currentIndex === questions.length - 1 ? "Submit Exam" : "Next"}
+            >
+              {currentIndex === questions.length - 1
+                ? "Submit Exam"
+                : "Next"}
             </Button>
           </div>
         </div>
 
+        {/* NAVIGATOR */}
         <aside className="bg-white p-4 rounded-xl border border-hgrey-500 h-fit tabletlg:col-span-2">
           <h3 className="font-semibold text-hdark-400 mb-4 text-sm">
             Question Navigator
           </h3>
-          <div className="grid grid-cols-5  gap-2">
+
+          <div className="grid grid-cols-5 gap-2">
             {questions.map((q, i) => (
               <button
                 key={q.id}
                 onClick={() => setCurrentIndex(i)}
-                className={`w-10 h-10 rounded-md border border-hgrey-500 text-xs font-bold relative ${
+                className={`w-10 h-10 rounded-md border text-xs font-bold relative ${
                   currentIndex === i
-                    ? "border-transparent  bg-green-600 text-white"
-                    : answers[q.id]
-                      ? " text-green-600 bg-green-50 border-green-500"
-                      : "bg-white"
-                }`}>
-                {answers[q.id] && (
-                  <span className={`absolute top-0 right-0 text-green-500`}>
-                    <FaRegCheckCircle className="w-3 h-3 " />
-                  </span>
-                )}
-                {answers[q.id] && currentIndex === i && (
-                  <span className={`absolute top-0 right-0 text-white`}>
-                    <FaRegCheckCircle className="w-3 h-3 " />
-                  </span>
+                    ? "bg-green-600 text-white"
+                    : selectedAnswers[q.id]
+                    ? "text-green-600 bg-green-50 border-green-500"
+                    : "bg-white"
+                }`}
+              >
+                {selectedAnswers[q.id] && (
+                  <FaRegCheckCircle className="absolute top-0 right-0 w-3 h-3" />
                 )}
                 {i + 1}
               </button>
             ))}
           </div>
 
-          <div className="w-full space-y-2 mt-4">
-            <div className="flex justify-between items-center w-full text-sm font-normal ">
-              <span className=" text-hdark-400">Answered: </span>
+          <div className="mt-4 space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span>Answered:</span>
               <span className="text-hgreen-500 font-semibold">
-                1/{questions.length}
+                {answeredCount}/{questions.length}
               </span>
             </div>
-            <div className="flex justify-between items-center text-sm font-normal">
-              <span className="text-hdark-400">Unanswered:</span>
-              <span className="text-hdark-500 font-semibold">4</span>
+
+            <div className="flex justify-between">
+              <span>Unanswered:</span>
+              <span className="font-semibold">
+                {unansweredCount}
+              </span>
             </div>
           </div>
         </aside>
@@ -151,4 +218,5 @@ const ExaminationInprogress: React.FC<ExaminationInprogressProps> = ({
     </div>
   );
 };
+
 export default ExaminationInprogress;

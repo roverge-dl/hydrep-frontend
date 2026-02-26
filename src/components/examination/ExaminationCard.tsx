@@ -14,6 +14,8 @@ interface ExaminationProps {
   time: string;
   statusColor?: string;
   status?: string;
+  examId: string;
+  programId?: string | null
 }
 
 export default function ExaminationCard({
@@ -23,6 +25,9 @@ export default function ExaminationCard({
   description,
   questions,
   time,
+  examId,
+  programId
+
 }: ExaminationProps) {
   const navigate = useNavigate();
   return (
@@ -69,7 +74,7 @@ export default function ExaminationCard({
       {/* Action Footer */}
       <div className="p-5 pt-0">
         <Button
-          onClick={() => navigate("/exams/prechecks")}
+          onClick={() => navigate(`/program/${programId}/exams/${examId}/prechecks`)}
           variant="primary"
           rightIcon={<BiChevronRight size={18} />}
           className="text-sm w-full">

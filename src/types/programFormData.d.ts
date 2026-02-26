@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UserData } from "./user";
 
 export interface ProgrammeFormData {
@@ -19,6 +20,9 @@ export interface ProgrammeFormData {
   lga_id?: string;
   lga?: string;
   documents?: File[];
+  // course_id?: string;
+  selectedCourses?: string[];
+  
   //Step 3
   // highestEducationLevel?: string;
   // institutionName?: string;
@@ -30,7 +34,15 @@ export interface ProgrammeFormData {
   // documents?: File[];
 }
 
+export interface ProgramObject {
+  label: string;
+  value: string,
+  description:string
+}
+
 export interface StepChildProps {
+  programCourses?: ProgramObject[];
+  setProgramCourses?: React.Dispatch<React.SetStateAction<ProgramObject[]>>;
   formData: ProgrammeFormData;
   setFormData: React.Dispatch<React.SetStateAction<ProgrammeFormData>>;
   handleInputChange: (
@@ -39,6 +51,7 @@ export interface StepChildProps {
   fieldErrors: Record<string, string | string[]>;
   setFieldErrors: React.Dispatch<
     React.SetStateAction<Record<string, string | string[]>>
+  
   >;
   userData?: Partial<UserData>;
   setUserData?: React.Dispatch<React.SetStateAction<Partial<UserData>>>;

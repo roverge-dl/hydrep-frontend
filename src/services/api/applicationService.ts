@@ -303,11 +303,11 @@ export const uploadRequirementDocument = async (
   }
 };
 
-export const completeProgrammeEnrollment = async (programSlug: string) => {
+export const completeProgrammeEnrollment = async (programSlug: string, courses: number[] | string[]) => {
   try {
     // Note: Adjust the payload keys to match what your AdonisJS backend expects (snake_case is common in backend)
 
-    const response = await axiosClient.post(`/enrollments`, { programSlug });
+    const response = await axiosClient.post(`/enrollments`, { programSlug, courses});
 
     return response.data;
   } catch (err: any) {
@@ -381,3 +381,26 @@ export const getApplicationDetails = async (id: string) => {
     };
   }
 };
+
+// src/services/api/applicationService.ts
+
+export const getProgramDetail = async (slug: string) => {
+  try {
+    // Assuming your backend has an endpoint like /programs/:slug/courses
+    const { data } = await axiosClient.get(`/programs/${slug}/details`);
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to load courses",
+      };
+    }
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+
+
