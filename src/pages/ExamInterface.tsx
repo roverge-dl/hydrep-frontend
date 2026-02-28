@@ -64,11 +64,8 @@ const ExamInterface = () => {
       }else{
         toast.error(response.message);
       } 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Submission failed");
-      }
-
+      
+      
       // const result = await response.json();
      
       // if(result.stat)
