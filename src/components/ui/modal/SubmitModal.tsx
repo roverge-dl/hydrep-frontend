@@ -14,7 +14,7 @@ const SubmissionModal = ({
   answered,
   onReview,
   onSubmit,
-  isSubmitting
+  isSubmitting,
 }: submitModalProps) => (
   <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-999999">
     <div className="bg-white rounded-xl max-w-xl w-full mobilemd:p-8 p-4 shadow-2xl">
@@ -60,7 +60,10 @@ const SubmissionModal = ({
           variant="outline">
           Review Answers
         </Button>
-        <Button onClick={onSubmit} disabled={isSubmitting} className="mobilemd:w-fit w-full">
+        <Button
+          onClick={onSubmit}
+          disabled={isSubmitting}
+          className="mobilemd:w-fit w-full">
           {isSubmitting ? "Submitting..." : "Submit Exam"}
         </Button>
       </div>

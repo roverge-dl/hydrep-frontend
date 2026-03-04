@@ -25,12 +25,27 @@ const LandingPage = () => {
             <BiMenu size={24} />
           </button>
           <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-            <a href="/programmes">Programs</a> {/* [cite: 4, 51] */}
-            <a href="#features">Features</a> {/* [cite: 49] */}
-            <a href="#benefits">Benefits</a> {/* [cite: 50] */}
+            <a
+              href="#programs"
+              className="hover:underline hover:text-hdark-500 active:text-hdark-500">
+              Programs
+            </a>{" "}
+            {/* [cite: 4, 51] */}
+            <a
+              href="#features"
+              className="hover:underline hover:text-hdark-500 active:text-hdark-500">
+              Features
+            </a>{" "}
+            {/* [cite: 49] */}
+            <a
+              href="#benefits"
+              className="hover:underline hover:text-hdark-500 active:text-hdark-500">
+              Benefits
+            </a>{" "}
+            {/* [cite: 50] */}
           </div>
           <div className=" gap-4 items-center mobilemd:flex hidden">
-            <Link to="/login" className="text-sm font-semibold">
+            <Link to="/login" className="text-sm font-semibold hover:underline">
               Sign In
             </Link>{" "}
             {/* [cite: 5, 52] */}
@@ -52,7 +67,9 @@ const LandingPage = () => {
               <a href="/programmes">Programs</a>
               <a href="#features">Features</a>
               <a href="#benefits">Benefits</a>
-              <Link to="/login" className="text-sm font-semibold">
+              <Link
+                to="/login"
+                className="text-sm font-semibold hover:underline">
                 Sign In
               </Link>{" "}
               <Link to="/register">
@@ -64,7 +81,9 @@ const LandingPage = () => {
       </header>
 
       <div>
-        <section className="relative   items-center bg-linear-to-tr from-[#00BF6F] via-[#224B41] to-[#00BF6F] tabletmd:pt-20 pt-12">
+        <section
+          className="relative   items-center bg-linear-to-tr from-[#00BF6F] via-[#224B41] to-[#00BF6F] tabletmd:pt-20 pt-12"
+          id="features">
           <div className="max-w-6xl laptopmd:px-0 mobilemd:px-8 px-4 py-16 md:py-24  mx-auto grid tabletlg:grid-cols-2 tabletlg:gap-12 gap-8 ">
             <div className="space-y-4">
               <div className="flex justify-between items-center px-4 py-3 w-fit gap-x-4 rounded-full backdrop-blur-2xl bg-[#FFFFFF1A]">
@@ -84,13 +103,17 @@ const LandingPage = () => {
                 government-backed initiatives {/* [cite: 9] */}
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-white text-hdark-500 rounded-lg hover:bg-transparent hover:border-white border border-transparent hover:text-white cursor-pointer flex items-center gap-2 transition-colors duration-300  ease-in-out">
+                <a
+                  href="/register"
+                  className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-white text-hdark-500 rounded-lg hover:bg-transparent hover:border-white border border-transparent hover:text-white cursor-pointer flex items-center gap-2 transition-colors duration-300  ease-in-out">
                   Get Started {/* [cite: 14] */}
                   <FiArrowRight />
-                </button>
-                <button className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-white text-hdark-500 rounded-lg hover:bg-transparent hover:border-white border border-transparent hover:text-white cursor-pointer flex items-center gap-2 transition-colors duration-300  ease-in-out">
+                </a>
+                <a
+                  href="/programmes"
+                  className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-white text-hdark-500 rounded-lg hover:bg-transparent hover:border-white border border-transparent hover:text-white cursor-pointer flex items-center gap-2 transition-colors duration-300  ease-in-out">
                   Explore Programs {/* [cite: 14] */}
-                </button>
+                </a>
               </div>
             </div>
 
@@ -154,7 +177,7 @@ const LandingPage = () => {
         {/* Features Section */}
         <section
           className="bg-white tabletmd:py-20 py-12 mobilemd:px-6 px-4"
-          id="features">
+          id="programs">
           <div className="max-w-7xl mx-auto text-center space-y-4 mb-16">
             <h2 className="text-2xl font-bold text-slate-900">
               Everything You Need to Succeed
@@ -280,7 +303,7 @@ const LandingPage = () => {
           </div>
         </section>
       </div>
-      <footer className="bg-[#00BF6F] text-white tabletmd:py-16 py-8 mobilemd:px-6 px-4 ">
+      <footer className="bg-[#224B41] text-white tabletmd:py-16 py-8 mobilemd:px-6 px-4 ">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-2 space-y-4">
@@ -299,21 +322,21 @@ const LandingPage = () => {
               <li>
                 <a
                   href="#features"
-                  className="hover:text-hgreen-600 hover:underline">
+                  className="hover:text-[#34D399] hover:underline">
                   Features
                 </a>
               </li>
               <li>
                 <a
                   href="#benefits"
-                  className="hover:text-hgreen-600 hover:underline">
+                  className="hover:text-[#34D399] hover:underline">
                   Benefits
                 </a>
               </li>
               <li>
                 <a
-                  href="/programmes"
-                  className="hover:text-hgreen-600 hover:underline">
+                  href="#programs"
+                  className="hover:text-[#34D399] hover:underline">
                   Programs
                 </a>
               </li>
@@ -326,15 +349,17 @@ const LandingPage = () => {
             {/* [cite: 54] */}
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="#" className="hover:text-hgreen-600 hover:underline">
-                  Learning Programs
+                <Link
+                  to="/applications"
+                  className="hover:text-[#34D399] hover:underline">
+                  Available Programs
                 </Link>
               </li>{" "}
               {/* [cite: 55] */}
               <li>
                 <Link
                   to="/programmes"
-                  className="hover:text-hgreen-600 hover:underline">
+                  className="hover:text-[#34D399] hover:underline">
                   Programmes
                 </Link>
               </li>{" "}
@@ -342,7 +367,7 @@ const LandingPage = () => {
               <li>
                 <Link
                   to="/register"
-                  className="hover:text-hgreen-600 hover:underline">
+                  className="hover:text-[#34D399] hover:underline">
                   Get Started
                 </Link>
               </li>{" "}
@@ -362,21 +387,21 @@ const LandingPage = () => {
           </p>
           <div className="">
             {/* [cite: 57] */}
-            <ul className="text-sm flex justify-center items-center tabletmd:gap-x-0 gap-x-4">
+            <ul className="text-sm flex justify-center items-center tabletmd:gap-x-4 gap-x-4">
               <li>
-                <Link to="#" className="hover:text-hgreen-500 hover:underline">
+                <Link to="#" className="hover:text-[#34D399] hover:underline">
                   Privacy Policy
                 </Link>
               </li>{" "}
               {/* [cite: 57] */}
               <li>
-                <Link to="#" className="hover:text-hgreen-500 hover:underline">
+                <Link to="#" className="hover:text-[#34D399] hover:underline">
                   Terms of Service
                 </Link>
               </li>{" "}
               {/* [cite: 57] */}
               <li>
-                <Link to="#" className="hover:text-hgreen-500 hover:underline">
+                <Link to="#" className="hover:text-[#34D399] hover:underline">
                   Contact
                 </Link>
               </li>{" "}
