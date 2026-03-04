@@ -17,6 +17,7 @@ import { useAuth } from "./context/AuthContext";
 import ForgotPassword from "./pages/ForgotPassword";
 import SentEmail from "./components/commons/SentEmail";
 import PasswordReset from "./pages/PasswordReset";
+import LandingPage from "./pages/LandingPage";
 
 interface ProtectedRouteProps {
   redirectPath?: string;
@@ -92,7 +93,10 @@ function App() {
           </Route>
 
           <Route path="/exams" element={<Examination />} />
-          <Route path="/applications/:applicationId/exams" element={<Examination />} />
+          <Route
+            path="/applications/:applicationId/exams"
+            element={<Examination />}
+          />
           <Route
             path="/program/:programId/exams/:id/prechecks"
             element={<ExaminationPrechecks />}
@@ -102,7 +106,8 @@ function App() {
       </Route>
 
       {/* Default/Fallback Routes */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+      <Route path="/" element={<LandingPage />} />
       {/* <Route path="*" element={<div className="p-10">Page Not Found</div>} /> */}
     </Routes>
   );

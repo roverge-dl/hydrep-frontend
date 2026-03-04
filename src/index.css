@@ -74,8 +74,12 @@
   --color-hdark-400: #334155;
   --color-hdark-300: #94a3b8;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: var(--font-primary);
+  scroll-behavior: smooth;
 }
 @layer components {
   .h2 {
