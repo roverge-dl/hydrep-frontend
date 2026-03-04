@@ -78,6 +78,7 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/sent-reset-link" element={<SentEmail />} />
       <Route path="/reset-password" element={<PasswordReset />} />
+      <Route path="/" element={<LandingPage />} />
 
       {/* Protected Routes Wrapper */}
       <Route element={<ProtectedRoute />}>
@@ -107,7 +108,7 @@ function App() {
 
       {/* Default/Fallback Routes */}
       {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
-      <Route path="/" element={<LandingPage />} />
+
       {/* <Route path="*" element={<div className="p-10">Page Not Found</div>} /> */}
     </Routes>
   );
