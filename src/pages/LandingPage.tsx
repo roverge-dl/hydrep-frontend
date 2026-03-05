@@ -101,16 +101,14 @@ const LandingPage = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="flex flex-col justify-center min-h-screen w-full fixed inset-0 p-8 bg-hgreen-200 z-[100]">
+              className="flex flex-col justify-center min-h-screen w-full fixed inset-0 p-8 bg-hgreen-200 z-100">
               <button
                 className="self-end absolute top-6 right-6"
                 onClick={() => setIsMenuOpen(false)}>
                 <IoIosCloseCircle className="text-red-500 w-10 h-10" />
               </button>
-              <ul className="space-y-8 flex-col flex text-xl font-bold text-hdark-500">
-                <motion.a
-                  onClick={() => setIsMenuOpen(false)}
-                  href="/programmes">
+              <ul className="space-y-8 flex-col flex text-base font-semibold text-hdark-500">
+                <motion.a onClick={() => setIsMenuOpen(false)} href="#programs">
                   Programs
                 </motion.a>
                 <motion.a onClick={() => setIsMenuOpen(false)} href="#features">
@@ -169,7 +167,7 @@ const LandingPage = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   href="/programmes"
-                  className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-white text-hdark-500 rounded-lg hover:bg-transparent hover:border-white border border-transparent hover:text-white cursor-pointer flex items-center gap-2 transition-all duration-300">
+                  className="mobilemd:px-6 px-3 mobilemd:text-base text-sm py-3 bg-transparent rounded-lg hover:bg-transparent border-white border  text-white cursor-pointer flex items-center gap-2 transition-all duration-300">
                   Explore Programs
                 </motion.a>
               </div>
