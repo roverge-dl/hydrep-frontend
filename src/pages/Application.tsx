@@ -55,7 +55,7 @@ const Application = () => {
         }
       } catch (error: any) {
         console.error(error);
-        toast.error(error.message || "Could not load applications");
+        // toast.error(error.message || "Could not load applications");
       } finally {
         setIsLoading(false);
       }

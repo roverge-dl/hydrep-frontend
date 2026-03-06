@@ -32,10 +32,10 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="p-2 text-[#475569] hover:bg-hgrey-300 cursor-pointer  rounded-full relative">
+        {/* <button className="p-2 text-[#475569] hover:bg-hgrey-300 cursor-pointer  rounded-full relative">
           <BiBell className="w-6 h-6" />
           <span className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-white "></span>
-        </button>
+        </button> */}
         <div className="flex items-center gap-2 pl-2 border-l border-hgrey-300">
           <div className="w-10 h-10 bg-hgreen-500 rounded-full flex items-center justify-center text-white text-base font-bold">
             {user?.user?.first_name?.split("")[0]}

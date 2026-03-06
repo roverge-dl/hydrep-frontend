@@ -13,7 +13,7 @@ const navItems = [
   { name: "My Applications", path: "/applications", icon: FiFileText },
   { name: "My Programmes", path: "/programmes", icon: BiBriefcase },
   { name: "Examinations", path: "/exams", icon: LuGraduationCap },
-  { name: "Notifications", path: "/notifications", icon: BiBell },
+  // { name: "Notifications", path: "/notifications", icon: BiBell },
 ];
 
 export default function Sidebar({

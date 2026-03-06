@@ -37,6 +37,8 @@ const LandingPage = () => {
   const year = new Date().getFullYear();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const token = localStorage.getItem("cbt_token");
+
   // Fixed: use scrollYProgress for the progress bar
   const { scrollYProgress } = useScroll();
 
@@ -44,7 +46,7 @@ const LandingPage = () => {
     <div className="min-h-screen">
       {/* Fixed Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-hgreen-500 z-[70] origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-hgreen-500 z-70 origin-left"
         style={{ scaleX: scrollYProgress }}
       />
 
@@ -80,16 +82,31 @@ const LandingPage = () => {
           </div>
 
           <div className="gap-4 items-center mobilemd:flex hidden">
-            <Link
-              to="/login"
-              className="text-sm font-semibold hover:text-hgreen-600">
-              Sign In
-            </Link>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/register">
-                <Button onClick={() => {}}>Get Started</Button>
+            {!token && (
+              <Link
+                to="/login"
+                className="text-sm font-semibold hover:text-hgreen-600">
+                Sign In
               </Link>
-            </motion.div>
+            )}
+            {token && (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}>
+                <Link to="/dashboard">
+                  <Button onClick={() => {}}>Go to Dashboard</Button>
+                </Link>
+              </motion.div>
+            )}
+            {!token && (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}>
+                <Link to="/register">
+                  <Button onClick={() => {}}>Get Started</Button>
+                </Link>
+              </motion.div>
+            )}
           </div>
         </nav>
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/pages/dashboard/ApplicationDetail.tsx
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom"; // Changed href to Link for SPA navigation
+import { useParams, Link, useNavigate } from "react-router-dom"; // Changed href to Link for SPA navigation
 import { BsChevronLeft } from "react-icons/bs";
 import { BiFile, BiLoaderAlt, BiErrorCircle } from "react-icons/bi";
 import { FiSend } from "react-icons/fi";
@@ -14,18 +14,25 @@ import PageLayout from "../components/ui/PageLayout";
 import ApplicationDetailPersonalnfo from "../components/application/ApplicationDetailPersonalnfo";
 
 // Service
-import { getApplicationDetails, type ApplicationDetailResponse } from "../services/api/applicationService";
+import {
+  getApplicationDetails,
+  type ApplicationDetailResponse,
+} from "../services/api/applicationService";
 import Button from "../components/forms/Button";
+import { FcApproval } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 const TABS = [{ label: "Details" }, { label: "Documents" }];
 
 const ApplicationDetail = () => {
   const { id } = useParams<{ id: string }>(); // Get ID from URL
   const [activeTab, setActiveTab] = useState("Details");
-  
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [application, setApplication] = useState<ApplicationDetailResponse | null>(null);
+  const [application, setApplication] =
+    useState<ApplicationDetailResponse | null>(null);
 
   // Fetch Data on Mount
   useEffect(() => {
@@ -64,7 +71,9 @@ const ApplicationDetail = () => {
         <BiErrorCircle className="w-12 h-12 mb-3" />
         <p className="text-lg font-semibold">Error Loading Application</p>
         <p className="text-sm text-gray-500">{error}</p>
-        <Link to="/applications" className="mt-4 text-sm underline text-hdark-500">
+        <Link
+          to="/applications"
+          className="mt-4 text-sm underline text-hdark-500">
           Go back to list
         </Link>
       </div>
@@ -74,9 +83,12 @@ const ApplicationDetail = () => {
   // --- Helper: Status Colors ---
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'approved': return 'bg-green-50 text-green-700 border-green-200';
-      case 'rejected': return 'bg-red-50 text-red-700 border-red-200';
-      default: return 'bg-[#EFF6FF] text-[#1E40AF] border-[#BFDBFE]'; // Pending
+      case "approved":
+        return "bg-green-50 text-green-700 border-green-200";
+      case "rejected":
+        return "bg-red-50 text-red-700 border-red-200";
+      default:
+        return "bg-[#EFF6FF] text-[#1E40AF] border-[#BFDBFE]"; // Pending
     }
   };
 
@@ -88,7 +100,7 @@ const ApplicationDetail = () => {
           Back to Applications
         </span>
       </Link>
-      
+
       <PageLayout
         title="Application Details"
         subtitle={`View details for ${application.application_no}`}
@@ -97,17 +109,20 @@ const ApplicationDetail = () => {
       />
 
       {/* Dynamic Status Banner */}
-      <div className={`border rounded-xl p-4 flex items-center gap-3 my-8 ${getStatusColor(application.status)}`}>
-        <IoIosHourglass size={20} />
+      <div
+        className={`border rounded-xl p-4 flex items-center gap-3 my-8 ${getStatusColor(application.status)}`}>
+        {application.status === "Approved" ? (
+          <FcApproval size={20} className="text-green-500" />
+        ) : (
+          <IoIosHourglass size={20} />
+        )}
+
         <div>
-          <p className="text-sm font-medium">
-            Status: {application.status}
-          </p>
+          <p className="text-sm font-medium">Status: {application.status}</p>
           <p className="text-xs opacity-80 mt-0.5">
-            {application.status === 'Pending' 
+            {application.status === "Pending"
               ? "Your application is currently being reviewed. You will be notified of updates."
-              : `This application has been ${application.status.toLowerCase()}.`
-            }
+              : `This application has been ${application.status.toLowerCase()}.`}
           </p>
         </div>
       </div>
@@ -125,15 +140,13 @@ const ApplicationDetail = () => {
                   ? "bg-white text-green-500 shadow-sm border border-slate-100"
                   : "text-hdark-300 hover:text-hdark-500 hover:bg-slate-50"
               }
-            `}
-          >
+            `}>
             {tab.label}
           </button>
         ))}
       </div>
 
       <div className="flex justify-between gap-6 laptopmd:flex-row flex-col-reverse">
-        
         {/* LEFT COLUMN: Main Content */}
         {activeTab === "Details" && (
           <div className="laptopmd:w-8/12 w-full">
@@ -147,14 +160,13 @@ const ApplicationDetail = () => {
             <h3 className="text-sm font-bold text-hdark-500 mb-4 border-b pb-2">
               Uploaded Documents ({application.documents.length})
             </h3>
-            
+
             <div className="space-y-3">
               {application.documents.length > 0 ? (
                 application.documents.map((doc) => (
                   <div
                     key={doc.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-lg group hover:border-green-500/50 transition-all"
-                  >
+                    className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-lg group hover:border-green-500/50 transition-all">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-white border border-gray-100 rounded text-green-600">
                         <BiFile size={20} />
@@ -168,14 +180,13 @@ const ApplicationDetail = () => {
                         </p>
                       </div>
                     </div>
-                    
+
                     <a
                       href={doc.file_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 text-gray-400 hover:text-green-600 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
-                      title="View Document"
-                    >
+                      title="View Document">
                       <HiArrowTopRightOnSquare size={18} />
                     </a>
                   </div>
@@ -194,19 +205,19 @@ const ApplicationDetail = () => {
           <h3 className="text-sm font-bold text-hdark-500 mb-4">
             Application Summary
           </h3>
-          
-          <div className="flex justify-between">
 
-            <div className={`flex items-center space-x-2 border border-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} rounded-lg p-2 bg-[#EFF6FF] w-fit mb-6`} >
-              <FiSend className={`w-4 h-4 text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]}`} />
-              <span className={`text-xs text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} font-medium`}>
+          <div className="flex justify-between">
+            <div
+              className={`flex items-center space-x-2 border border-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} rounded-lg p-2  ${application.status === "Approved" ? "bg-green-50" : "bg-[#EFF6FF]"} w-fit mb-6`}>
+              <FiSend
+                className={`w-4 h-4 text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]}`}
+              />
+              <span
+                className={`text-xs text-${statusColors[application?.status?.toLowerCase() as keyof typeof statusColors]} font-medium`}>
                 {application.status}
               </span>
             </div>
-            
-           
           </div>
-          
 
           <div className="flex flex-col gap-4 border-t border-gray-100 pt-4">
             <div className="flex justify-between items-start gap-4">
@@ -217,7 +228,7 @@ const ApplicationDetail = () => {
                 {application.application_no}
               </span>
             </div>
-            
+
             <div className="flex justify-between items-start gap-4">
               <span className="text-xs text-hdark-300 font-medium whitespace-nowrap">
                 Programme:
@@ -226,7 +237,7 @@ const ApplicationDetail = () => {
                 {application.program.title}
               </span>
             </div>
-            
+
             <div className="flex justify-between items-start gap-4">
               <span className="text-xs text-hdark-300 font-medium whitespace-nowrap">
                 Date Submitted:
@@ -235,13 +246,22 @@ const ApplicationDetail = () => {
                 {application.submitted_at}
               </span>
             </div>
-             <Button rightIcon={<HiArrowRight className="w-4 h-4" />}>
-              
-              <Link to={`/applications/${application.id}/exams`}>Start Exams</Link>
+            <Button
+              rightIcon={<HiArrowRight className="w-4 h-4" />}
+              onClick={() => {
+                if (application.status === "Pending") {
+                  // Handle the case where the application is not approved
+                  toast.error(
+                    "You cannot start exams until your application is approved.",
+                  );
+                } else {
+                  navigate(`/applications/${application.id}/exams`);
+                }
+              }}>
+              Start Exams
             </Button>
           </div>
         </div>
-
       </div>
     </>
   );

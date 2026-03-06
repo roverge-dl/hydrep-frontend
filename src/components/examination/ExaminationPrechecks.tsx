@@ -9,9 +9,11 @@ import { GrInfo } from "react-icons/gr";
 import ExamInstructions from "./ExaminationInstructions";
 import Button from "../forms/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { getExamSummary, startExam, type ExamSummary } from "../../services/api/examService";
-
-
+import {
+  getExamSummary,
+  startExam,
+  type ExamSummary,
+} from "../../services/api/examService";
 
 const ExamPrechecks = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -22,25 +24,25 @@ const ExamPrechecks = () => {
   const { id, programId } = useParams(); // expects route: /exams/:id/summary
 
   const handleStart = async () => {
-      try {
-        if (!id || !programId) return
+    try {
+      if (!id || !programId) return;
 
-        const response = await startExam(id, programId)
+      const response = await startExam(id, programId);
 
-        // Save EVERYTHING for offline execution
-        localStorage.setItem(
-          "activeExam",
-          JSON.stringify({
-            attempt: response.attempt,
-            exam: response.exam,
-          })
-        )
+      // Save EVERYTHING for offline execution
+      localStorage.setItem(
+        "activeExam",
+        JSON.stringify({
+          attempt: response.attempt,
+          exam: response.exam,
+        }),
+      );
 
-        navigate(`/exams/${id}/start`)
-      } catch (error) {
-        console.error(error)
-      }
+      navigate(`/exams/${id}/start`);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
   useEffect(() => {
     const fetchExam = async () => {
@@ -48,6 +50,7 @@ const ExamPrechecks = () => {
         if (!id) return;
 
         const response = await getExamSummary(id);
+        console.log("Exam Summary Response:", response);
         setExam(response);
       } catch (error) {
         console.error(error);
@@ -66,8 +69,6 @@ const ExamPrechecks = () => {
   if (!exam) {
     return <div className="p-6 text-red-500">Exam not found.</div>;
   }
-
-
 
   return (
     <div className="max-w-4xl me-auto sm:p-6 mobilemd:p-2 p-0">
@@ -125,8 +126,13 @@ const ExamPrechecks = () => {
 
           <DetailCard
             label="Passing Score"
-            value={`${exam.passMark}%`}
+            value={`${exam.passMark} `}
             colorClass="bg-green-50 text-hgreen-600"
+          />
+          <DetailCard
+            label="Total Score"
+            value={`${exam.totalScore} `}
+            colorClass="bg-orange-50 text-orange-600"
           />
         </div>
       </section>
@@ -150,8 +156,7 @@ const ExamPrechecks = () => {
       <Button
         disabled={!isChecked}
         onClick={handleStart}
-        className="w-7/12 px-4 ms-auto mt-4"
-      >
+        className="w-7/12 px-4 ms-auto mt-4">
         Start Examination
       </Button>
     </div>

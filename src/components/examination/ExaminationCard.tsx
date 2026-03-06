@@ -15,7 +15,7 @@ interface ExaminationProps {
   statusColor?: string;
   status?: string;
   examId: string;
-  programId?: string | null
+  programId?: string | null;
 }
 
 export default function ExaminationCard({
@@ -26,8 +26,7 @@ export default function ExaminationCard({
   questions,
   time,
   examId,
-  programId
-
+  programId,
 }: ExaminationProps) {
   const navigate = useNavigate();
   return (
@@ -38,10 +37,12 @@ export default function ExaminationCard({
           <div className="w-10 h-10 bg-hgreen-50 rounded-xl flex items-center justify-center bg-[#D1FAE5]">
             <SlGraduation className="w-6 h-6 text-[#19BC5B]" />
           </div>
-          <span
-            className={`px-3 py-1 rounded-md text-[10px] font-semibold capitalize tracking-wider ${statusColor}`}>
-            {status}
-          </span>
+          {status && (
+            <span
+              className={`px-3 py-1 rounded-md text-[10px] font-semibold capitalize tracking-wider ${statusColor}`}>
+              {status}
+            </span>
+          )}
         </div>
 
         {/* Content */}
@@ -65,7 +66,7 @@ export default function ExaminationCard({
           <div className="flex items-center gap-3 text-[#475569]">
             <FiFileText className="text-[#94A3B8] w-5 h-5" />
             <span className="text-xs font-medium">
-              {questions.toLocaleString()} Questions
+              {questions?.toLocaleString()} Questions
             </span>
           </div>
         </div>
@@ -74,7 +75,9 @@ export default function ExaminationCard({
       {/* Action Footer */}
       <div className="p-5 pt-0">
         <Button
-          onClick={() => navigate(`/program/${programId}/exams/${examId}/prechecks`)}
+          onClick={() =>
+            navigate(`/program/${programId}/exams/${examId}/prechecks`)
+          }
           variant="primary"
           rightIcon={<BiChevronRight size={18} />}
           className="text-sm w-full">

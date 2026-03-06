@@ -4,19 +4,28 @@ import { type ApplicationDetailResponse } from "../../services/api/applicationSe
 
 // Define strict props for this component
 interface PersonalInfoProps {
-  data: ApplicationDetailResponse['applicant'];
+  data: ApplicationDetailResponse["applicant"];
 }
 
-const DataRow = ({ label, value }: { label: string; value: string | undefined }) => (
-    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
-      <span className="text-xs text-hdark-300 font-medium whitespace-nowrap">
-        {label}:
-      </span>
-      <span className="text-xs font-bold text-hdark-500 break-words">{value || "N/A"}</span>
-    </div>
+const DataRow = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | undefined;
+}) => (
+  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+    <span className="text-xs text-hdark-300 font-medium whitespace-nowrap">
+      {label}:
+    </span>
+    <span className="text-xs font-bold text-hdark-500 wrap-break-word">
+      {value || "N/A"}
+    </span>
+  </div>
 );
-const ApplicationDetailPersonalnfo: React.FC<PersonalInfoProps> = ({ data }) => {
-  
+const ApplicationDetailPersonalnfo: React.FC<PersonalInfoProps> = ({
+  data,
+}) => {
   if (!data) return null;
 
   return (
@@ -29,7 +38,7 @@ const ApplicationDetailPersonalnfo: React.FC<PersonalInfoProps> = ({ data }) => 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
           <DataRow label="Name" value={data.name} />
           <DataRow label="Gender" value={data.gender} />
-          <DataRow label="Date of Birth" value={data.dob} />
+          <DataRow label="Date of Birth" value={data.dob?.slice(0, 10)} />
           <DataRow label="NIN" value={data.nin} />
         </div>
       </div>

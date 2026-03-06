@@ -4,56 +4,27 @@ import { useParams } from "react-router-dom";
 import PageLayout from "../components/ui/PageLayout";
 import ExaminationCard from "../components/examination/ExaminationCard";
 import ExaminationProgressBadge from "../components/examination/ExaminationProgressBagde";
-import {
-  getEnrollmentExams,
-  getExamHistory,
-} from "../services/api/examService";
+import { getExamHistory, getUpcomingExams } from "../services/api/examService";
 
-// Keeping mock data for past results since the current backend response
-// doesn't include user's submitted scores or completed exam progress yet.
-const PAST_EXAMS_MOCK = [
-  {
-    id: 1,
-    title: "Skills Development Assessment",
-    status: "Completed",
-    percentageProgress: "100",
-    score: 5,
-    questions: 5,
-    date: "31st May, 2023",
-  },
-  {
-    id: 2,
-    title: "Data Analysis Checkpoint",
-    status: "Completed",
-    percentageProgress: "50",
-    score: 10,
-    questions: 20,
-    date: "21st June, 2025",
-  },
-];
-
-export default function Examination() {
+export default function ExaminationHistory() {
   // Grab applicationId from URL (used as enrollment ID based on your prompt)
   const { applicationId } = useParams<{ applicationId: string }>();
   const [programId, setProgramId] = useState<string | null>(null);
 
   const [upcomingExams, setUpcomingExams] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pastExams, setPastExams] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchExams = async () => {
-      if (!applicationId) return;
-
       try {
         setIsLoading(true);
-        const enrollmentData = await getEnrollmentExams(applicationId);
-
-        // Extract the exams array from the nested program object
-        const examsList = enrollmentData?.program?.exams || [];
-        setUpcomingExams(examsList);
-        setProgramId(enrollmentData?.programId);
+        const response = await getUpcomingExams();
+        if (response.status === "success") {
+          console.log("Upcoming Exams Response:", response);
+          setUpcomingExams(response.data);
+        }
       } catch (err: any) {
         setError(err.message || "Failed to load examinations.");
       } finally {
@@ -62,8 +33,7 @@ export default function Examination() {
     };
 
     fetchExams();
-  }, [applicationId]);
-
+  }, []);
   useEffect(() => {
     const fetchExamsHistory = async () => {
       try {
@@ -110,17 +80,17 @@ export default function Examination() {
       <div className="space-y-4">
         <h3 className="font-semibold text-lg text-gray-700">Upcoming Exams</h3>
         {upcomingExams.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {upcomingExams.map((exam) => (
               <ExaminationCard
-                key={exam.id}
-                title={exam.title}
-                description={exam.description}
+                key={exam.id + Math.random()}
+                title={exam?.title}
+                description={exam?.description}
                 // The backend doesn't explicitly return a 'questions' count,
                 // so we fallback to 'totalScore' for now.
-                questions={exam.questionsCount}
-                time={exam.duration}
-                status={exam.status}
+                questions={exam?.questionsCount}
+                time={exam?.duration}
+                status={exam?.status}
                 statusColor={
                   exam.status === "published"
                     ? "bg-[#D1FAE5] text-hgreen-500"
@@ -140,19 +110,21 @@ export default function Examination() {
 
       {/* Past/Completed Exams */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg text-gray-700">Past Results</h3>
-        {pastExams.map((exam, i) => (
-          <ExaminationProgressBadge
-            key={i}
-            title={exam?.exam.title}
-            program={exam?.program.title}
-            status={exam?.status}
-            percentageProgress={exam?.percentage}
-            score={exam?.score}
-            date={exam?.startedAt.slice(0, 10) || "N/A"}
-            totalScore={exam?.exam.totalScore}
-          />
-        ))}
+        <h3 className="font-semibold text-lg text-gray-700">Past Exams</h3>
+        <div className="max-h-125 over p-8 border border-hdark-300 rounded-xl overflow-y-auto ">
+          {pastExams.map((exam, i) => (
+            <ExaminationProgressBadge
+              key={i}
+              title={exam?.exam.title}
+              program={exam?.program.title}
+              status={exam?.status}
+              percentageProgress={exam?.percentage}
+              score={exam?.score}
+              date={exam?.startedAt.slice(0, 10) || "N/A"}
+              totalScore={exam?.exam.totalScore}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -18,6 +18,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import SentEmail from "./components/commons/SentEmail";
 import PasswordReset from "./pages/PasswordReset";
 import LandingPage from "./pages/LandingPage";
+import ExamResult from "./components/examination/ExamResult";
+import ExaminationHistory from "./pages/ExaminationHistory";
 
 interface ProtectedRouteProps {
   redirectPath?: string;
@@ -25,13 +27,6 @@ interface ProtectedRouteProps {
 
 function ProtectedRoute({ redirectPath = "/login" }: ProtectedRouteProps) {
   const { user, token, isLoading } = useAuth(); // Now 'token' is available!
-
-  console.log("Auth State:", {
-    hasUser: !!user,
-    hasToken: !!token,
-    tokenValue: token,
-    isLoading,
-  });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -93,7 +88,7 @@ function App() {
             <Route path=":slug" element={<ProgrammeApplication />} />
           </Route>
 
-          <Route path="/exams" element={<Examination />} />
+          <Route path="/exams" element={<ExaminationHistory />} />
           <Route
             path="/applications/:applicationId/exams"
             element={<Examination />}
@@ -103,6 +98,7 @@ function App() {
             element={<ExaminationPrechecks />}
           />
           <Route path="/exams/:id/start" element={<ExamInterface />} />
+          <Route path="/exams/:id/result/:attemptId" element={<ExamResult />} />
         </Route>
       </Route>
 

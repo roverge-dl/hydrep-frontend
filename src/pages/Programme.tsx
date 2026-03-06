@@ -12,6 +12,7 @@ interface Programme {
   spots: number;
   deadline: string;
   region: string;
+  duration: string;
   slug: string;
   status: string;
 }

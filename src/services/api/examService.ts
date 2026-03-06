@@ -19,9 +19,9 @@ export const getEnrollmentExams = async (id: string) => {
   try {
     // Updated to match your AdonisJS route: 'enrollments/:id/exams'
     const { data } = await axiosClient.get(`/enrollments/${id}/exams`);
-    
+
     // The backend returns { status: "success", data: { ...enrollmentData } }
-    return data.data; 
+    return data.data;
   } catch (err: any) {
     if (err.response) {
       throw {
@@ -57,54 +57,101 @@ export const getExamSummary = async (id: string): Promise<ExamSummary> => {
   }
 };
 
-export const startExam = async (
-  examId: string,
-  programId: string
-) => {
+export const startExam = async (examId: string, programId: string) => {
   try {
-    const { data } = await axiosClient.post(
-      `/exams/${examId}/start`,
-      { program_id: programId }
-    )
+    const { data } = await axiosClient.post(`/exams/${examId}/start`, {
+      program_id: programId,
+    });
 
-    return data.data
+    return data.data;
   } catch (err: any) {
     if (err.response) {
       throw {
         status: err.response.status,
         message: err.response.data?.message || "Failed to start exam",
-      }
+      };
     }
 
     throw {
       status: 500,
       message: "Network error. Please try again.",
-    }
+    };
   }
-}
+};
 
-export const submitExam = async (
-  attemptId: string,
-  answers: any[]
-) => {
-    try {
-      const { data } = await axiosClient.post(
-        `/attempts/${attemptId}/submit`,
-        { answers }
-      )
+export const submitExam = async (attemptId: string, answers: any[]) => {
+  try {
+    const { data } = await axiosClient.post(`/attempts/${attemptId}/submit`, {
+      answers,
+    });
 
-      return data
-    } catch (err: any) {
-      if (err.response) {
-        throw {
-          status: err.response.status,
-          message: err.response.data?.message || "Failed to submit exam",
-        }
-      }
-
+    return data;
+  } catch (err: any) {
+    if (err.response) {
       throw {
-        status: 500,
-        message: "Network error. Please try again.",
-      }
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to submit exam",
+      };
     }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
   }
+};
+
+export const getExamResult = async (attemptId: string) => {
+  try {
+    const { data } = await axiosClient.get(`/exams/results/${attemptId}`);
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to submit exam",
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+export const getExamHistory = async () => {
+  try {
+    const { data } = await axiosClient.get(`/exams/attempts`);
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to submit exam",
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};
+export const getUpcomingExams = async () => {
+  try {
+    const { data } = await axiosClient.get(`/exams/upcoming`);
+    return data;
+  } catch (err: any) {
+    if (err.response) {
+      throw {
+        status: err.response.status,
+        message: err.response.data?.message || "Failed to submit exam",
+      };
+    }
+
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
+};

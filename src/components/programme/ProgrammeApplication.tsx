@@ -176,7 +176,7 @@ const ProgrammeApplication: React.FC = () => {
     try {
       const response = await completeProgrammeEnrollment(
         programSlug as string, // Pass User I
-        formData.selectedCourses!
+        formData.selectedCourses!,
       );
       if (response.status === "success") {
         toast.success(response.message);
@@ -191,7 +191,7 @@ const ProgrammeApplication: React.FC = () => {
     } catch (error: any) {
       console.log(error);
       if (error) {
-        toast.error("something went wrong. Please try again.");
+        toast.error(error.message);
         return;
       }
     } finally {
@@ -213,10 +213,10 @@ const ProgrammeApplication: React.FC = () => {
       case 2:
         return handleContactStep();
       case 3:
-          // setSelectedCourses([]);
-          // setFormData((prev: any) => ({ ...prev, selectedCourses: [] }));
-          setCurrentStep(currentStep + 1);
-          break;
+        // setSelectedCourses([]);
+        // setFormData((prev: any) => ({ ...prev, selectedCourses: [] }));
+        setCurrentStep(currentStep + 1);
+        break;
       case 4:
         setCurrentStep(currentStep + 1);
         break;
@@ -246,7 +246,7 @@ const ProgrammeApplication: React.FC = () => {
       userData,
       setUserData,
       setProgramCourses,
-      programCourses
+      programCourses,
     };
     switch (currentStep) {
       case 1:
@@ -255,7 +255,7 @@ const ProgrammeApplication: React.FC = () => {
         return <ContactAndAddress {...props} />;
       case 3:
         // return <Background {...props} />;
-        return <CourseSelection {...props} />
+        return <CourseSelection {...props} />;
       case 4:
         // completeProgrammeEnrollment(user?.user?.id?.toString(), userData?.id);
         return <Documents {...props} />;
@@ -303,11 +303,11 @@ const ProgrammeApplication: React.FC = () => {
     }
   };
 
- 
   useEffect(() => {
     console.log("user", user);
     // Extract the user object regardless of nesting
     const profile = user?.user || user;
+    console.log("profile", profile);
 
     if (profile) {
       setFormData((prev) => ({

@@ -10,7 +10,6 @@ const PersonalInfo: React.FC<StepChildProps> = ({
   fieldErrors,
 }) => {
   const [gender] = useState<{ label: string; value: string }[]>([
-    { label: "--select gender--", value: "s" },
     { label: "Male", value: "m" },
     { label: "Female", value: "f" },
   ]);
@@ -59,7 +58,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="middle_name"
             type="text"
             placeholder="Enter middle name"
-            value={formData.middle_name}
+            value={formData?.middle_name}
             onChange={handleInputChange}
             className="pl-4"
             required={false}
@@ -75,8 +74,8 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             name="dob"
             type="date"
             placeholder="Enter middle name"
-            value={formData.dob}
-            defaultValue={user?.user?.dob}
+            value={formData?.dob ? formData.dob.split("T")[0] : ""}
+            // defaultValue={user?.user?.dob?.toString()}
             onChange={handleInputChange}
             error={fieldErrors.dob}
           />
@@ -87,7 +86,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
           <Select
             label="Gender"
             placeholder="Select gender"
-            value={formData.gender}
+            value={formData?.gender}
             name="gender"
             onChange={handleInputChange}
             error={fieldErrors.gender?.[0] || ""}

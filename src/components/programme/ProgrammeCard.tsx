@@ -7,6 +7,8 @@ import { LuUsers } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { GoClockFill } from "react-icons/go";
+import { HiOutlineClock } from "react-icons/hi2";
 
 interface ProgrammeProps {
   title: string;
@@ -16,6 +18,7 @@ interface ProgrammeProps {
   spots: number;
   deadline: string;
   region: string;
+  duration: string;
   slug: string;
   handleApply: () => void;
 }
@@ -28,6 +31,7 @@ export default function ProgrammeCard({
   spots,
   deadline,
   region,
+  duration,
   slug,
   handleApply,
 }: ProgrammeProps) {
@@ -67,11 +71,17 @@ export default function ProgrammeCard({
           </div>
           <div className="flex items-center gap-3 text-[#475569]">
             <IoCalendarClearOutline className="text-[#94A3B8] w-5 h-5" />
-            <span className="text-xs font-medium">Deadline: {deadline}</span>
+            <span className="text-xs font-medium">
+              Deadline: {deadline.split("T")[0]}
+            </span>
           </div>
-          <div className="flex items-center gap-3 text-[#475569]">
+          {/* <div className="flex items-center gap-3 text-[#475569]">
             <IoLocationOutline className="text-slate-400 w-5 h-5" />
             <span className="text-xs font-medium truncate">{region}</span>
+          </div> */}
+          <div className="flex items-center gap-3 text-[#475569]">
+            <HiOutlineClock className="text-[#94A3B8] w-5 h-5" />
+            <span className="text-xs font-medium">Duration: {duration}</span>
           </div>
         </div>
       </div>

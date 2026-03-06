@@ -38,9 +38,16 @@ export default function ApplicationCard({
       </div>
       <div className="flex items-center gap-4 mobilemd:w-fit w-full justify-between mobilemd:justify-start">
         {/* Status Badge */}
-        <div className="flex items-center gap-2 bg-hgrey-300 border border-hdark-300 h-10 px-3  rounded-lg">
-          <FiFileText size={14} className="text-hdark-500" />
-          <span className="text-xs font-medium text-hdark-500">{status}</span>
+        <div
+          className={`flex items-center gap-2 ${status === "Approved" ? "bg-green-50 border border-hgreen-500" : "bg-hgrey-300 border border-hdark-300"} h-10 px-3  rounded-lg`}>
+          <FiFileText
+            size={14}
+            className={`${status === "Approved" ? "text-hgreen-500" : "text-hdark-500"}`}
+          />
+          <span
+            className={`text-xs font-medium text-hdark-500 ${status === "Approved" ? "text-hgreen-500" : "text-hdark-500"}`}>
+            {status}
+          </span>
         </div>
 
         <BiChevronRight

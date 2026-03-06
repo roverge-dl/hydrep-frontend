@@ -22,7 +22,7 @@ export default function Input({
   label,
   labelClass = "text-center",
   className = "pl-10 ",
-  type = "text",
+  type = "text ",
   placeholder,
   leftIcon,
   value,
