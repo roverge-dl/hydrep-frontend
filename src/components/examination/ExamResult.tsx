@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiRotateCcw, FiClock, FiAward, FiX } from "react-icons/fi";
+import { FiAward, FiX } from "react-icons/fi";
 import { BiChevronLeft } from "react-icons/bi";
 import { LiaFileDownloadSolid } from "react-icons/lia";
 import { LuFileQuestion } from "react-icons/lu";
 import {
   IoCheckmarkCircleOutline,
-  IoCloseCircleOutline,
+  // IoCloseCircleOutline,
 } from "react-icons/io5";
 import { getExamResult } from "../../services/api/examService";
 import Button from "../forms/Button";
@@ -21,7 +21,7 @@ const fadeInUp = {
 };
 
 const ExamResult = () => {
-  const { examId, attemptId } = useParams();
+  const { attemptId } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>([]);

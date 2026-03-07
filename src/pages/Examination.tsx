@@ -9,29 +9,6 @@ import {
   getExamHistory,
 } from "../services/api/examService";
 
-// Keeping mock data for past results since the current backend response
-// doesn't include user's submitted scores or completed exam progress yet.
-const PAST_EXAMS_MOCK = [
-  {
-    id: 1,
-    title: "Skills Development Assessment",
-    status: "Completed",
-    percentageProgress: "100",
-    score: 5,
-    questions: 5,
-    date: "31st May, 2023",
-  },
-  {
-    id: 2,
-    title: "Data Analysis Checkpoint",
-    status: "Completed",
-    percentageProgress: "50",
-    score: 10,
-    questions: 20,
-    date: "21st June, 2025",
-  },
-];
-
 export default function Examination() {
   // Grab applicationId from URL (used as enrollment ID based on your prompt)
   const { applicationId } = useParams<{ applicationId: string }>();

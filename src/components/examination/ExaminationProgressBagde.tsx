@@ -1,4 +1,7 @@
-import { IoCheckmarkCircleOutline, IoTimeOutline } from "react-icons/io5";
+import {
+  IoCheckmarkCircleOutline,
+  // IoTimeOutline
+} from "react-icons/io5";
 
 interface ExaminationProgressBadgeProps {
   title: string;

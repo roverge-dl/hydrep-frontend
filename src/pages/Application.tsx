@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { BiPlus, BiLoaderAlt, BiFolderOpen } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 // Components
 

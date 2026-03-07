@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import PageLayout from "../components/ui/PageLayout";
 import ExaminationCard from "../components/examination/ExaminationCard";
 import ExaminationProgressBadge from "../components/examination/ExaminationProgressBagde";
 import { getExamHistory, getUpcomingExams } from "../services/api/examService";
 
 export default function ExaminationHistory() {
-  // Grab applicationId from URL (used as enrollment ID based on your prompt)
-  const { applicationId } = useParams<{ applicationId: string }>();
-  const [programId, setProgramId] = useState<string | null>(null);
+  // Grab applicationId from URL (used as enrollment ID based on
+  const [programId] = useState<string | null>(null);
 
   const [upcomingExams, setUpcomingExams] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);

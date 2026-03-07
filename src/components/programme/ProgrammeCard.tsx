@@ -4,10 +4,10 @@ import { BiChevronRight } from "react-icons/bi";
 import Button from "../forms/Button";
 import { LuFileText } from "react-icons/lu";
 import { LuUsers } from "react-icons/lu";
-import { IoLocationOutline } from "react-icons/io5";
+// import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { GoClockFill } from "react-icons/go";
+// import { GoClockFill } from "react-icons/go";
 import { HiOutlineClock } from "react-icons/hi2";
 
 interface ProgrammeProps {
@@ -17,7 +17,7 @@ interface ProgrammeProps {
   description: string;
   spots: number;
   deadline: string;
-  region: string;
+  // region: string;
   duration: string;
   slug: string;
   handleApply: () => void;
@@ -30,7 +30,7 @@ export default function ProgrammeCard({
   description,
   spots,
   deadline,
-  region,
+  // region,
   duration,
   slug,
   handleApply,
