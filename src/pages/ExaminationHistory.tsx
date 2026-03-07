@@ -118,7 +118,7 @@ export default function ExaminationHistory() {
               percentageProgress={exam?.percentage}
               score={exam?.score}
               date={exam?.startedAt.slice(0, 10) || "N/A"}
-              totalScore={exam?.exam.totalScore}
+              totalScore={exam?.result?.maxScore}
             />
           ))}
         </div>

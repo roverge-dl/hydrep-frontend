@@ -19,6 +19,7 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
 }) => {
 
     const { user } = useAuth();
+    console.log(user)
   // --- State for Dropdown Options ---
   const [states, setStates] = useState<{ label: string; value: string }[]>([]);
   const [lgas, setLgas] = useState<{ label: string; value: string }[]>([]);

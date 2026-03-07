@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiAward, FiX } from "react-icons/fi";
-import { BiChevronLeft } from "react-icons/bi";
+// import { FiAward, FiX } from "react-icons/fi";
+import { BiChevronLeft, BiHourglass } from "react-icons/bi";
 import { LiaFileDownloadSolid } from "react-icons/lia";
 import { LuFileQuestion } from "react-icons/lu";
 import {
@@ -109,31 +109,45 @@ const ExamResult = () => {
           <motion.div
             variants={fadeInUp}
             className="bg-white rounded-2xl border border-hgrey-500 overflow-hidden shadow-sm col-span-1 lg:col-span-4">
-            <div
+            {/* <div
               className={`h-2 w-full ${data.result.isPassed ? "bg-hgreen-500" : "bg-red-500"}`}
+            /> */}
+            <div
+              className={`h-2 w-full bg-orange-500`}
             />
             <div className="p-8 md:p-12 text-center">
               <div
-                className={`inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-50 mb-4 border ${data.result.isPassed ? "border-hgreen-500" : "border-red-500"}`}>
-                {data.result.isPassed ? (
+                className={`inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-50 mb-4 border border-orange-500`}>
+              {/* <div
+                className={`inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-50 mb-4 border ${data.result.isPassed ? "border-hgreen-500" : "border-red-500"}`}> */}
+                {/* {data.result.isPassed ? (
                   <FiAward className="text-hgreen-500" size={40} />
                 ) : (
                   <FiX className="text-red-500" size={40} />
-                )}
+                )} */}
+                <BiHourglass className="text-orange-500" size={40} />
               </div>
               <h2 className="text-4xl font-black text-hdark-400 mb-1">
-                {data.metrics.score}%
+                {data.metrics.scorePercentage}%
               </h2>
-              <p
+              {/* <p
                 className={`font-bold uppercase tracking-widest text-sm ${data.result.isPassed ? "text-hgreen-600" : "text-red-600"}`}>
                 {data.result.isPassed
                   ? "Assessment Passed"
                   : "Assessment Failed"}
+              </p> */}
+              <p
+                className={`font-bold uppercase tracking-widest text-sm text-orange-600`}>
+                  Assesment Completed
+                {/* {data.result.isPassed
+                  ? "Assessment Passed"
+                  : "Assessment Failed"} */}
               </p>
               <p className="mt-4 text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
-                {data.result.isPassed
+                {/* {data.result.isPassed
                   ? `${data.result.feedback}`
-                  : `${data.result.feedback}`}
+                  : `${data.result.feedback}`} */}
+                  Pay attention to you mail for feedback and next steps.
               </p>
             </div>
 

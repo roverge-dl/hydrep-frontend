@@ -13,6 +13,7 @@ export interface ExamSummary {
   createdAt: string;
   updatedAt: string;
   questionsCount: number;
+  totalMarks: number;
 }
 
 export const getEnrollmentExams = async (id: string) => {

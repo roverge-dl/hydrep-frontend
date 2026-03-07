@@ -124,14 +124,14 @@ const ExamPrechecks = () => {
             colorClass="bg-[#FAF5FF] text-[#581C87]"
           />
 
-          <DetailCard
+          {/* <DetailCard
             label="Passing Score"
             value={`${exam.passMark} `}
             colorClass="bg-green-50 text-hgreen-600"
-          />
+          /> */}
           <DetailCard
             label="Total Score"
-            value={`${exam.totalScore} `}
+            value={`${exam.totalMarks} `}
             colorClass="bg-orange-50 text-orange-600"
           />
         </div>

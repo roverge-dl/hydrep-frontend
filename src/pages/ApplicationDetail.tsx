@@ -246,6 +246,7 @@ const ApplicationDetail = () => {
                 {application.submitted_at}
               </span>
             </div>
+            {application.status === "Approved" && 
             <Button
               rightIcon={<HiArrowRight className="w-4 h-4" />}
               onClick={() => {
@@ -260,6 +261,7 @@ const ApplicationDetail = () => {
               }}>
               Start Exams
             </Button>
+            }
           </div>
         </div>
       </div>
