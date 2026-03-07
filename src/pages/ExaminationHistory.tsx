@@ -7,7 +7,6 @@ import { getExamHistory, getUpcomingExams } from "../services/api/examService";
 
 export default function ExaminationHistory() {
   // Grab applicationId from URL (used as enrollment ID based on
-  const [programId] = useState<string | null>(null);
 
   const [upcomingExams, setUpcomingExams] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +19,9 @@ export default function ExaminationHistory() {
         setIsLoading(true);
         const response = await getUpcomingExams();
         if (response.status === "success") {
-          console.log("Upcoming Exams Response:", response);
           setUpcomingExams(response.data);
+          console.log(response.data);
+          // setProgramId(response?.data?.pro);
         }
       } catch (err: any) {
         setError(err.message || "Failed to load examinations.");
@@ -40,7 +40,6 @@ export default function ExaminationHistory() {
 
         if (response.status === "success") {
           setPastExams(response.data);
-          console.log(response);
         }
 
         // Extract the exams array from the nested program object
@@ -94,8 +93,8 @@ export default function ExaminationHistory() {
                     ? "bg-[#D1FAE5] text-hgreen-500"
                     : "bg-gray-200 text-gray-600"
                 }
-                examId={exam.id}
-                programId={programId}
+                examId={exam.examId}
+                programId={exam.program.id}
               />
             ))}
           </div>
