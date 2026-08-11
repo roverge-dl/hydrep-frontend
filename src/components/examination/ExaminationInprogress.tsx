@@ -201,7 +201,7 @@ const ExaminationInprogress: React.FC<
           <div className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between">
               <span>Answered:</span>
-              <span className="text-hgreen-500 font-semibold">
+              <span className="text-green-600 font-semibold">
                 {answeredCount}/{questions.length}
               </span>
             </div>

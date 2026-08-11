@@ -26,8 +26,8 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
   const [communities, setCommunities] = useState<{ label: string; value: string }[]>([]);
 
   // --- Loading Indicators for UX ---
-  const [loadingStates, setLoadingStates] = useState(false);
-  const [loadingLgas, setLoadingLgas] = useState(false);
+  const [, setLoadingStates] = useState(false);
+  const [, setLoadingLgas] = useState(false);
   const [loadingCommunities, setLoadingCommunities] = useState(false);
 
   // 1. FETCH STATES (Runs once on mount)
@@ -159,16 +159,16 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
 
   // When user manually changes State, we must reset LGA and Community
   // to prevent invalid combinations (e.g., Lagos State with a Kano LGA).
-  const handleStateChange = (e: any) => {
-    handleInputChange(e); 
-    setFormData((prev: any) => ({ ...prev, lga: "", community: "" }));
-  };
+  // const handleStateChange = (e: any) => {
+  //   handleInputChange(e);
+  //   setFormData((prev: any) => ({ ...prev, lga: "", community: "" }));
+  // };
 
   // When user manually changes LGA, reset Community.
-  const handleLgaChange = (e: any) => {
-    handleInputChange(e); 
-    setFormData((prev: any) => ({ ...prev, community: "" }));
-  };
+  // const handleLgaChange = (e: any) => {
+  //   handleInputChange(e);
+  //   setFormData((prev: any) => ({ ...prev, community: "" }));
+  // };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-x-8 gap-x-4 mobilelg:gap-y-6 gap-y-4">
@@ -219,32 +219,32 @@ const ContactAndAddress: React.FC<StepChildProps> = ({
       </div>
 
       {/* --- State Selection --- */}
-      <div className="space-y-1.5 sm:col-span-1 col-span-2">
+      {/* <div className="space-y-1.5 sm:col-span-1 col-span-2">
         <SearchableSelect
           label="State"
           name="state"
-          value={formData.state} 
+          value={formData.state}
           options={states}
-          onChange={handleStateChange} 
+          onChange={handleStateChange}
           placeholder={loadingStates ? "Loading states..." : "Select State"}
           disabled={loadingStates}
           error={fieldErrors.state}
         />
-      </div>
+      </div> */}
 
       {/* --- LGA Selection --- */}
-      <div className="space-y-1.5 sm:col-span-1 col-span-2">
+      {/* <div className="space-y-1.5 sm:col-span-1 col-span-2">
         <SearchableSelect
           label="LGA"
           name="lga"
           value={formData.lga}
           options={lgas}
-          onChange={handleLgaChange} 
+          onChange={handleLgaChange}
           placeholder={loadingLgas ? "Loading LGAs..." : "Select LGA"}
           disabled={loadingLgas}
           error={fieldErrors.lga}
         />
-      </div>
+      </div> */}
 
       {/* --- Community Selection --- */}
       <div className="space-y-1.5 sm:col-span-1 col-span-2">

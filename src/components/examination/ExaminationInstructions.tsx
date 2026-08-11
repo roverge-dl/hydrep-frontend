@@ -27,7 +27,7 @@ const ExamInstructions = () => {
         <div className="space-y-4">
           {instructions.map((text, index) => (
             <div key={index} className="flex items-start gap-4">
-              <div className="shrink-0 w-6 h-6  rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-bold">
+              <div className="shrink-0 w-6 h-6  rounded-full bg-hgreen-500 text-white flex items-center justify-center text-xs font-bold">
                 {index + 1}
               </div>
               <p className="text-sm text-hdark-400 leading-relaxed">{text}</p>

@@ -27,9 +27,9 @@ export default function Button({
   const baseStyles = `${width} px-3 font-medium py-3 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer h-12`;
 
   const variants = {
-    primary: "bg-hgreen-500 hover:bg-[#2d9147] text-white",
+    primary: "bg-hgreen-500 hover:bg-hgreen-600 text-white",
     outline:
-      " border-hgreen-500 bg-transparent text-hgreen-500 hover:bg-[#F0FCEF]",
+      " border-hgreen-500 bg-transparent text-hgreen-500 hover:bg-hgreen-50",
     ghost:
       "bg-transparent border-hgrey-500 text-hdark-400 hover:bg-hgrey-100 shadow-none",
   };

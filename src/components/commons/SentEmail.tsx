@@ -36,7 +36,7 @@ const SentEmail = () => {
           </p>
         </div>
 
-        <div className="h-20 w-full bg-hgreen-200 p-4 rounded-xl text-[#15803D] text-sm text-center border border-hgreen-500">
+        <div className="h-20 w-full bg-hgreen-200 p-4 rounded-xl text-hgreen-600 text-sm text-center border border-hgreen-500">
           Please check your email for the password reset link. It may take a few
           minutes to arrive.
         </div>

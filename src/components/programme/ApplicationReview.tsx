@@ -117,10 +117,10 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData, userData, progr
             {documentsList.map((doc: any, index: number) => (
               <div 
                 key={index} 
-                className="flex items-start gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-green-500/50 transition-all"
+                className="flex items-start gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-hgreen-500/50 transition-all"
               >
                 {/* File Icon */}
-                <div className="p-2 bg-white rounded border border-gray-100 text-green-600 shrink-0">
+                <div className="p-2 bg-white rounded border border-gray-100 text-hgreen-500 shrink-0">
                   <BiFile size={20} />
                 </div>
 
@@ -153,7 +153,7 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData, userData, progr
                     href={doc.fileUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-white rounded-md transition-colors"
+                    className="p-1.5 text-gray-400 hover:text-hgreen-600 hover:bg-white rounded-md transition-colors"
                     title="View Document"
                   >
                     <BiLinkExternal size={16} />

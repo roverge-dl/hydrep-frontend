@@ -88,7 +88,7 @@ export default function Sidebar({
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:text-white hover:bg-hgreen-500 ${
                     isActive
-                      ? "bg-hgreen-500 text-white shadow-md shadow-green-100"
+                      ? "bg-hgreen-500 text-white shadow-md shadow-hgreen-200"
                       : "text-slate-500  hover:text-slate-900"
                   }`}>
                   <item.icon size={18} />
