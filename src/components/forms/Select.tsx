@@ -75,7 +75,7 @@ export default function SearchableSelect({
         className={`
           px-3 py-2 h-11 bg-hgrey-200 border rounded-lg transition-all flex items-center justify-between
           cursor-pointer text-sm
-          ${error ? "border-red-500" : "border-hgrey-500 focus-within:border-green-500"}
+          ${error ? "border-red-500" : "border-hgrey-500 focus-within:border-hgreen-500"}
           ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-hgrey-400"}
           ${className}
         `}>
@@ -101,7 +101,7 @@ export default function SearchableSelect({
               <input
                 autoFocus
                 type="text"
-                className="w-full pl-8 pr-3 py-2 text-sm bg-hgrey-200 rounded-md outline-none focus:ring-1 focus:ring-green-500"
+                className="w-full pl-8 pr-3 py-2 text-sm bg-hgrey-200 rounded-md outline-none focus:ring-1 focus:ring-hgreen-500"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -116,7 +116,7 @@ export default function SearchableSelect({
                 <div
                   key={item.value}
                   onClick={() => handleSelect(item)}
-                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-green-50 ${String(value) === String(item.value) ? "bg-green-50 text-green-600 font-semibold" : "text-hdark-500"}`}>
+                  className={`px-4 py-2.5 text-sm cursor-pointer hover:bg-hgreen-50 ${String(value) === String(item.value) ? "bg-hgreen-50 text-hgreen-600 font-semibold" : "text-hdark-500"}`}>
                   {item.label}
                 </div>
               ))

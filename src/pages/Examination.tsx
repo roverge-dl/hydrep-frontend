@@ -100,7 +100,7 @@ export default function Examination() {
                 status={exam.status}
                 statusColor={
                   exam.status === "published"
-                    ? "bg-[#D1FAE5] text-hgreen-500"
+                    ? "bg-hgreen-50 text-hgreen-600"
                     : "bg-gray-200 text-gray-600"
                 }
                 examId={exam.id}

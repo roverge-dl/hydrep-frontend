@@ -61,7 +61,7 @@ const LandingPage = () => {
           </motion.a>
 
           <button
-            className="md:hidden h-8 w-8 text-[#00BF6F] bg-hgreen-200 rounded-lg flex items-center justify-center border border-[#00BF6F]"
+            className="md:hidden h-8 w-8 text-hgreen-500 bg-hgreen-200 rounded-lg flex items-center justify-center border border-hgreen-500"
             onClick={() => setIsMenuOpen(true)}>
             <BiMenu size={24} />
           </button>
@@ -149,7 +149,7 @@ const LandingPage = () => {
       <main>
         {/* Hero Section */}
         <section
-          className="relative items-center bg-linear-to-tr from-[#00BF6F] via-[#224B41] to-[#00BF6F] tabletmd:pt-20 pt-12"
+          className="relative items-center bg-linear-to-tr from-hgreen-500 via-hgreen-600 to-hgreen-500 tabletmd:pt-20 pt-12"
           id="features">
           <motion.div
             variants={staggerContainer}
@@ -158,7 +158,7 @@ const LandingPage = () => {
             className="max-w-6xl laptopmd:px-0 mobilemd:px-8 px-4 py-16 md:py-24 mx-auto grid tabletlg:grid-cols-2 tabletlg:gap-12 gap-8">
             <motion.div variants={fadeInUp} className="space-y-4">
               <div className="flex justify-between items-center px-4 py-3 w-fit gap-x-4 rounded-full backdrop-blur-2xl bg-[#FFFFFF1A]">
-                <div className="h-2 w-2 rounded-full bg-[#34D399]" />
+                <div className="h-2 w-2 rounded-full bg-white" />
                 <span className="text-white mobilesm:text-sm text-xs tracking-wide capitalize">
                   Government Skills Empowerment Platform
                 </span>
@@ -382,7 +382,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center space-y-8 bg-linear-to-tr from-[#00BF6F] via-[#224B41] to-[#00BF6F] mobilelg:p-12 p-8 rounded-xl text-white shadow-xl">
+            className="max-w-4xl mx-auto text-center space-y-8 bg-linear-to-tr from-hgreen-500 via-hgreen-600 to-hgreen-500 mobilelg:p-12 p-8 rounded-xl text-white shadow-xl">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
               Ready to Start Your Journey?
             </h2>
@@ -402,7 +402,7 @@ const LandingPage = () => {
         </section>
       </main>
 
-      <footer className="bg-[#224B41] text-white tabletmd:py-16 py-8 mobilemd:px-6 px-4 ">
+      <footer className="bg-hgreen-600 text-white tabletmd:py-16 py-8 mobilemd:px-6 px-4 ">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
           <div className="col-span-2 md:col-span-2 space-y-4">
             <h2 className="text-2xl font-bold text-white">HYPER</h2>
@@ -418,21 +418,21 @@ const LandingPage = () => {
               <li>
                 <a
                   href="#features"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Features
                 </a>
               </li>
               <li>
                 <a
                   href="#benefits"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Benefits
                 </a>
               </li>
               <li>
                 <a
                   href="#programs"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Programs
                 </a>
               </li>
@@ -445,21 +445,21 @@ const LandingPage = () => {
               <li>
                 <Link
                   to="/applications"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Available Programs
                 </Link>
               </li>
               <li>
                 <Link
                   to="/programmes"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Programmes
                 </Link>
               </li>
               <li>
                 <Link
                   to="/register"
-                  className="hover:text-[#34D399] hover:underline">
+                  className="hover:text-hgreen-200 hover:underline">
                   Get Started
                 </Link>
               </li>
@@ -470,24 +470,24 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto tabletmd:mt-16 mt-8 pt-8 border-t border-white/20 text-center flex tabletmd:justify-between items-center flex-col-reverse tabletmd:flex-row tabletmd:flex-nowrap flex-wrap justify-center gap-y-8">
           <p className="text-xs font-normal text-white/70">
             © {year} Hydrep Portal Powered By{" "}
-            <a href="https://roverge.com" className="underline text-[#34D399]">
+            <a href="https://roverge.com" className="underline text-hgreen-200">
               Roverge.
             </a>{" "}
             All rights reserved.
           </p>
           <ul className="text-sm flex justify-center items-center gap-x-6">
             <li>
-              <Link to="#" className="hover:text-[#34D399] hover:underline">
+              <Link to="#" className="hover:text-hgreen-200 hover:underline">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-[#34D399] hover:underline">
+              <Link to="#" className="hover:text-hgreen-200 hover:underline">
                 Terms of Service
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-[#34D399] hover:underline">
+              <Link to="#" className="hover:text-hgreen-200 hover:underline">
                 Contact
               </Link>
             </li>
@@ -510,7 +510,7 @@ const FeaturePill = ({
     whileHover={{ x: 10, backgroundColor: "rgba(255,255,255,0.1)" }}
     className="bg-[#FFFFFF0D] p-4 rounded-xl flex items-center gap-3 group cursor-pointer transition-colors">
     {icon && (
-      <div className="h-10 w-10 p-1 rounded-lg group-hover:text-[#4DA313] text-[#34D399] bg-[#224B41] flex justify-center items-center">
+      <div className="h-10 w-10 p-1 rounded-lg group-hover:text-white text-hgreen-200 bg-hgreen-600 flex justify-center items-center">
         {icon}
       </div>
     )}
@@ -533,7 +533,7 @@ const FeatureCard = ({
     className="bg-white tabletlg:p-8 p-4 rounded-2xl transition-shadow hover:shadow-lg cursor-pointer border border-[#E5E5E5]">
     <div className="w-12 h-12 bg-hgreen-50 rounded-lg mb-6 flex items-center justify-center text-hgreen-600">
       {icon && (
-        <div className="h-10 w-10 p-1 flex items-center justify-center text-[#00BF6F] bg-[#D0EFE6] rounded-lg">
+        <div className="h-10 w-10 p-1 flex items-center justify-center text-hgreen-500 bg-hgreen-50 rounded-lg">
           {icon}
         </div>
       )}

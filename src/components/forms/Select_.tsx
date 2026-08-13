@@ -32,8 +32,8 @@ export default function Select({
         className={`
           px-3 py-2 h-11 bg-hgrey-200 border rounded-lg transition-all 
             placeholder:text-hdark-300 font-normal placeholder:font-normal placeholder:text-sm
-            outline-none focus:outline-none focus:ring-2 focus:ring-green-500/20 
-            ${error ? "border-red-500" : "border-hgrey-500 focus:border-green-500"}
+            outline-none focus:outline-none focus:ring-2 focus:ring-hgreen-500/20
+            ${error ? "border-red-500" : "border-hgrey-500 focus:border-hgreen-500"}
             ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           ${className}
         `}>

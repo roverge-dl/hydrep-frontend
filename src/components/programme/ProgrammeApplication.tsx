@@ -358,7 +358,7 @@ const ProgrammeApplication: React.FC = () => {
                   {/* Circle Index / Checkmark */}
                   <div
                     className={`mobilemd:w-10 w-8 mobilemd:h-10 h-8 rounded-full flex items-center justify-center font-medium text-sm mb-3 z-10 transition-all duration-300
-          ${isCompleted ? "bg-[#10B981] text-white" : isActive ? "bg-[#22c55e] text-white" : "bg-[#F0FCEF] text-[#22c55e]"}`}>
+          ${isCompleted ? "bg-hgreen-600 text-white" : isActive ? "bg-hgreen-500 text-white" : "bg-hgreen-50 text-hgreen-500"}`}>
                     {isCompleted ? <BiCheck size={20} /> : step.id}
                   </div>
 
@@ -381,7 +381,7 @@ const ProgrammeApplication: React.FC = () => {
                   {index !== steps.length - 1 && (
                     <div
                       className={`absolute mobilemd:top-5 top-4 left-[50%] w-full h-0.5 z-0 transition-colors duration-300
-            ${currentStep > step.id ? "bg-[#10B981]" : "bg-gray-100"}`}
+            ${currentStep > step.id ? "bg-hgreen-600" : "bg-gray-100"}`}
                     />
                   )}
                 </div>

@@ -26,7 +26,7 @@ export default function ExaminationProgressBadge({
     <div className="group bg-white border border-hgrey-500 rounded-xl p-4 mb-4 flex items-center justify-between hover:border-hgreen-500/30  transition-all cursor-pointer">
       <div className="flex items-center gap-4">
         {/* Icon wrapper */}
-        <div className="w-11 h-11 bg-hgreen-50 rounded-xl flex items-center justify-center bg-[#D1FAE5]">
+        <div className="w-11 h-11 bg-hgreen-50 rounded-xl flex items-center justify-center">
           <IoCheckmarkCircleOutline className="text-hgreen-500 w-6 h-6" />
         </div>
 

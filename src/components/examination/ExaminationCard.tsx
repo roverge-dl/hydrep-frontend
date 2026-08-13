@@ -34,8 +34,8 @@ export default function ExaminationCard({
       <div className="p-5 flex-1">
         {/* Header: Icon & Category Tag */}
         <div className="flex justify-between items-start mb-4">
-          <div className="w-10 h-10 bg-hgreen-50 rounded-xl flex items-center justify-center bg-[#D1FAE5]">
-            <SlGraduation className="w-6 h-6 text-[#19BC5B]" />
+          <div className="w-10 h-10 bg-hgreen-50 rounded-xl flex items-center justify-center">
+            <SlGraduation className="w-6 h-6 text-hgreen-500" />
           </div>
           {status && (
             <span

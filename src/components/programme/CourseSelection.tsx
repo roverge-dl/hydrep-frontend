@@ -108,7 +108,7 @@ const CourseSelection: React.FC<StepChildProps> = ({
             >
               <input
                 type="checkbox"
-                className="w-5 h-5 text-green-600 rounded border-gray-300 focus:ring-green-500"
+                className="w-5 h-5 text-hgreen-500 rounded border-gray-300 focus:ring-hgreen-500"
                 checked={(formData.selectedCourses || []).includes(course.value)}
                 onChange={() => handleToggleCourse(course.value)}
               />

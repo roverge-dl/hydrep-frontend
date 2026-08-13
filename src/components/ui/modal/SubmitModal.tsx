@@ -34,11 +34,11 @@ const SubmissionModal = ({
             {total}
           </p>
         </div>
-        <div className="bg-green-50 mobilemd:p-4 p-2 rounded-lg border border-hgreen-500">
+        <div className="bg-green-50 mobilemd:p-4 p-2 rounded-lg border border-green-500">
           <p className="text-sm text-green-600 font-medium capitalize mb-1">
             Answered
           </p>
-          <p className="mobilemd:text-2xl text-xl font-bold text-hgreen-600">
+          <p className="mobilemd:text-2xl text-xl font-bold text-green-600">
             {answered}
           </p>
         </div>

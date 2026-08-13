@@ -36,12 +36,12 @@ export default function ProgrammeCard({
   handleApply,
 }: ProgrammeProps) {
   return (
-    <div className="bg-white border border-hgrey-500 rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition-shadow border-t-8 border-t-[#10B981] col-span-1">
+    <div className="bg-white border border-hgrey-500 rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition-shadow border-t-8 border-t-hgreen-500 col-span-1">
       <div className="p-5 flex-1">
         {/* Header: Icon & Category Tag */}
         <div className="flex justify-between items-start mb-4">
           <div className="w-10 h-10 bg-hgreen-50 rounded-xl flex items-center justify-center bg-[#F1F5F9]">
-            <LuFileText className="w-6 h-6 text-[#19BC5B]" />
+            <LuFileText className="w-6 h-6 text-hgreen-500" />
           </div>
           <span
             className={`px-3 py-1 rounded-md text-[10px] font-semibold capitalize tracking-wider ${categoryColor}`}>

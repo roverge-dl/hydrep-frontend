@@ -358,7 +358,7 @@ const RequirementItem = ({
                 onChange={handleTextChange}
                 disabled={isUploading}
                 placeholder="e.g. NIMC, University of Lagos"
-                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-hgreen-500 focus:border-transparent outline-none transition-all"
               />
             </div>
 
@@ -372,7 +372,7 @@ const RequirementItem = ({
                 value={localData.dateIssued}
                 onChange={handleTextChange}
                 disabled={isUploading}
-                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-hgreen-500 outline-none"
               />
             </div>
 
@@ -386,7 +386,7 @@ const RequirementItem = ({
                 value={localData.expiryDate}
                 onChange={handleTextChange}
                 disabled={isUploading}
-                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full text-sm p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-hgreen-500 outline-none"
               />
             </div>
           </div>
@@ -407,7 +407,7 @@ const RequirementItem = ({
                 (!localData.file && !requirement.document?.file_url) ||
                 isUploading
               }
-              className="px-6 py-2 text-xs font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2">
+              className="px-6 py-2 text-xs font-bold text-white bg-hgreen-500 hover:bg-hgreen-600 rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2">
               {isUploading && <BiLoaderAlt className="animate-spin" />}
               {isUploading ? "Uploading..." : "Save & Attach"}
             </button>

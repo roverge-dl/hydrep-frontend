@@ -59,9 +59,10 @@
   --breakpoint-xxl: 96rem;
 
   /* Primary Colors */
-  --color-hgreen-600: #0e461de3;
-  --color-hgreen-500: #34a853;
-  --color-hgreen-200: #ebffe2;
+  --color-hgreen-600: #1a3d66;
+  --color-hgreen-500: #214c7f;
+  --color-hgreen-200: #e7edf6;
+  --color-hgreen-50: #f2f5f9;
 
   --color-hwhite-400: #f5f5f5;
   --color-hwhite-300: #f8fafc;

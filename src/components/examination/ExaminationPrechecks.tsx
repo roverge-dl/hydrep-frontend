@@ -145,7 +145,7 @@ const ExamPrechecks = () => {
           <input
             type="checkbox"
             onChange={(e) => setIsChecked(e.target.checked)}
-            className="w-5 h-5 accent-green-600"
+            className="w-5 h-5 accent-hgreen-500"
           />
           <span className="text-sm text-gray-600">
             I have read and understood the rules.

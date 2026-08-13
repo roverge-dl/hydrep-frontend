@@ -58,7 +58,7 @@ const ApplicationDetail = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-hdark-400">
-        <BiLoaderAlt className="animate-spin w-10 h-10 mb-3 text-green-600" />
+        <BiLoaderAlt className="animate-spin w-10 h-10 mb-3 text-hgreen-500" />
         <p>Loading application details...</p>
       </div>
     );
@@ -137,7 +137,7 @@ const ApplicationDetail = () => {
               whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer
               ${
                 activeTab === tab.label
-                  ? "bg-white text-green-500 shadow-sm border border-slate-100"
+                  ? "bg-white text-hgreen-500 shadow-sm border border-slate-100"
                   : "text-hdark-300 hover:text-hdark-500 hover:bg-slate-50"
               }
             `}>
@@ -166,9 +166,9 @@ const ApplicationDetail = () => {
                 application.documents.map((doc) => (
                   <div
                     key={doc.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-lg group hover:border-green-500/50 transition-all">
+                    className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-lg group hover:border-hgreen-500/50 transition-all">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white border border-gray-100 rounded text-green-600">
+                      <div className="p-2 bg-white border border-gray-100 rounded text-hgreen-500">
                         <BiFile size={20} />
                       </div>
                       <div>
@@ -185,7 +185,7 @@ const ApplicationDetail = () => {
                       href={doc.file_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-gray-400 hover:text-green-600 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
+                      className="p-2 text-gray-400 hover:text-hgreen-600 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-gray-200"
                       title="View Document">
                       <HiArrowTopRightOnSquare size={18} />
                     </a>

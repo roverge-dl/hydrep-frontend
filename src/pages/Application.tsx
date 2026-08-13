@@ -114,7 +114,7 @@ const Application = () => {
           {isLoading ? (
             // Loading State
             <div className="flex flex-col items-center justify-center h-64 text-gray-400">
-              <BiLoaderAlt className="animate-spin w-8 h-8 mb-2 text-green-600" />
+              <BiLoaderAlt className="animate-spin w-8 h-8 mb-2 text-hgreen-500" />
               <p className="text-sm">Loading applications...</p>
             </div>
           ) : applications.length > 0 ? (
@@ -149,7 +149,7 @@ const Application = () => {
               {activeTab === "All" && (
                 <button
                   onClick={() => navigate("/programmes")}
-                  className="mt-4 text-xs font-bold text-green-600 hover:underline">
+                  className="mt-4 text-xs font-bold text-hgreen-600 hover:underline">
                   Start a new application
                 </button>
               )}
