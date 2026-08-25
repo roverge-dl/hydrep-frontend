@@ -3,7 +3,7 @@ import { BsMailbox } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import BgBar from "../assets/images/bg-bar.png";
 import Input from "../components/forms/Input";
-import Logo from "../assets/svgs/coat-of-arms.svg";
+import Logo from "../assets/images/logo-transparent.png";
 import Button from "../components/forms/Button";
 import { useState } from "react";
 import { runValidation } from "../services/helpers/validator";
@@ -148,7 +148,7 @@ const Register = () => {
         <div className="flex justify-center items-center">
           <img
             src={Logo}
-            className="xl:w-20 xl:h-fit w-24 object-contain object-center"
+            className="xl:w-20 xl:h-16 w-24 object-contain object-center"
             alt="Hydrep logo"
           />
         </div>

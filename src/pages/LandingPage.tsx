@@ -5,7 +5,7 @@ import { FaBookReader } from "react-icons/fa";
 import { MdLocalActivity, MdPersonalInjury } from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
 import { FiArrowRight } from "react-icons/fi";
-import Logo from "../assets/svgs/hydrep-logo.svg";
+import Logo from "../assets/images/logo-transparent.png";
 import { IoIosCloseCircle } from "react-icons/io";
 import { useState } from "react";
 import {
@@ -50,14 +50,18 @@ const LandingPage = () => {
         style={{ scaleX: scrollYProgress }}
       />
 
-      <header className="px-6 mobilemd:h-20 py-4 mx-auto fixed top-0 left-0 right-0 w-full z-50 bg-white/90 backdrop-blur-sm">
-        <nav className="flex items-center justify-between">
+      <header className="px-6 h-16 mobilemd:h-20 mx-auto fixed top-0 left-0 right-0 w-full z-50 bg-white/90 backdrop-blur-sm">
+        <nav className="h-full flex items-center justify-between">
           <motion.a
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             href="/"
             className="text-2xl font-bold text-hgreen-600">
-            <img src={Logo} className="object-cover w-32 h-fit" alt="Logo" />
+            <img
+              src={Logo}
+              className="h-12 mobilemd:h-16 w-auto object-contain"
+              alt="Logo"
+            />
           </motion.a>
 
           <button
@@ -149,7 +153,7 @@ const LandingPage = () => {
       <main>
         {/* Hero Section */}
         <section
-          className="relative items-center bg-linear-to-tr from-hgreen-500 via-hgreen-600 to-hgreen-500 tabletmd:pt-20 pt-12"
+          className="relative items-center bg-linear-to-tr from-hgreen-500 via-hgreen-600 to-hgreen-500 pt-16 mobilemd:pt-20"
           id="features">
           <motion.div
             variants={staggerContainer}

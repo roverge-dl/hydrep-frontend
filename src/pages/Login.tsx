@@ -11,7 +11,7 @@ import { toast } from "react-toastify"; // Assuming you have this installed base
 // Assets & Components
 import BgBar from "../assets/images/bg-horizontal-bar.png";
 import Input from "../components/forms/Input";
-import Logo from "../assets/svgs/coat-of-arms.svg";
+import Logo from "../assets/images/logo-transparent.png";
 import Button from "../components/forms/Button";
 import ValidationError from "../components/ValidationError";
 
@@ -131,7 +131,7 @@ const Login = () => {
         <div className="flex justify-center items-center">
           <img
             src={Logo}
-            className="w-28 h-fit object-contain object-center"
+            className="w-28 h-16 object-contain object-center"
             alt="Hydrep logo"
           />
         </div>

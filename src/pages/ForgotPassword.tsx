@@ -7,7 +7,7 @@ import { BsMailbox } from "react-icons/bs";
 // Assets & Components
 import BgBar from "../assets/images/bg-horizontal-bar.png";
 import Input from "../components/forms/Input";
-import Logo from "../assets/svgs/coat-of-arms.svg";
+import Logo from "../assets/images/logo-transparent.png";
 import Button from "../components/forms/Button";
 import { forgotPassword } from "../services/api/authService";
 import { toast } from "react-toastify";
@@ -108,7 +108,7 @@ const ForgotPassword = () => {
         <div className="flex justify-center items-center">
           <img
             src={Logo}
-            className="xl:w-20 xl:h-fit w-24 object-contain object-center"
+            className="xl:w-20 xl:h-16 w-24 object-contain object-center"
             alt="Hydrep logo"
           />
         </div>
