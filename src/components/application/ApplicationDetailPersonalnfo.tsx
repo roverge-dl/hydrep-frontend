@@ -39,7 +39,7 @@ const ApplicationDetailPersonalnfo: React.FC<PersonalInfoProps> = ({
           <DataRow label="Name" value={data.name} />
           <DataRow label="Gender" value={data.gender} />
           <DataRow label="Date of Birth" value={data.dob?.slice(0, 10)} />
-          <DataRow label="NIN" value={data.nin} />
+          {/* <DataRow label="NIN" value={data.nin} /> */}
         </div>
       </div>
 

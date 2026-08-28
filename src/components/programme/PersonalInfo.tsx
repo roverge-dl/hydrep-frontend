@@ -95,7 +95,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
         </div>
 
         {/* Field: NIN */}
-        <div className="space-y-1.5">
+        {/* <div className="space-y-1.5">
           <Input
             label="NIN (National ID)"
             labelClass="text-start"
@@ -107,7 +107,7 @@ const PersonalInfo: React.FC<StepChildProps> = ({
             onChange={handleInputChange}
             error={fieldErrors.nin?.[0] || ""}
           />
-        </div>
+        </div> */}
 
         {/* Field: BVN */}
         {/* <div className="space-y-1.5">

@@ -7,7 +7,7 @@ export interface ProgrammeFormData {
   middle_name?: string;
   dob?: string;
   gender?: string;
-  nin?: string;
+  // nin?: string;
   bvn?: string;
   // Add Step 2 fields here later...
   phone?: string;
@@ -22,7 +22,7 @@ export interface ProgrammeFormData {
   documents?: File[];
   // course_id?: string;
   selectedCourses?: string[];
-  
+
   //Step 3
   // highestEducationLevel?: string;
   // institutionName?: string;
@@ -36,8 +36,8 @@ export interface ProgrammeFormData {
 
 export interface ProgramObject {
   label: string;
-  value: string,
-  description:string
+  value: string;
+  description: string;
 }
 
 export interface StepChildProps {
@@ -51,7 +51,6 @@ export interface StepChildProps {
   fieldErrors: Record<string, string | string[]>;
   setFieldErrors: React.Dispatch<
     React.SetStateAction<Record<string, string | string[]>>
-  
   >;
   userData?: Partial<UserData>;
   setUserData?: React.Dispatch<React.SetStateAction<Partial<UserData>>>;

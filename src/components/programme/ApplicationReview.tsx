@@ -64,7 +64,7 @@ const ApplicationReview: React.FC<StepChildProps> = ({ formData, userData, progr
           />
           <DataRow label="Gender" value={formData.gender} />
           <DataRow label="Date of Birth" value={formData.dob} />
-          <DataRow label="NIN" value={formData.nin} />
+          {/* <DataRow label="NIN" value={formData.nin} /> */}
         </div>
       </div>
 

@@ -132,11 +132,11 @@ const Login = () => {
           <img
             src={Logo}
             className="w-28 h-16 object-contain object-center"
-            alt="Hydrep logo"
+            alt="PAED logo"
           />
         </div>
 
-        <h1 className="h2 text-center mb-4">Welcome to HYPREP</h1>
+        <h1 className="h2 text-center mb-4">Welcome to PAED</h1>
         <p className="text-center text-sm m-4">Sign in to continue</p>
 
         {/* Google Auth Button - Added link logic from pattern */}

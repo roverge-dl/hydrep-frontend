@@ -58,7 +58,7 @@ const ProgrammeApplication: React.FC = () => {
     middle_name: "",
     dob: "",
     gender: "",
-    nin: "",
+    // nin: "",
     email: "",
     address: "",
     community: "",
@@ -123,15 +123,15 @@ const ProgrammeApplication: React.FC = () => {
         rules: { required: true },
         alias: "Gender",
       },
-      {
-        input: {
-          value: formData.nin,
-          field: "nin",
-          type: "text",
-        },
-        rules: { required: true, max_length: 11, min_length: 11 },
-        alias: "NIN",
-      },
+      // {
+      //   input: {
+      //     value: formData.nin,
+      //     field: "nin",
+      //     type: "text",
+      //   },
+      //   rules: { required: true, max_length: 11, min_length: 11 },
+      //   alias: "NIN",
+      // },
     ]);
 
     if (validateformData?.status === false) {
@@ -147,7 +147,7 @@ const ProgrammeApplication: React.FC = () => {
         formData.last_name,
         formData.dob,
         formData.gender,
-        formData.nin,
+        // formData.nin,
       );
       if (response.status === "success") {
         toast.success(response.message);
@@ -318,7 +318,7 @@ const ProgrammeApplication: React.FC = () => {
         middle_name: prev.middle_name || profile.middle_name || "",
         dob: prev.dob || profile.dob || "",
         gender: prev.gender || profile.gender || "",
-        nin: prev.nin || profile.nin || "",
+        // nin: prev.nin || profile.nin || "",
         phone: prev.phone || profile.phone || "",
         email: prev.email || profile.email || "",
         address: prev.address || profile.address || "",

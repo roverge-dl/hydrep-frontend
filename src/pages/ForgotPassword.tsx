@@ -109,7 +109,7 @@ const ForgotPassword = () => {
           <img
             src={Logo}
             className="xl:w-20 xl:h-16 w-24 object-contain object-center"
-            alt="Hydrep logo"
+            alt="PAED logo"
           />
         </div>
 

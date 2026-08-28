@@ -8,7 +8,7 @@ interface User {
   middle_name?: string;
   dob?: string;
   gender?: string;
-  nin?: string;
+  // nin?: string;
   bvn?: string;
   // Add Step 2 fields here later...
   phone?: string;

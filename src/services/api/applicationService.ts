@@ -36,7 +36,7 @@ export interface ApplicationDetailResponse {
     name: string;
     gender: string;
     dob: string;
-    nin: string;
+    // nin: string;
     phone: string;
     email: string;
     address: string;
@@ -143,7 +143,7 @@ export const registerForProgramme = async (
   last_name?: string,
   dob?: string,
   gender?: string,
-  nin?: string,
+  // nin?: string,
   address?: string,
   state?: string,
   state_id?: string,
@@ -160,7 +160,7 @@ export const registerForProgramme = async (
       last_name,
       dob,
       gender,
-      nin,
+      // nin,
       address,
       state,
       state_id,

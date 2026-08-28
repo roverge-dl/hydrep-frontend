@@ -5,7 +5,7 @@ import {
 } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
-import HydrepLogo from "../../assets/images/logo-transparent.png";
+import PAEDLogo from "../../assets/images/logo-transparent.png";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FiFileText } from "react-icons/fi";
 import { LuGraduationCap } from "react-icons/lu";
@@ -51,7 +51,7 @@ export default function Sidebar({
           {/* Logo & Close Button (Mobile) */}
           <div className="flex items-center justify-between mb-8 px-2">
             <div className="flex items-center gap-2">
-              <img src={HydrepLogo} className="w-fit h-16" alt="" />
+              <img src={PAEDLogo} className="w-fit h-16" alt="" />
             </div>
             <button
               onClick={() => setIsOpen(false)}

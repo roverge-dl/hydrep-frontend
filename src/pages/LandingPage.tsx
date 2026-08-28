@@ -1,8 +1,20 @@
-import { BiCheckCircle, BiMenu } from "react-icons/bi";
+import {
+  BiCheckCircle,
+  BiMenu,
+  BiMapPin,
+  BiPhoneCall,
+  BiEnvelope,
+} from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Button from "../components/forms/Button";
 import { FaBookReader } from "react-icons/fa";
-import { MdLocalActivity, MdPersonalInjury } from "react-icons/md";
+import {
+  MdLocalActivity,
+  MdPersonalInjury,
+  MdSchool,
+  MdAssignment,
+  MdComputer,
+} from "react-icons/md";
 import { GiProgression } from "react-icons/gi";
 import { FiArrowRight } from "react-icons/fi";
 import Logo from "../assets/images/logo-transparent.png";
@@ -71,7 +83,7 @@ const LandingPage = () => {
           </button>
 
           <div className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            {["Programs", "Features", "Benefits"].map((item, i) => (
+            {["Programs", "About", "Features", "Benefits"].map((item, i) => (
               <motion.a
                 key={item}
                 initial={{ opacity: 0, y: -10 }}
@@ -132,6 +144,9 @@ const LandingPage = () => {
                 <motion.a onClick={() => setIsMenuOpen(false)} href="#programs">
                   Programs
                 </motion.a>
+                <motion.a onClick={() => setIsMenuOpen(false)} href="#about">
+                  About
+                </motion.a>
                 <motion.a onClick={() => setIsMenuOpen(false)} href="#features">
                   Features
                 </motion.a>
@@ -164,7 +179,7 @@ const LandingPage = () => {
               <div className="flex justify-between items-center px-4 py-3 w-fit gap-x-4 rounded-full backdrop-blur-2xl bg-[#FFFFFF1A]">
                 <div className="h-2 w-2 rounded-full bg-white" />
                 <span className="text-white mobilesm:text-sm text-xs tracking-wide capitalize">
-                  Government Skills Empowerment Platform
+                  PAED Skills Empowerment Platform
                 </span>
               </div>
               <h1 className="mobilemd:text-4xl text-3xl md:text-5xl font-bold text-[#FFFFFF] leading-tight">
@@ -223,6 +238,87 @@ const LandingPage = () => {
                 </div>
               </motion.div>
             </motion.div>
+          </motion.div>
+        </section>
+
+        {/* About Section */}
+        <section
+          className="bg-white tabletmd:py-20 py-12 mobilemd:px-6 px-4"
+          id="about">
+          <div className="max-w-6xl mx-auto grid tabletlg:grid-cols-2 tabletlg:gap-16 gap-8 items-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="space-y-4">
+              <span className="text-hgreen-600 text-sm font-semibold tracking-wide uppercase">
+                About Us
+              </span>
+              <h2 className="text-2xl font-bold text-slate-900">
+                Powered by Pa-ed Multilinks Consulting Ltd
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                Pa-ed Multilinks Consulting Ltd is a dynamic, interdisciplinary
+                consulting firm built on the values of{" "}
+                <span className="font-semibold text-hdark-500">
+                  Integrity and Excellence in Every Field
+                </span>
+                . We deliver world-class consulting across education, health,
+                project management, engineering, and ICT — bridging theory
+                and practice with data-driven, client-centered solutions that
+                empower individuals, institutions, and communities.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="grid grid-cols-1 mobilesm:grid-cols-2 gap-4">
+              <div className="bg-[#F8FAFC] rounded-xl p-5 border border-[#E2E8F0]">
+                <h4 className="text-sm font-bold text-hgreen-600 mb-2">
+                  Our Vision
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  To be a leading interdisciplinary consulting firm known for
+                  driving sustainable development and capacity building.
+                </p>
+              </div>
+              <div className="bg-[#F8FAFC] rounded-xl p-5 border border-[#E2E8F0]">
+                <h4 className="text-sm font-bold text-hgreen-600 mb-2">
+                  Our Mission
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  To deliver professional, ethical, and impact-driven
+                  consulting services that empower individuals, institutions,
+                  and communities.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto grid md:grid-cols-3 tabletlg:gap-8 gap-4">
+            <FeatureCard
+              title="Educational Management"
+              desc="School planning, monitoring & evaluation, staff training, and quality assurance for institutions."
+              icon={<MdSchool size={20} />}
+            />
+            <FeatureCard
+              title="Project Management & Training"
+              desc="Expert oversight, staffing, and capacity building to deliver projects on time and within scope."
+              icon={<MdAssignment size={20} />}
+            />
+            <FeatureCard
+              title="ICT Solutions"
+              desc="Infrastructure setup, systems integration, and digital skills training for institutions."
+              icon={<MdComputer size={20} />}
+            />
           </motion.div>
         </section>
 
@@ -407,12 +503,15 @@ const LandingPage = () => {
       </main>
 
       <footer className="bg-hgreen-600 text-white tabletmd:py-16 py-8 mobilemd:px-6 px-4 ">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
-          <div className="col-span-2 md:col-span-2 space-y-4">
-            <h2 className="text-2xl font-bold text-white">HYPER</h2>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-white">PAED</h2>
             <p className="text-sm leading-relaxed w-10/12">
               Empowering individuals through skill development and social
               intervention programmes.
+            </p>
+            <p className="text-xs text-hgreen-200">
+              An initiative by Pa-ed Multilinks Consulting Ltd.
             </p>
           </div>
 
@@ -469,11 +568,37 @@ const LandingPage = () => {
               </li>
             </ul>
           </div>
+
+          <div className="space-y-4">
+            <h4 className="text-white font-semibold">Contact</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2">
+                <BiMapPin className="shrink-0 mt-0.5" size={16} />
+                <span>122 Trinity Plaza, Eneka Road, Rumunduru, PH</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <BiPhoneCall className="shrink-0" size={16} />
+                <a
+                  href="tel:+2347038832521"
+                  className="hover:text-hgreen-200 hover:underline">
+                  0703 883 2521
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <BiEnvelope className="shrink-0" size={16} />
+                <a
+                  href="mailto:Paedmultilinks@gmail.com"
+                  className="hover:text-hgreen-200 hover:underline">
+                  Paedmultilinks@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto tabletmd:mt-16 mt-8 pt-8 border-t border-white/20 text-center flex tabletmd:justify-between items-center flex-col-reverse tabletmd:flex-row tabletmd:flex-nowrap flex-wrap justify-center gap-y-8">
           <p className="text-xs font-normal text-white/70">
-            © {year} Hydrep Portal Powered By{" "}
+            © {year} PAED Portal Powered By{" "}
             <a href="https://roverge.com" className="underline text-hgreen-200">
               Roverge.
             </a>{" "}
